@@ -1,0 +1,1769 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(14) GRA — figs vision (CIFAR10) &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-01/14_gra-figs-vision';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="(14) GRA — tables (language)" href="14_gra-tables-language.html" />
+    <link rel="prev" title="Updates" href="../../md/2026-01_updates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-01/14_gra-figs-vision.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-01/14_gra-figs-vision.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(14) GRA — figs vision (CIFAR10)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signum-plot">Signum plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reorder-plot">reorder + plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lion-plot">Lion plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-reorder-neede-just-plot">no reorder neede, just plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-models-plot">Best models plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signum-robustness-lr-plot">Signum robustness (lr) plot</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gra-figs-vision-cifar10">
+<h1>(14) GRA — figs vision (CIFAR10)<a class="headerlink" href="#gra-figs-vision-cifar10" title="Link to this heading">#</a></h1>
+<p>project = <code class="docutils literal notranslate"><span class="pre">GRA</span></code>, host = <code class="docutils literal notranslate"><span class="pre">any</span></code>, device = <code class="docutils literal notranslate"><span class="pre">any</span></code></p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># tmp &amp; extras dir</span>
+<span class="n">_jb_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">])</span>
+<span class="n">_jb_dir</span> <span class="o">/=</span> <span class="s1">&#39;Dropbox/git/jb-progress-2026&#39;</span>
+<span class="n">extras_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;_extras&#39;</span>
+<span class="n">fig_base_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;figs&#39;</span>
+<span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;tmp&#39;</span>
+
+<span class="c1"># GitHub </span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.utils.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># warnings, tqdm, &amp; style</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.jupyter</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">set_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_optimizer_comparison</span><span class="p">(</span>
+    <span class="n">grouped_data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="n">zoom_start_iter</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60000</span><span class="p">,</span>
+    <span class="n">color_map</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">ylims</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot eval/acc and eval/loss for grouped runs.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        grouped_data: Dict with optimizer names as keys</span>
+<span class="sd">                      values are lists of {&#39;seed&#39;: int, &#39;history&#39;: DataFrame, &#39;config&#39;: dict}</span>
+<span class="sd">        save_path: Optional path to save figure</span>
+<span class="sd">        figsize: Figure size</span>
+<span class="sd">        zoom_start_iter: Starting iteration for zoomed-in plots (second row)</span>
+<span class="sd">        color_map: Optional dict mapping optimizer names to colors</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+    
+    <span class="c1"># Default color cycle if no color_map provided</span>
+    <span class="n">default_colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">tab10</span><span class="o">.</span><span class="n">colors</span>
+    
+    <span class="c1"># Plot each group</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">runs</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="c1"># Choose color: custom map &gt; default cycle</span>
+        <span class="k">if</span> <span class="n">color_map</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">color_map</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">color_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">default_colors</span><span class="p">[</span><span class="n">idx</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">default_colors</span><span class="p">)]</span>
+        
+        <span class="c1"># Collect curves across seeds</span>
+        <span class="n">acc_curves</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">loss_curves</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">runs</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span>
+            
+            <span class="c1"># Get eval data (drop NaN rows)</span>
+            <span class="n">eval_data</span> <span class="o">=</span> <span class="n">h</span><span class="p">[[</span><span class="s1">&#39;iter&#39;</span><span class="p">,</span> <span class="s1">&#39;eval/acc&#39;</span><span class="p">,</span> <span class="s1">&#39;eval/loss&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            
+            <span class="n">iters</span> <span class="o">=</span> <span class="n">eval_data</span><span class="p">[</span><span class="s1">&#39;iter&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">acc_curves</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">iters</span><span class="p">,</span> <span class="n">eval_data</span><span class="p">[</span><span class="s1">&#39;eval/acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+            <span class="n">loss_curves</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">iters</span><span class="p">,</span> <span class="n">eval_data</span><span class="p">[</span><span class="s1">&#39;eval/loss&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">acc_curves</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        
+        <span class="c1"># Align curves to common iteration points</span>
+        <span class="n">common_iters</span> <span class="o">=</span> <span class="n">acc_curves</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># assume all have same eval points</span>
+        
+        <span class="n">acc_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">acc_curves</span><span class="p">])</span>
+        <span class="n">loss_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">loss_curves</span><span class="p">])</span>
+        
+        <span class="n">acc_mean</span> <span class="o">=</span> <span class="n">acc_matrix</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">acc_std</span> <span class="o">=</span> <span class="n">acc_matrix</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">loss_mean</span> <span class="o">=</span> <span class="n">loss_matrix</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">loss_std</span> <span class="o">=</span> <span class="n">loss_matrix</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1"># Row 0: Full range</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">common_iters</span><span class="p">,</span> <span class="n">acc_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">common_iters</span><span class="p">,</span> <span class="n">acc_mean</span> <span class="o">-</span> <span class="n">acc_std</span><span class="p">,</span> <span class="n">acc_mean</span> <span class="o">+</span> <span class="n">acc_std</span><span class="p">,</span>
+                                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">common_iters</span><span class="p">,</span> <span class="n">loss_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">common_iters</span><span class="p">,</span> <span class="n">loss_mean</span> <span class="o">-</span> <span class="n">loss_std</span><span class="p">,</span> <span class="n">loss_mean</span> <span class="o">+</span> <span class="n">loss_std</span><span class="p">,</span>
+                                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        
+        <span class="c1"># Row 1: Zoomed in (from zoom_start_iter onwards)</span>
+        <span class="n">zoom_mask</span> <span class="o">=</span> <span class="n">common_iters</span> <span class="o">&gt;=</span> <span class="n">zoom_start_iter</span>
+        <span class="k">if</span> <span class="n">zoom_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">zoom_iters</span> <span class="o">=</span> <span class="n">common_iters</span><span class="p">[</span><span class="n">zoom_mask</span><span class="p">]</span>
+            <span class="n">zoom_acc_mean</span> <span class="o">=</span> <span class="n">acc_mean</span><span class="p">[</span><span class="n">zoom_mask</span><span class="p">]</span>
+            <span class="n">zoom_acc_std</span> <span class="o">=</span> <span class="n">acc_std</span><span class="p">[</span><span class="n">zoom_mask</span><span class="p">]</span>
+            <span class="n">zoom_loss_mean</span> <span class="o">=</span> <span class="n">loss_mean</span><span class="p">[</span><span class="n">zoom_mask</span><span class="p">]</span>
+            <span class="n">zoom_loss_std</span> <span class="o">=</span> <span class="n">loss_std</span><span class="p">[</span><span class="n">zoom_mask</span><span class="p">]</span>
+            
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zoom_iters</span><span class="p">,</span> <span class="n">zoom_acc_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">zoom_iters</span><span class="p">,</span> <span class="n">zoom_acc_mean</span> <span class="o">-</span> <span class="n">zoom_acc_std</span><span class="p">,</span> <span class="n">zoom_acc_mean</span> <span class="o">+</span> <span class="n">zoom_acc_std</span><span class="p">,</span>
+                                    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">zoom_iters</span><span class="p">,</span> <span class="n">zoom_loss_mean</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">zoom_iters</span><span class="p">,</span> <span class="n">zoom_loss_mean</span> <span class="o">-</span> <span class="n">zoom_loss_std</span><span class="p">,</span> <span class="n">zoom_loss_mean</span> <span class="o">+</span> <span class="n">zoom_loss_std</span><span class="p">,</span>
+                                    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    
+    <span class="c1"># Formatting - Row 0 (full range)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Eval Accuracy (%)&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Validation Accuracy&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Eval Loss&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Validation Loss&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="c1"># Formatting - Row 1 (zoomed)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Eval Accuracy (%)&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Validation Accuracy (from iter </span><span class="si">{</span><span class="n">zoom_start_iter</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Iteration&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Eval Loss&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Validation Loss (from iter </span><span class="si">{</span><span class="n">zoom_start_iter</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">ylims</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">ylim</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ylims</span><span class="p">):</span>
+            <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">idx</span> <span class="o">%</span> <span class="mi">2</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylim</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">save_path</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved to </span><span class="si">{</span><span class="n">save_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gra.experiments.wandb_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">fetch_runs</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="s1">&#39;pal-lab&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;GRA-CIFAR10&#39;</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">get_optimizer_summary</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>  <span class="c1"># aggregates across seeds</span>
+<span class="n">best_per_opt</span> <span class="o">=</span> <span class="n">compare_optimizers</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;best_val_acc&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: <span class=" -Color -Color-Green -Color-Green-BGRed">ERROR</span> Failed to detect the name of this notebook. You can set it manually with the WANDB_NOTEBOOK_NAME environment variable to enable code saving.
+<span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: Currently logged in as: <span class=" -Color -Color-Yellow">hadivafaii</span> (<span class=" -Color -Color-Yellow">poisson-collab</span>) to <span class=" -Color -Color-Green">https://api.wandb.ai</span>. Use <span class=" -Color -Color-Bold">`wandb login --relogin`</span> to force relogin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fetching runs from: pal-lab/GRA-CIFAR10
+Found 700 runs
+Processed 698 runs (after filtering)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_per_opt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>run_id</th>
+      <th>run_name</th>
+      <th>state</th>
+      <th>created_at</th>
+      <th>optimizer</th>
+      <th>weight_decay</th>
+      <th>grad_clip</th>
+      <th>learning_rate</th>
+      <th>beta1</th>
+      <th>beta2</th>
+      <th>...</th>
+      <th>seed</th>
+      <th>eval/loss</th>
+      <th>eval/acc</th>
+      <th>eval/best_acc</th>
+      <th>train/loss</th>
+      <th>train/grad_norm</th>
+      <th>best_val_acc</th>
+      <th>best_iter</th>
+      <th>final_val_acc</th>
+      <th>final_val_loss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>658</th>
+      <td>3fakxnpj</td>
+      <td>rel_lion(lr=1e-2,wd=0.1,m=500.0,b1=0.7,b2=0.99...</td>
+      <td>finished</td>
+      <td>2026-01-14T20:57:12Z</td>
+      <td>rel_lion</td>
+      <td>0.1</td>
+      <td>1</td>
+      <td>0.010</td>
+      <td>0.70</td>
+      <td>0.990</td>
+      <td>...</td>
+      <td>1</td>
+      <td>0.561133</td>
+      <td>91.839999</td>
+      <td>91.999996</td>
+      <td>2.154615e-06</td>
+      <td>5.864816e-04</td>
+      <td>91.999996</td>
+      <td>99500</td>
+      <td>91.839999</td>
+      <td>0.561133</td>
+    </tr>
+    <tr>
+      <th>206</th>
+      <td>1kvu9cgg</td>
+      <td>adamw(lr=3e-3,wd=0.1,b1=0.95,b2=0.999)_resnet/...</td>
+      <td>finished</td>
+      <td>2026-01-11T01:51:25Z</td>
+      <td>adamw</td>
+      <td>0.1</td>
+      <td>1</td>
+      <td>0.003</td>
+      <td>0.95</td>
+      <td>0.999</td>
+      <td>...</td>
+      <td>1</td>
+      <td>0.665918</td>
+      <td>91.369998</td>
+      <td>91.450000</td>
+      <td>5.122274e-09</td>
+      <td>2.364198e-07</td>
+      <td>91.450000</td>
+      <td>98500</td>
+      <td>91.369998</td>
+      <td>0.665918</td>
+    </tr>
+    <tr>
+      <th>335</th>
+      <td>0ok4kcd1</td>
+      <td>rel_signum(lr=1e-2,wd=0.1,m=100.0,mom=0.95)_re...</td>
+      <td>finished</td>
+      <td>2026-01-11T22:18:17Z</td>
+      <td>rel_signum</td>
+      <td>0.1</td>
+      <td>1</td>
+      <td>0.010</td>
+      <td>0.95</td>
+      <td>0.950</td>
+      <td>...</td>
+      <td>1</td>
+      <td>0.578320</td>
+      <td>91.299999</td>
+      <td>91.299999</td>
+      <td>2.927613e-06</td>
+      <td>4.826132e-04</td>
+      <td>91.299999</td>
+      <td>100000</td>
+      <td>91.299999</td>
+      <td>0.578320</td>
+    </tr>
+    <tr>
+      <th>555</th>
+      <td>mry6njuc</td>
+      <td>lion(lr=3e-3,wd=0.1,b1=0.95,b2=0.99)_resnet/20...</td>
+      <td>finished</td>
+      <td>2026-01-13T22:25:18Z</td>
+      <td>lion</td>
+      <td>0.1</td>
+      <td>1</td>
+      <td>0.003</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>...</td>
+      <td>1</td>
+      <td>1.200781</td>
+      <td>90.989995</td>
+      <td>91.039997</td>
+      <td>0.000000e+00</td>
+      <td>1.840791e-10</td>
+      <td>91.039997</td>
+      <td>96500</td>
+      <td>90.989995</td>
+      <td>1.200781</td>
+    </tr>
+    <tr>
+      <th>580</th>
+      <td>21ury57z</td>
+      <td>sign_sgd(lr=3e-3,wd=0.1,mom=0.99)_resnet/2026_...</td>
+      <td>finished</td>
+      <td>2026-01-14T04:28:00Z</td>
+      <td>sign_sgd</td>
+      <td>0.1</td>
+      <td>1</td>
+      <td>0.003</td>
+      <td>0.99</td>
+      <td>0.950</td>
+      <td>...</td>
+      <td>0</td>
+      <td>1.342773</td>
+      <td>90.609998</td>
+      <td>90.700001</td>
+      <td>0.000000e+00</td>
+      <td>9.190389e-12</td>
+      <td>90.700001</td>
+      <td>97000</td>
+      <td>90.609998</td>
+      <td>1.342773</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">latex</span> <span class="o">=</span> <span class="n">generate_detailed_table</span><span class="p">(</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">3e-3</span><span class="p">],</span>
+    <span class="n">caption</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">latex</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">\begin<span style="font-weight: bold">{</span>table<span style="font-weight: bold">}</span>
+\centering
+\caption<span style="font-weight: bold">{}</span>
+\label<span style="font-weight: bold">{</span>tab:optimizer_comparison<span style="font-weight: bold">}</span>
+\resizebox<span style="font-weight: bold">{</span>\textwidth<span style="font-weight: bold">}{</span>!<span style="font-weight: bold">}{</span>%
+\begin<span style="font-weight: bold">{</span>tabular<span style="font-weight: bold">}{</span>lccccc<span style="font-weight: bold">}</span>
+\toprule
+Optimizer &amp; LR &amp; $<span style="font-weight: bold">(</span>\beta_1, \beta_2<span style="font-weight: bold">)</span>$ &amp; Mass &amp; Best Acc. <span style="font-weight: bold">(</span>\%<span style="font-weight: bold">)</span> &amp; Final Acc. <span style="font-weight: bold">(</span>\%<span style="font-weight: bold">)</span> \\
+\midrule
+rel\_lion &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3e-3</span> &amp; <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.50</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.990</span><span style="font-weight: bold">)</span> &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100.00</span> &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.55</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.18</span>$ &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.49</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.23</span>$ \\
+adamw &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3e-3</span> &amp; <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.80</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.999</span><span style="font-weight: bold">)</span> &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.10</span> &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.32</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.10</span>$ &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.27</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.10</span>$ \\
+rel\_signum &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3e-3</span> &amp; <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.90</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.950</span><span style="font-weight: bold">)</span> &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.00</span> &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.11</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.14</span>$ &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.01</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.15</span>$ \\
+lion &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3e-3</span> &amp; <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.95</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.990</span><span style="font-weight: bold">)</span> &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.10</span> &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.97</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.06</span>$ &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.81</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.19</span>$ \\
+sign\_sgd &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3e-3</span> &amp; <span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.90</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.950</span><span style="font-weight: bold">)</span> &amp; <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.10</span> &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.55</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.03</span>$ &amp; $<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.01</span> \pm <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.05</span>$ \\
+\bottomrule
+\end<span style="font-weight: bold">{</span>tabular<span style="font-weight: bold">}</span>
+<span style="font-weight: bold">}</span>
+\end<span style="font-weight: bold">{</span>table<span style="font-weight: bold">}</span>
+</pre>
+</div></div>
+</div>
+<section id="signum-plot">
+<h2>Signum plot<a class="headerlink" href="#signum-plot" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_df</span> <span class="o">=</span> <span class="n">filter_runs</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">optimizers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rel_signum&#39;</span><span class="p">,</span> <span class="s1">&#39;sign_sgd&#39;</span><span class="p">],</span>  <span class="c1"># Both optimizers</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+    <span class="n">beta1</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_filtered_runs</span><span class="p">(</span>
+    <span class="n">filtered_df</span><span class="p">,</span> 
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;rel_signum vs sign_sgd (beta1=0.95, lr=1e-3)&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+rel_signum vs sign_sgd (beta1=0.95, lr=1e-3)
+================================================================================
+
+Total: 18 runs
+
+ optimizer learning_rate beta1 beta2    mass  seed best_val_acc final_val_acc   run_id
+rel_signum         1e-03 0.950 0.950   0.010     0        90.08         89.94 lquarjfa
+rel_signum         1e-03 0.950 0.950   0.010     1        90.29         90.29 fbzi2q0q
+rel_signum         1e-03 0.950 0.950   0.010     2        90.29         90.17 3xrtyyct
+rel_signum         1e-03 0.950 0.950   0.100     0        90.28         90.24 oxuosoya
+rel_signum         1e-03 0.950 0.950   0.100     1        90.10         90.01 q35mvavf
+rel_signum         1e-03 0.950 0.950   0.100     2        90.09         90.01 bbz8k7kc
+rel_signum         1e-03 0.950 0.950   1.000     0        90.76         90.65 oo0twfwp
+rel_signum         1e-03 0.950 0.950   1.000     1        90.47         90.47 9ywjlgm4
+rel_signum         1e-03 0.950 0.950   1.000     2        90.32         90.24 114pdj0f
+rel_signum         1e-03 0.950 0.950  10.000     0        90.58         90.53 bujvf1yf
+rel_signum         1e-03 0.950 0.950  10.000     1        90.83         90.80 u64upcdk
+rel_signum         1e-03 0.950 0.950  10.000     2        90.74         90.63 dwn7on46
+rel_signum         1e-03 0.950 0.950 100.000     0        89.73         89.58 8yxjy3uj
+rel_signum         1e-03 0.950 0.950 100.000     1        89.30         89.17 8xwb37ve
+rel_signum         1e-03 0.950 0.950 100.000     2        89.16         89.11 dizxftez
+  sign_sgd         1e-03 0.950 0.950   0.100     0        90.12         89.85 wax4yqun
+  sign_sgd         1e-03 0.950 0.950   0.100     1        89.99         89.48 30cyre2y
+  sign_sgd         1e-03 0.950 0.950   0.100     2        90.54         89.89 cl645flp
+
+--- Summary by Optimizer ---
+rel_signum: n=15, best_val_acc = 90.20 ± 0.49
+sign_sgd: n=3, best_val_acc = 90.22 ± 0.29
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history_keys</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;iter&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;_step&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;train/loss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;train/grad_norm&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;eval/acc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;eval/loss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;eval/best_acc&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">run_histories</span> <span class="o">=</span> <span class="n">fetch_multiple_run_histories</span><span class="p">(</span>
+    <span class="n">filtered_df</span><span class="p">,</span>
+    <span class="n">entity</span><span class="o">=</span><span class="s1">&#39;pal-lab&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="s1">&#39;GRA-CIFAR10&#39;</span><span class="p">,</span>
+    <span class="n">keys</span><span class="o">=</span><span class="n">history_keys</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fetching lquarjfa: rel_signum, mass=0.01, seed=0
+Fetching oxuosoya: rel_signum, mass=0.1, seed=0
+Fetching oo0twfwp: rel_signum, mass=1.0, seed=0
+Fetching bujvf1yf: rel_signum, mass=10.0, seed=0
+Fetching 8yxjy3uj: rel_signum, mass=100.0, seed=0
+Fetching fbzi2q0q: rel_signum, mass=0.01, seed=1
+Fetching q35mvavf: rel_signum, mass=0.1, seed=1
+Fetching 9ywjlgm4: rel_signum, mass=1.0, seed=1
+Fetching u64upcdk: rel_signum, mass=10.0, seed=1
+Fetching 8xwb37ve: rel_signum, mass=100.0, seed=1
+Fetching 3xrtyyct: rel_signum, mass=0.01, seed=2
+Fetching bbz8k7kc: rel_signum, mass=0.1, seed=2
+Fetching 114pdj0f: rel_signum, mass=1.0, seed=2
+Fetching dwn7on46: rel_signum, mass=10.0, seed=2
+Fetching dizxftez: rel_signum, mass=100.0, seed=2
+Fetching wax4yqun: sign_sgd, mass=0.1, seed=0
+Fetching 30cyre2y: sign_sgd, mass=0.1, seed=1
+Fetching cl645flp: sign_sgd, mass=0.1, seed=2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_data</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">run_id</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">run_histories</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span>
+    
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;optimizer&#39;</span><span class="p">)</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mass&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Create a key that distinguishes rel_signum masses</span>
+    <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;rel_signum&#39;</span> <span class="ow">and</span> <span class="n">mass</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;rel_signum (m=</span><span class="si">{</span><span class="n">mass</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">opt</span>
+    
+    <span class="n">grouped_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;seed&#39;</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">history</span><span class="p">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+    <span class="p">})</span>
+    
+<span class="n">grouped_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">grouped_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;rel_signum (m=0.01)&#39;,
+ &#39;rel_signum (m=0.1)&#39;,
+ &#39;rel_signum (m=1.0)&#39;,
+ &#39;rel_signum (m=10.0)&#39;,
+ &#39;rel_signum (m=100.0)&#39;,
+ &#39;sign_sgd&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">runs</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">runs</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span><span class="si">}</span><span class="s2"> runs, seeds=</span><span class="si">{</span><span class="n">seeds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.01</span><span style="font-weight: bold">)</span>:    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span><span style="font-weight: bold">)</span>:     <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span><span style="font-weight: bold">)</span>:     <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.0</span><span style="font-weight: bold">)</span>:    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100.0</span><span style="font-weight: bold">)</span>:   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">sign_sgd:       <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">runs</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">runs</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Get eval accuracy (non-null values only)</span>
+        <span class="n">eval_acc</span> <span class="o">=</span> <span class="n">h</span><span class="p">[[</span><span class="s1">&#39;iter&#39;</span><span class="p">,</span> <span class="s1">&#39;eval/acc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_acc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">final_acc</span> <span class="o">=</span> <span class="n">eval_acc</span><span class="p">[</span><span class="s1">&#39;eval/acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">best_acc</span> <span class="o">=</span> <span class="n">eval_acc</span><span class="p">[</span><span class="s1">&#39;eval/acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="n">n_evals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_acc</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  seed=</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">n_evals</span><span class="si">}</span><span class="s2"> evals, best=</span><span class="si">{</span><span class="n">best_acc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, final=</span><span class="si">{</span><span class="n">final_acc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  seed=</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">: no eval data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.01</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.04</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.96</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.28</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.21</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.27</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.15</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.28</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.23</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.08</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.03</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.05</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.05</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.76</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.72</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.43</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.37</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.32</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.32</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.0</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.56</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.55</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.83</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.83</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.70</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.67</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_signum <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100.0</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.73</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.73</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.27</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.27</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.15</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.15</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+sign_sgd:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.12</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.84</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.89</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.55</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.54</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">89.89</span>
+</pre>
+</div></div>
+</div>
+<section id="reorder-plot">
+<h3>reorder + plot<a class="headerlink" href="#reorder-plot" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;sign_sgd&quot;</span>
+
+<span class="n">new_grouped</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">new_grouped</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">grouped_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="n">key</span><span class="p">:</span>
+        <span class="n">new_grouped</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+<span class="n">grouped_data</span> <span class="o">=</span> <span class="n">new_grouped</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">grouped_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;sign_sgd&#39;,
+ &#39;rel_signum (m=0.01)&#39;,
+ &#39;rel_signum (m=0.1)&#39;,
+ &#39;rel_signum (m=1.0)&#39;,
+ &#39;rel_signum (m=10.0)&#39;,
+ &#39;rel_signum (m=100.0)&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;YlOrRd&#39;</span><span class="c1"># &#39;YlOrBr&#39;</span>
+
+<span class="n">rel_keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">grouped_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;rel_&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">])</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span>
+    <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">rel_keys</span><span class="p">),</span> <span class="n">palette</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+
+<span class="n">color_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">k</span><span class="p">:</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span>
+    <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rel_keys</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">color_map</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_optimizer_comparison</span><span class="p">(</span>
+    <span class="n">grouped_data</span><span class="o">=</span><span class="n">grouped_data</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="o">=</span><span class="n">fig_base_dir</span> <span class="o">/</span> <span class="s1">&#39;signum_mass.png&#39;</span><span class="p">,</span>
+    <span class="n">color_map</span><span class="o">=</span><span class="n">color_map</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Saved to <span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/git/jb-progress-2026/figs/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">signum_mass.png</span>
+</pre>
+</div><img alt="../../_images/3c420d5167da748c18284358f8e88931ae0d893071d5c16ea9c34f4766799762.png" src="../../_images/3c420d5167da748c18284358f8e88931ae0d893071d5c16ea9c34f4766799762.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="lion-plot">
+<h2>Lion plot<a class="headerlink" href="#lion-plot" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filtered_df</span> <span class="o">=</span> <span class="n">filter_runs</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">optimizers</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rel_lion&#39;</span><span class="p">,</span> <span class="s1">&#39;lion&#39;</span><span class="p">],</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">3e-3</span><span class="p">,</span>
+    <span class="n">beta1</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span>
+    <span class="n">beta2</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_filtered_runs</span><span class="p">(</span>
+    <span class="n">filtered_df</span><span class="p">,</span> 
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;rel_signum vs sign_sgd (beta1=0.95, lr=1e-3)&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>================================================================================
+rel_signum vs sign_sgd (beta1=0.95, lr=1e-3)
+================================================================================
+
+Total: 20 runs
+
+optimizer learning_rate beta1 beta2    mass  seed best_val_acc final_val_acc   run_id
+     lion         3e-03 0.950 0.990   0.100     0        90.94         90.62 phthi4n0
+     lion         3e-03 0.950 0.990   0.100     1        91.04         90.99 mry6njuc
+     lion         3e-03 0.950 0.990   0.100     2        90.94         90.81 wsyydzqh
+ rel_lion         3e-03 0.950 0.990   0.010     0        90.96         90.83 s7m2iozn
+ rel_lion         3e-03 0.950 0.990   0.010     1        90.73         90.59 udxag64z
+ rel_lion         3e-03 0.950 0.990   0.100     0        90.72         90.67 q8nrkua4
+ rel_lion         3e-03 0.950 0.990   0.100     1        91.13         91.03 6kyhhcvx
+ rel_lion         3e-03 0.950 0.990   0.100     2        91.18         91.09 x15xx1er
+ rel_lion         3e-03 0.950 0.990   1.000     0        91.61         91.55 2wsr3rff
+ rel_lion         3e-03 0.950 0.990   1.000     0        90.88         90.79 y3ng1ugk
+ rel_lion         3e-03 0.950 0.990   1.000     1        90.70         90.67 vuc0ubc9
+ rel_lion         3e-03 0.950 0.990   1.000     1        90.81         90.76 i7bbos9l
+ rel_lion         3e-03 0.950 0.990   1.000     2        91.24         91.24 dfyxne4d
+ rel_lion         3e-03 0.950 0.990   1.000     2        90.68         90.62 24btea5e
+ rel_lion         3e-03 0.950 0.990  10.000     0        91.24         91.24 wxhzi36k
+ rel_lion         3e-03 0.950 0.990  10.000     1        90.87         90.85 3jvj9cra
+ rel_lion         3e-03 0.950 0.990  10.000     2        90.58         90.53 iesyfl39
+ rel_lion         3e-03 0.950 0.990 100.000     0        91.00         90.88 6tt5ulxb
+ rel_lion         3e-03 0.950 0.990 100.000     1        91.22         91.14 l9w9iic1
+ rel_lion         3e-03 0.950 0.990 100.000     2        91.11         91.08 t52yufoh
+
+--- Summary by Optimizer ---
+lion: n=3, best_val_acc = 90.97 ± 0.06
+rel_lion: n=17, best_val_acc = 90.98 ± 0.27
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">history_keys</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;iter&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;_step&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;train/loss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;train/grad_norm&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;eval/acc&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;eval/loss&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;eval/best_acc&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">run_histories</span> <span class="o">=</span> <span class="n">fetch_multiple_run_histories</span><span class="p">(</span>
+    <span class="n">filtered_df</span><span class="p">,</span>
+    <span class="n">entity</span><span class="o">=</span><span class="s1">&#39;pal-lab&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="s1">&#39;GRA-CIFAR10&#39;</span><span class="p">,</span>
+    <span class="n">keys</span><span class="o">=</span><span class="n">history_keys</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fetching 2wsr3rff: rel_lion, mass=1.0, seed=0
+Fetching vuc0ubc9: rel_lion, mass=1.0, seed=1
+Fetching dfyxne4d: rel_lion, mass=1.0, seed=2
+Fetching s7m2iozn: rel_lion, mass=0.01, seed=0
+Fetching q8nrkua4: rel_lion, mass=0.1, seed=0
+Fetching y3ng1ugk: rel_lion, mass=1.0, seed=0
+Fetching wxhzi36k: rel_lion, mass=10.0, seed=0
+Fetching 6tt5ulxb: rel_lion, mass=100.0, seed=0
+Fetching udxag64z: rel_lion, mass=0.01, seed=1
+Fetching 6kyhhcvx: rel_lion, mass=0.1, seed=1
+Fetching i7bbos9l: rel_lion, mass=1.0, seed=1
+Fetching 3jvj9cra: rel_lion, mass=10.0, seed=1
+Fetching l9w9iic1: rel_lion, mass=100.0, seed=1
+Fetching x15xx1er: rel_lion, mass=0.1, seed=2
+Fetching 24btea5e: rel_lion, mass=1.0, seed=2
+Fetching iesyfl39: rel_lion, mass=10.0, seed=2
+Fetching t52yufoh: rel_lion, mass=100.0, seed=2
+Fetching phthi4n0: lion, mass=0.1, seed=0
+Fetching mry6njuc: lion, mass=0.1, seed=1
+Fetching wsyydzqh: lion, mass=0.1, seed=2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_data</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">run_id</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">run_histories</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span>
+    
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;optimizer&#39;</span><span class="p">)</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;mass&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Create a key that distinguishes rel_signum masses</span>
+    <span class="k">if</span> <span class="n">opt</span> <span class="o">==</span> <span class="s1">&#39;rel_lion&#39;</span> <span class="ow">and</span> <span class="n">mass</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;rel_lion (m=</span><span class="si">{</span><span class="n">mass</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">opt</span>
+    
+    <span class="n">grouped_data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;seed&#39;</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">history</span><span class="p">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+    <span class="p">})</span>
+    
+<span class="n">grouped_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">())))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">runs</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">seeds</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">runs</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span><span class="si">}</span><span class="s2"> runs, seeds=</span><span class="si">{</span><span class="n">seeds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">lion:   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.01</span><span style="font-weight: bold">)</span>:      <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span><span style="font-weight: bold">)</span>:       <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span><span style="font-weight: bold">)</span>:       <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">6</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.0</span><span style="font-weight: bold">)</span>:      <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100.0</span><span style="font-weight: bold">)</span>:     <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs, <span style="color: #808000; text-decoration-color: #808000">seeds</span>=<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span><span style="font-weight: bold">]</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">runs</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">runs</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span>
+        <span class="n">seed</span> <span class="o">=</span> <span class="n">run</span><span class="p">[</span><span class="s1">&#39;seed&#39;</span><span class="p">]</span>
+        
+        <span class="c1"># Get eval accuracy (non-null values only)</span>
+        <span class="n">eval_acc</span> <span class="o">=</span> <span class="n">h</span><span class="p">[[</span><span class="s1">&#39;iter&#39;</span><span class="p">,</span> <span class="s1">&#39;eval/acc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_acc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">final_acc</span> <span class="o">=</span> <span class="n">eval_acc</span><span class="p">[</span><span class="s1">&#39;eval/acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">best_acc</span> <span class="o">=</span> <span class="n">eval_acc</span><span class="p">[</span><span class="s1">&#39;eval/acc&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+            <span class="n">n_evals</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">eval_acc</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  seed=</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">n_evals</span><span class="si">}</span><span class="s2"> evals, best=</span><span class="si">{</span><span class="n">best_acc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, final=</span><span class="si">{</span><span class="n">final_acc</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  seed=</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">: no eval data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+lion:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.94</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.76</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.04</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.90</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.94</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.94</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.01</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.96</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.88</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.73</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.58</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.67</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.60</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.13</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.10</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.17</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.04</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.61</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.61</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.70</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.65</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.23</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.22</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.88</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.74</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.81</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.79</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.68</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.57</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.0</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.19</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.17</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.87</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.87</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.58</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.52</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+rel_lion <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">m</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100.0</span><span style="font-weight: bold">)</span>:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.00</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.00</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.22</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.09</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  <span style="color: #808000; text-decoration-color: #808000">seed</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span> evals, <span style="color: #808000; text-decoration-color: #808000">best</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.11</span>, <span style="color: #808000; text-decoration-color: #808000">final</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.91</span>
+</pre>
+</div></div>
+</div>
+<section id="no-reorder-neede-just-plot">
+<h3>no reorder neede, just plot<a class="headerlink" href="#no-reorder-neede-just-plot" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">list</span><span class="p">(</span><span class="n">grouped_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;lion&#39;,
+ &#39;rel_lion (m=0.01)&#39;,
+ &#39;rel_lion (m=0.1)&#39;,
+ &#39;rel_lion (m=1.0)&#39;,
+ &#39;rel_lion (m=10.0)&#39;,
+ &#39;rel_lion (m=100.0)&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;YlOrRd&#39;</span><span class="c1"># &#39;YlOrBr&#39;</span>
+
+<span class="n">rel_keys</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">([</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">grouped_data</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span> <span class="k">if</span> <span class="s1">&#39;rel_&#39;</span> <span class="ow">in</span> <span class="n">k</span><span class="p">])</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span>
+    <span class="n">n_colors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">rel_keys</span><span class="p">),</span> <span class="n">palette</span><span class="o">=</span><span class="n">cmap</span><span class="p">)</span>
+
+<span class="n">color_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">k</span><span class="p">:</span> <span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span>
+    <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rel_keys</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="n">color_map</span><span class="p">[</span><span class="s1">&#39;lion&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ylims</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">70</span><span class="p">,</span> <span class="mi">92</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">),</span> <span class="p">(</span><span class="mi">88</span><span class="p">,</span> <span class="mf">91.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.49</span><span class="p">,</span> <span class="mf">1.25</span><span class="p">)]</span>
+
+
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_optimizer_comparison</span><span class="p">(</span>
+    <span class="n">grouped_data</span><span class="o">=</span><span class="n">grouped_data</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="o">=</span><span class="n">fig_base_dir</span> <span class="o">/</span> <span class="s1">&#39;lion_mass.png&#39;</span><span class="p">,</span>
+    <span class="n">color_map</span><span class="o">=</span><span class="n">color_map</span><span class="p">,</span>
+    <span class="n">ylims</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Saved to <span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/git/jb-progress-2026/figs/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">lion_mass.png</span>
+</pre>
+</div><img alt="../../_images/edc0b03fc7091787e628b73a00bce2e31f03d17df192b47609c806b4cbdb2c38.png" src="../../_images/edc0b03fc7091787e628b73a00bce2e31f03d17df192b47609c806b4cbdb2c38.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="best-models-plot">
+<h2>Best models plot<a class="headerlink" href="#best-models-plot" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">fetch_runs</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="s1">&#39;pal-lab&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;GRA-CIFAR10&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">]</span>  <span class="c1"># only finished runs</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fetching runs from: pal-lab/GRA-CIFAR10
+Found 700 runs
+Processed 698 runs (after filtering)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># only lr = 3e-3</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">3e-3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">,</span> <span class="s1">&#39;learning_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;beta1&#39;</span><span class="p">,</span> <span class="s1">&#39;beta2&#39;</span><span class="p">,</span> <span class="s1">&#39;mass&#39;</span><span class="p">]</span>
+<span class="n">group_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">group_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">config_stats</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">group_cols</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">({</span>
+    <span class="s1">&#39;best_val_acc&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;run_id&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>  <span class="c1"># keep track of run_ids for each config</span>
+<span class="p">})</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+
+<span class="c1"># Flatten columns</span>
+<span class="n">config_stats</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">col</span> 
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">config_stats</span><span class="o">.</span><span class="n">columns</span>
+<span class="p">]</span>
+
+
+<span class="c1"># For each optimizer, find the config with best mean accuracy</span>
+<span class="n">best_configs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">opt</span> <span class="ow">in</span> <span class="n">config_stats</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">():</span>
+    <span class="n">opt_df</span> <span class="o">=</span> <span class="n">config_stats</span><span class="p">[</span><span class="n">config_stats</span><span class="p">[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">opt</span><span class="p">]</span>
+    <span class="n">best_idx</span> <span class="o">=</span> <span class="n">opt_df</span><span class="p">[</span><span class="s1">&#39;best_val_acc_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+    <span class="n">best_configs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">opt_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">best_idx</span><span class="p">])</span>
+
+
+<span class="n">best_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">best_configs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best config per optimizer:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">best_df</span><span class="p">[[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">,</span> <span class="s1">&#39;learning_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;beta1&#39;</span><span class="p">,</span> <span class="s1">&#39;beta2&#39;</span><span class="p">,</span> <span class="s1">&#39;mass&#39;</span><span class="p">,</span> <span class="s1">&#39;best_val_acc_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;best_val_acc_count&#39;</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Best config per optimizer:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">     optimizer  learning_rate  beta1  beta2   mass  best_val_acc_mean  \
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>        adamw          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003</span>   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.80</span>  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.999</span>    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.316664</span>   
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">16</span>        lion          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003</span>   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.95</span>  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.990</span>    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.973332</span>   
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>    rel_lion          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003</span>   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.50</span>  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.990</span>  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100.0</span>          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.554996</span>   
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">61</span>  rel_signum          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003</span>   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.90</span>  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.950</span>   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.0</span>          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">91.109999</span>   
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">73</span>    sign_sgd          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.003</span>   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.90</span>  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.950</span>    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>          <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90.549997</span>   
+
+    best_val_acc_count  
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>                    <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">16</span>                   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>                   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>  
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">61</span>                   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  
+<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">73</span>                   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>  
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Collect all run_ids from the best configs</span>
+<span class="n">best_run_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">best_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">best_run_ids</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;run_id_list&#39;</span><span class="p">])</span>
+
+<span class="c1"># Filter original df to just these runs</span>
+<span class="n">best_runs_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;run_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">best_run_ids</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Fetching </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">best_runs_df</span><span class="p">)</span><span class="si">}</span><span class="s2"> runs...&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fetch full histories</span>
+<span class="n">run_histories</span> <span class="o">=</span> <span class="n">fetch_multiple_run_histories</span><span class="p">(</span>
+    <span class="n">best_runs_df</span><span class="p">,</span>
+    <span class="n">entity</span><span class="o">=</span><span class="s1">&#39;pal-lab&#39;</span><span class="p">,</span>
+    <span class="n">project</span><span class="o">=</span><span class="s1">&#39;GRA-CIFAR10&#39;</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+Fetching <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">14</span> runs<span style="color: #808000; text-decoration-color: #808000">...</span>
+</pre>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fetching 76pzm6jf: adamw, mass=0.1, seed=0
+Fetching 2bse968i: adamw, mass=0.1, seed=1
+Fetching t6mlwuhh: rel_signum, mass=10.0, seed=0
+Fetching 3xl40d5t: adamw, mass=0.1, seed=2
+Fetching nrib38m8: rel_signum, mass=10.0, seed=1
+Fetching vcg0qab0: rel_signum, mass=10.0, seed=2
+Fetching phthi4n0: lion, mass=0.1, seed=0
+Fetching mry6njuc: lion, mass=0.1, seed=1
+Fetching wsyydzqh: lion, mass=0.1, seed=2
+Fetching 6sn5k3u5: sign_sgd, mass=0.1, seed=0
+Fetching xfm0r8lf: sign_sgd, mass=0.1, seed=1
+Fetching e8ldn9ph: rel_lion, mass=100.0, seed=0
+Fetching g2m4ee42: rel_lion, mass=100.0, seed=1
+Fetching hui67tup: sign_sgd, mass=0.1, seed=2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grouped_data</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">run_id</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">run_histories</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;config&#39;</span><span class="p">]</span>
+    <span class="n">history</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;history&#39;</span><span class="p">]</span>
+    
+    <span class="n">opt</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;optimizer&#39;</span><span class="p">)</span>
+    <span class="n">grouped_data</span><span class="p">[</span><span class="n">opt</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;seed&#39;</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;seed&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">history</span><span class="p">,</span>
+        <span class="s1">&#39;config&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">,</span>
+    <span class="p">})</span>
+
+<span class="n">grouped_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">())))</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Grouped runs:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">runs</span> <span class="ow">in</span> <span class="n">grouped_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span><span class="si">}</span><span class="s2"> runs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+Grouped runs:
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  adamw: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  lion: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  rel_lion: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span> runs
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  rel_signum: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">  sign_sgd: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span> runs
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tab20</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;tab20&#39;</span><span class="p">)</span>
+<span class="n">tab20</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><svg  width="1100" height="55"><rect x="0" y="0" width="55" height="55" style="fill:#1f77b4;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="55" y="0" width="55" height="55" style="fill:#aec7e8;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="110" y="0" width="55" height="55" style="fill:#ff7f0e;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="165" y="0" width="55" height="55" style="fill:#ffbb78;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="220" y="0" width="55" height="55" style="fill:#2ca02c;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="275" y="0" width="55" height="55" style="fill:#98df8a;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="330" y="0" width="55" height="55" style="fill:#d62728;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="385" y="0" width="55" height="55" style="fill:#ff9896;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="440" y="0" width="55" height="55" style="fill:#9467bd;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="495" y="0" width="55" height="55" style="fill:#c5b0d5;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="550" y="0" width="55" height="55" style="fill:#8c564b;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="605" y="0" width="55" height="55" style="fill:#c49c94;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="660" y="0" width="55" height="55" style="fill:#e377c2;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="715" y="0" width="55" height="55" style="fill:#f7b6d2;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="770" y="0" width="55" height="55" style="fill:#7f7f7f;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="825" y="0" width="55" height="55" style="fill:#c7c7c7;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="880" y="0" width="55" height="55" style="fill:#bcbd22;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="935" y="0" width="55" height="55" style="fill:#dbdb8d;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="990" y="0" width="55" height="55" style="fill:#17becf;stroke-width:2;stroke:rgb(255,255,255)"/><rect x="1045" y="0" width="55" height="55" style="fill:#9edae5;stroke-width:2;stroke:rgb(255,255,255)"/></svg></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ylims</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">60</span><span class="p">,</span> <span class="mf">92.3</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">),</span> <span class="p">(</span><span class="mi">87</span><span class="p">,</span> <span class="mf">92.2</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.38</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">)]</span>
+
+
+<span class="c1"># Define your custom color map</span>
+<span class="n">color_map</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;rel_lion&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">tab20</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="s1">&#39;lion&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">tab20</span><span class="p">)[</span><span class="mi">5</span><span class="p">],</span>
+    <span class="c1">#</span>
+    <span class="s1">&#39;rel_signum&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">tab20</span><span class="p">)[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="s1">&#39;sign_sgd&#39;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">tab20</span><span class="p">)[</span><span class="mi">9</span><span class="p">],</span>
+    <span class="c1">#</span>
+    <span class="s1">&#39;adamw&#39;</span><span class="p">:</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plot_optimizer_comparison</span><span class="p">(</span>
+    <span class="n">grouped_data</span><span class="o">=</span><span class="n">grouped_data</span><span class="p">,</span>
+    <span class="n">save_path</span><span class="o">=</span><span class="n">fig_base_dir</span> <span class="o">/</span> <span class="s1">&#39;best_fits.png&#39;</span><span class="p">,</span>
+    <span class="n">zoom_start_iter</span><span class="o">=</span><span class="mi">60000</span><span class="p">,</span>
+    <span class="n">color_map</span><span class="o">=</span><span class="n">color_map</span><span class="p">,</span>
+    <span class="n">ylims</span><span class="o">=</span><span class="n">ylims</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Saved to <span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/git/jb-progress-2026/figs/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">best_fits.png</span>
+</pre>
+</div><img alt="../../_images/29e6abd92e5f2c942f12d54285775fc1197cccc550a1bc8eaa223e821180cdff.png" src="../../_images/29e6abd92e5f2c942f12d54285775fc1197cccc550a1bc8eaa223e821180cdff.png" />
+</div>
+</div>
+</section>
+<section id="signum-robustness-lr-plot">
+<h2>Signum robustness (lr) plot<a class="headerlink" href="#signum-robustness-lr-plot" title="Link to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-01"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../md/2026-01_updates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Updates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="14_gra-tables-language.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(14) GRA — tables (language)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signum-plot">Signum plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reorder-plot">reorder + plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lion-plot">Lion plot</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#no-reorder-neede-just-plot">no reorder neede, just plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#best-models-plot">Best models plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signum-robustness-lr-plot">Signum robustness (lr) plot</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

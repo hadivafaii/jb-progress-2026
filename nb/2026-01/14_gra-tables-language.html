@@ -1,0 +1,1486 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(14) GRA — tables (language) &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-01/14_gra-tables-language';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="tmp — jan26" href="tmp-jan26.html" />
+    <link rel="prev" title="(14) GRA — figs vision (CIFAR10)" href="14_gra-figs-vision.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-01/14_gra-tables-language.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-01/14_gra-tables-language.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(14) GRA — tables (language)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gra-tables-language">
+<h1>(14) GRA — tables (language)<a class="headerlink" href="#gra-tables-language" title="Link to this heading">#</a></h1>
+<p>project = <code class="docutils literal notranslate"><span class="pre">GRA</span></code>, host = <code class="docutils literal notranslate"><span class="pre">any</span></code>, device = <code class="docutils literal notranslate"><span class="pre">any</span></code></p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># tmp &amp; extras dir</span>
+<span class="n">_jb_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">])</span>
+<span class="n">_jb_dir</span> <span class="o">/=</span> <span class="s1">&#39;Dropbox/git/jb-progress-2026&#39;</span>
+<span class="n">extras_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;_extras&#39;</span>
+<span class="n">fig_base_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;figs&#39;</span>
+<span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;tmp&#39;</span>
+
+<span class="c1"># GitHub </span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.utils.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># warnings, tqdm, &amp; style</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.jupyter</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">set_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gra.experiments.wandb_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">fetch_runs</span><span class="p">(</span><span class="n">entity</span><span class="o">=</span><span class="s1">&#39;pal-lab&#39;</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="s1">&#39;GRA-fineweb-edu-10B&#39;</span><span class="p">)</span>
+<span class="n">summary</span> <span class="o">=</span> <span class="n">get_optimizer_summary</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>  <span class="c1"># aggregates across seeds</span>
+<span class="c1"># best_per_opt = compare_optimizers(df, metric=&#39;best_val_acc&#39;)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: <span class=" -Color -Color-Green -Color-Green-BGRed">ERROR</span> Failed to detect the name of this notebook. You can set it manually with the WANDB_NOTEBOOK_NAME environment variable to enable code saving.
+<span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: Currently logged in as: <span class=" -Color -Color-Yellow">hadivafaii</span> (<span class=" -Color -Color-Yellow">poisson-collab</span>) to <span class=" -Color -Color-Green">https://api.wandb.ai</span>. Use <span class=" -Color -Color-Bold">`wandb login --relogin`</span> to force relogin
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fetching runs from: pal-lab/GRA-fineweb-edu-10B
+Found 22 runs
+Processed 20 runs (after filtering)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+    <span class="n">by</span><span class="o">=</span><span class="s2">&quot;eval/best_val_loss_mean&quot;</span><span class="p">,</span>
+    <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">na_position</span><span class="o">=</span><span class="s2">&quot;last&quot;</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>optimizer</th>
+      <th>learning_rate</th>
+      <th>beta1</th>
+      <th>beta2</th>
+      <th>mass</th>
+      <th>eval/best_val_loss_mean</th>
+      <th>eval/best_val_loss_std</th>
+      <th>eval/best_val_loss_count</th>
+      <th>eval/val_loss_mean</th>
+      <th>eval/val_loss_std</th>
+      <th>eval/val_loss_count</th>
+      <th>eval/train_loss_mean</th>
+      <th>eval/train_loss_std</th>
+      <th>eval/train_loss_count</th>
+      <th>train/max_grad_mean</th>
+      <th>train/max_grad_std</th>
+      <th>train/max_grad_count</th>
+      <th>train/grad_sparsity_mean</th>
+      <th>train/grad_sparsity_std</th>
+      <th>train/grad_sparsity_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.0100</td>
+      <td>3.298597</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.298597</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300747</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.064554</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.298314</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.0010</td>
+      <td>3.300188</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300188</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.302549</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.109107</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.303766</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.0000</td>
+      <td>3.300351</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300351</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.302734</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.031839</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.304160</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.0001</td>
+      <td>3.300793</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300793</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.302801</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.162902</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.304657</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.304492</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.304492</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.307053</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.024359</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.283727</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>rel_lion</td>
+      <td>0.0030</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.307118</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.307118</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.309850</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.026068</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.285564</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>lion</td>
+      <td>0.0010</td>
+      <td>0.90</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.309639</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.309639</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.311647</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022530</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.286176</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>rel_lion</td>
+      <td>0.0005</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.309824</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.309824</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.311668</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.070987</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.282538</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>adamw</td>
+      <td>0.0030</td>
+      <td>0.99</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.317532</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.317532</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.320191</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022705</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.276948</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>lion</td>
+      <td>0.0005</td>
+      <td>0.90</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.317696</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.317696</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.319554</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022575</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.281735</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>1.0000</td>
+      <td>3.317761</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.317761</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.320150</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.039484</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.269874</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>rel_lion</td>
+      <td>0.0005</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>1.0000</td>
+      <td>3.323762</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.323762</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.325949</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.033641</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.269808</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>rel_lion</td>
+      <td>0.0080</td>
+      <td>0.95</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.330405</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.330405</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.334327</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.013415</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.288443</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.950</td>
+      <td>0.1000</td>
+      <td>3.338319</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.338319</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.340455</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.020459</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.275338</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>rel_signum</td>
+      <td>0.0030</td>
+      <td>0.95</td>
+      <td>0.950</td>
+      <td>0.1000</td>
+      <td>3.343594</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.343594</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.346306</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022361</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.273650</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>rel_lion</td>
+      <td>0.0001</td>
+      <td>0.90</td>
+      <td>0.990</td>
+      <td>0.0010</td>
+      <td>3.353424</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.353424</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.354988</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.019531</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.273729</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>lion</td>
+      <td>0.0001</td>
+      <td>0.90</td>
+      <td>0.990</td>
+      <td>0.1000</td>
+      <td>3.353702</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.353702</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.355271</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.020142</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.273543</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.80</td>
+      <td>0.999</td>
+      <td>0.1000</td>
+      <td>3.378918</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.378918</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.380648</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.024292</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.272051</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.50</td>
+      <td>0.990</td>
+      <td>1.0000</td>
+      <td>3.797948</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.800384</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.797842</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.116907</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.257966</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.50</td>
+      <td>0.990</td>
+      <td>0.0100</td>
+      <td>3.839374</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.839374</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.837576</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.158203</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.275235</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rel_lion</span>	<span class="mf">0.0010</span>	<span class="mf">0.95</span>	<span class="mf">0.990</span>	<span class="mf">0.0100</span>
+<span class="n">rel_lion</span>	<span class="mf">0.0010</span>	<span class="mf">0.95</span>	<span class="mf">0.990</span>	<span class="mf">0.0010</span>	<span class="mf">3.300188</span>
+<span class="n">rel_lion</span>	<span class="mf">0.0010</span>	<span class="mf">0.95</span>	<span class="mf">0.990</span>	<span class="mf">0.0001</span>	<span class="mf">3.300793</span>
+<span class="n">rel_lion</span>	<span class="mf">0.0010</span>	<span class="mf">0.95</span>	<span class="mf">0.990</span>	<span class="mf">1.0000</span>	<span class="mf">3.317761</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">keep_opts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;lion&quot;</span><span class="p">,</span> <span class="s2">&quot;adamw&quot;</span><span class="p">,</span> <span class="s2">&quot;rel_signum&quot;</span><span class="p">]</span>
+
+<span class="n">mask</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s2">&quot;optimizer&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">keep_opts</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;optimizer&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;rel_lion&quot;</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;learning_rate&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.001</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;beta1&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.95</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;beta2&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.99</span><span class="p">)</span>
+        <span class="o">&amp;</span> <span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]))</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">summary</span> <span class="o">=</span> <span class="n">summary</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>optimizer</th>
+      <th>learning_rate</th>
+      <th>beta1</th>
+      <th>beta2</th>
+      <th>mass</th>
+      <th>eval/best_val_loss_mean</th>
+      <th>eval/best_val_loss_std</th>
+      <th>eval/best_val_loss_count</th>
+      <th>eval/val_loss_mean</th>
+      <th>eval/val_loss_std</th>
+      <th>eval/val_loss_count</th>
+      <th>eval/train_loss_mean</th>
+      <th>eval/train_loss_std</th>
+      <th>eval/train_loss_count</th>
+      <th>train/max_grad_mean</th>
+      <th>train/max_grad_std</th>
+      <th>train/max_grad_count</th>
+      <th>train/grad_sparsity_mean</th>
+      <th>train/grad_sparsity_std</th>
+      <th>train/grad_sparsity_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>0.0100</td>
+      <td>3.298597</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.298597</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300747</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.064554</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.298314</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>0.0010</td>
+      <td>3.300188</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300188</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.302549</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.109107</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.303766</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>0.0001</td>
+      <td>3.300793</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.300793</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.302801</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.162902</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.304657</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>lion</td>
+      <td>0.0010</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.309639</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.309639</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.311647</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022530</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.286176</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>adamw</td>
+      <td>0.0030</td>
+      <td>0.99</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.317532</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.317532</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.320191</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022705</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.276948</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>lion</td>
+      <td>0.0005</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.317696</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.317696</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.319554</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022575</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.281735</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>1.0000</td>
+      <td>3.317761</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.317761</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.320150</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.039484</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.269874</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>rel_signum</td>
+      <td>0.0030</td>
+      <td>0.95</td>
+      <td>0.95</td>
+      <td>0.1000</td>
+      <td>3.343594</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.343594</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.346306</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.022361</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.273650</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>lion</td>
+      <td>0.0001</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.353702</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.353702</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>3.355271</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.020142</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>0.273543</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">summary</span><span class="p">[[</span><span class="s1">&#39;optimizer&#39;</span><span class="p">,</span> <span class="s1">&#39;learning_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;beta1&#39;</span><span class="p">,</span> <span class="s1">&#39;beta2&#39;</span><span class="p">,</span> <span class="s1">&#39;mass&#39;</span><span class="p">,</span> <span class="s1">&#39;eval/best_val_loss_mean&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>optimizer</th>
+      <th>learning_rate</th>
+      <th>beta1</th>
+      <th>beta2</th>
+      <th>mass</th>
+      <th>eval/best_val_loss_mean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>0.0100</td>
+      <td>3.298597</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>0.0010</td>
+      <td>3.300188</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>0.0001</td>
+      <td>3.300793</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>lion</td>
+      <td>0.0010</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.309639</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>adamw</td>
+      <td>0.0030</td>
+      <td>0.99</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.317532</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>lion</td>
+      <td>0.0005</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.317696</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>rel_lion</td>
+      <td>0.0010</td>
+      <td>0.95</td>
+      <td>0.99</td>
+      <td>1.0000</td>
+      <td>3.317761</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>rel_signum</td>
+      <td>0.0030</td>
+      <td>0.95</td>
+      <td>0.95</td>
+      <td>0.1000</td>
+      <td>3.343594</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>lion</td>
+      <td>0.0001</td>
+      <td>0.90</td>
+      <td>0.99</td>
+      <td>0.1000</td>
+      <td>3.353702</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-01"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_gra-figs-vision.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">(14) GRA — figs vision (CIFAR10)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="tmp-jan26.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">tmp — jan26</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
