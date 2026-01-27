@@ -1,0 +1,1165 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(22) Analysis: Grad Bias Var + Dist Consistency &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-01/22_grad-bias-var';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="(23) Grad Fixed Point Analysis" href="23_grad-fixed-point.html" />
+    <link rel="prev" title="(14) GRA — tables (language)" href="14_gra-tables-language.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(22) Analysis: Grad Bias Var + Dist Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="23_grad-fixed-point.html">(23) Grad Fixed Point Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="24_gra-adam-vs-grlion.html">(24) GRA — AdamW vs. GR-Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="26_fig-eat-moments-theory.html">(26) EAT method – bias of moments plot (theory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="26_grad-bias-var%2Bscore.html">(26) Grad Bias Var Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-01/22_grad-bias-var.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-01/22_grad-bias-var.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(22) Analysis: Grad Bias Var + Dist Consistency</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-fig-dir">Make fig dir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-model">Load model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-analysis">Gradient analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-analysis">Consistency analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-and-var-bias-ratios">Mean and Var (bias/ratios)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wasserstein-distance">Wasserstein distance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogate-bad">Surrogate = bad</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="analysis-grad-bias-var-dist-consistency">
+<h1>(22) Analysis: Grad Bias Var + Dist Consistency<a class="headerlink" href="#analysis-grad-bias-var-dist-consistency" title="Link to this heading">#</a></h1>
+<p><strong>Project: <code class="docutils literal notranslate"><span class="pre">_PoissonGradEstim</span></code></strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="n">project_name</span> <span class="o">=</span> <span class="s1">&#39;_PoissonGradEstim&#39;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># tmp &amp; extras dir</span>
+<span class="n">_jb_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">])</span>
+<span class="n">_jb_dir</span> <span class="o">/=</span> <span class="s1">&#39;Dropbox/git/jb-progress-2026&#39;</span>
+<span class="n">extras_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;_extras&#39;</span>
+<span class="n">fig_base_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;figs&#39;</span>
+<span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;tmp&#39;</span>
+
+<span class="c1"># GitHub </span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.utils.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># warnings, tqdm, &amp; style</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.jupyter</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">set_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">device</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;cuda:</span><span class="si">{</span><span class="n">device_idx</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="c1"># dtype = torch.bfloat16 # half the size of float32</span>
+<span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">, dtype: </span><span class="si">{</span><span class="n">dtype</span><span class="si">}</span><span class="s2">  ———  host: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">nodename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">device: cu<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">da:0</span>, dtype: torch.float32  ———  host: mach
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">purge_modules_from_path</span><span class="p">(</span><span class="n">root_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">root_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">root_dir</span><span class="p">)</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">mod</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&quot;__file__&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">root_dir</span><span class="p">):</span>
+                <span class="k">del</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="c1"># Defensive: some modules have weird __file__ values</span>
+            <span class="k">pass</span>
+
+<span class="c1"># --- 1) Import from _PoissonGradEstim ---</span>
+<span class="n">pge_path</span> <span class="o">=</span> <span class="n">pjoin</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">],</span> <span class="s1">&#39;Dropbox/git&#39;</span><span class="p">,</span> <span class="n">project_name</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pge_path</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">analysis.grad_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">analysis.dist_analysis</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">analysis.plotting_functions</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span> <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">pge_path</span><span class="p">]</span>
+
+<span class="c1"># Important: purge anything imported from that repo (including a &quot;base&quot; package, if present)</span>
+<span class="n">purge_modules_from_path</span><span class="p">(</span><span class="n">pge_path</span><span class="p">)</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">invalidate_caches</span><span class="p">()</span>
+
+<span class="c1"># --- 2) Import from PoissonVAE ---</span>
+<span class="n">pvae_path</span> <span class="o">=</span> <span class="n">pjoin</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;HOME&quot;</span><span class="p">],</span> <span class="s2">&quot;Dropbox/git&quot;</span><span class="p">,</span> <span class="s2">&quot;PoissonVAE&quot;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pvae_path</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">base.utils_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="make-fig-dir">
+<h2>Make fig dir<a class="headerlink" href="#make-fig-dir" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_dir</span> <span class="o">=</span> <span class="n">fig_base_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s1">_figs-(</span><span class="si">{</span><span class="n">now</span><span class="p">()</span><span class="si">}</span><span class="s1">)&#39;</span>
+<span class="n">fig_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">fig_dir</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;grad_analysis_lam-10.pdf&#39;,
+ &#39;dist_consistency_wasser.pdf&#39;,
+ &#39;grad_analysis.pdf&#39;,
+ &#39;dist_wasser_lam-[2,20,100].pdf&#39;,
+ &#39;dist_consistency_bias.pdf&#39;,
+ &#39;dist_moments_lam-[2,20,100].pdf&#39;,
+ &#39;dist_consistency_ratio.pdf&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-model">
+<h2>Load model<a class="headerlink" href="#load-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;poisson_uniform_c(-4)_vH16_z-512_k-32_fp_nrm-none_&lt;conv|lin&gt;&#39;</span>
+<span class="n">fit</span> <span class="o">=</span> <span class="s1">&#39;indic-sigmoid_mc_b1000-ep3000-lr(0.001)_beta(1:0x0.5)_temp(0.05:lin-0.5)_gr(500)_(2026_01_06,16:24)&#39;</span>
+
+<span class="n">tr</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">fit</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">{</span>
+    <span style="color: #008000; text-decoration-color: #008000">'timestamp'</span>: <span style="color: #008000; text-decoration-color: #008000">'2026_01_06,16:24'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'checkpoint'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3000</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'global_step'</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">309000</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'root'</span>: 
+<span style="color: #008000; text-decoration-color: #008000">'/home/hadi/Projects/PoissonVAE/models/poisson_uniform_c(-4)_vH16_z-512_k-32_fp_nrm-none_&lt;conv|lin&gt;/indic-sigmoid_m</span>
+<span style="color: #008000; text-decoration-color: #008000">c_b1000-ep3000-lr(0.001)_beta(1:0x0.5)_temp(0.05:lin-0.5)_gr(500)_(2026_01_06,16:24)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'file'</span>: <span style="color: #008000; text-decoration-color: #008000">'PoissonVAE+TrainerVAE-3000_(2026_01_06,21:47).pt'</span>
+<span style="font-weight: bold">}</span>
+</pre>
+</div></div>
+</div>
+</section>
+<section id="gradient-analysis">
+<h2>Gradient analysis<a class="headerlink" href="#gradient-analysis" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">phi</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">fc_dec</span><span class="o">.</span><span class="n">get_weight</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+<span class="n">phi</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([256, 512])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">90</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">dl_vld</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">var</span> <span class="o">=</span> <span class="n">tonp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">var</span><span class="p">)]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="n">batch_size</span><span class="p">:]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([90, 256])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">imshow</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="o">-</span><span class="mi">50</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys_r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2d13b7636b0a59d6ea1e3fbfc1e8be475422afb564bbe3fb86bfe8ac2c2deaf0.png" src="../../_images/2d13b7636b0a59d6ea1e3fbfc1e8be475422afb564bbe3fb86bfe8ac2c2deaf0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">run_gradient_analysis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">phi</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Starting Sweep <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">n_samples</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span>, <span style="color: #808000; text-decoration-color: #808000">batch_size</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">90</span><span style="font-weight: bold">)</span>
+
+firing rates:
+<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">8</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">20</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">30</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">70</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span><span style="font-weight: bold">]</span>
+
+temperatures:
+<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.02</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.05</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.15</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.25</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.45</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5</span><span style="font-weight: bold">]</span>
+
+</pre>
+</div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "265d7a0df7414a35b1e01d827c28f103", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EAT_sigmoid&#39;</span><span class="p">,</span> <span class="s1">&#39;EAT_cubic&#39;</span><span class="p">,</span> <span class="s1">&#39;GS&#39;</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cos&#39;</span><span class="p">,</span> <span class="s1">&#39;CosSample&#39;</span><span class="p">,</span> <span class="s1">&#39;BiasEnergy&#39;</span><span class="p">,</span> <span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">]</span>
+<span class="n">ylim</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Cos&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span>
+    <span class="s1">&#39;CosSample&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">),</span>
+    <span class="s1">&#39;BiasEnergy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">),</span>
+    <span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">300.3</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">yscale</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Cos&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CosSample&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;BiasEnergy&#39;</span><span class="p">:</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">:</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plot_metrics_vs_temp</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="n">yscale</span><span class="p">,</span>
+    <span class="n">add_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">metrics_as_rows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s1">&#39;grad_analysis.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/20a043b0a7d92cc03207d8de83d6dc1cea9ba56d362ef66428d75550cdafd2c7.png" src="../../_images/20a043b0a7d92cc03207d8de83d6dc1cea9ba56d362ef66428d75550cdafd2c7.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EAT_sigmoid&#39;</span><span class="p">,</span> <span class="s1">&#39;EAT_cubic&#39;</span><span class="p">,</span> <span class="s1">&#39;GS&#39;</span><span class="p">]</span>
+
+<span class="c1"># cos</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_metric_vs_temp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;Cos&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_metric_vs_temp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;CosSample&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">))</span>
+
+<span class="c1"># energy</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_metric_vs_temp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;BiasEnergy&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">))</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_metric_vs_temp</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">metric</span><span class="o">=</span><span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">10.3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/61dd2b9f62f7851e357b471fedb5f8765a4f8dda91db0a6b56998db98e6e2f06.png" src="../../_images/61dd2b9f62f7851e357b471fedb5f8765a4f8dda91db0a6b56998db98e6e2f06.png" />
+<img alt="../../_images/da161a1016f1844c9428f193899c4744156025212c7044a2b2b64966cd3eef60.png" src="../../_images/da161a1016f1844c9428f193899c4744156025212c7044a2b2b64966cd3eef60.png" />
+<img alt="../../_images/de863ea8d0dfdfd6b88d5b421953ad80e0ac83480f2c59903d3ec127771bad32.png" src="../../_images/de863ea8d0dfdfd6b88d5b421953ad80e0ac83480f2c59903d3ec127771bad32.png" />
+<img alt="../../_images/14f6a1fd372f2df416680b36f74339e57b92d787a1251e0cab0cedc6a070c92c.png" src="../../_images/14f6a1fd372f2df416680b36f74339e57b92d787a1251e0cab0cedc6a070c92c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#fig = plot_mean_results(df, lam=0.1)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_mean_results</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/117bc97eca503ef47ff476b932d20df509e9bdf0704d8d7c32e8a62e334847fc.png" src="../../_images/117bc97eca503ef47ff476b932d20df509e9bdf0704d8d7c32e8a62e334847fc.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lam</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">rates_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="n">lam</span><span class="p">]</span>
+<span class="c1"># temps_to_plot = [0.05, 0.2, 0.5]</span>
+
+<span class="n">df_selected</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">rates_to_plot</span><span class="p">)</span> <span class="c1"># &amp;</span>
+    <span class="c1"># (df[&#39;Temp&#39;] &gt;= 0.05)</span>
+<span class="p">]</span>
+
+<span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;EAT_sigmoid&#39;</span><span class="p">,</span> <span class="s1">&#39;EAT_cubic&#39;</span><span class="p">,</span> <span class="s1">&#39;GS&#39;</span><span class="p">]</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cos&#39;</span><span class="p">,</span> <span class="s1">&#39;CosSample&#39;</span><span class="p">,</span> <span class="s1">&#39;BiasEnergy&#39;</span><span class="p">,</span> <span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">]</span>
+<span class="n">ylim</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Cos&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">1.01</span><span class="p">),</span>
+    <span class="s1">&#39;CosSample&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">),</span>
+    <span class="s1">&#39;BiasEnergy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">6e-3</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>
+    <span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">6e-3</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="n">yscale</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Cos&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CosSample&#39;</span><span class="p">:</span> <span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;BiasEnergy&#39;</span><span class="p">:</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NoiseEnergy&#39;</span><span class="p">:</span> <span class="s1">&#39;log&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plot_metrics_vs_temp</span><span class="p">(</span>
+    <span class="n">df_selected</span><span class="p">,</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
+    <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="n">ylim</span><span class="p">,</span>
+    <span class="n">yscale</span><span class="o">=</span><span class="n">yscale</span><span class="p">,</span>
+    <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="n">metrics_as_rows</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">add_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;grad_analysis_lam-</span><span class="si">{</span><span class="n">lam</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ce480378b9ef957beaa64ae3a64f0408efd91d77ac7b8b00d9253b39ae5bc098.png" src="../../_images/ce480378b9ef957beaa64ae3a64f0408efd91d77ac7b8b00d9253b39ae5bc098.png" />
+</div>
+</div>
+</section>
+<section id="consistency-analysis">
+<h2>Consistency analysis<a class="headerlink" href="#consistency-analysis" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dtype</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">float32</span>
+
+<span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">n_samples</span><span class="o">=</span><span class="mi">50_000</span><span class="p">,</span>
+    <span class="n">n_trials</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+    <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="mean-and-var-bias-ratios">
+<h3>Mean and Var (bias/ratios)<a class="headerlink" href="#mean-and-var-bias-ratios" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">run_moment_consistency_test</span><span class="p">(</span><span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Running Moment Consistency Test <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">n_samples</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">50000</span>, <span style="color: #808000; text-decoration-color: #808000">n_trials</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span><span style="font-weight: bold">)</span>
+
+firing rates:
+<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">8</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">20</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">30</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">70</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span><span style="font-weight: bold">]</span>
+
+temperatures:
+<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.02</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.05</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.15</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.25</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.45</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5</span><span style="font-weight: bold">]</span>
+
+</pre>
+</div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "47aefa80d2574e20a3423a11a1ae7196", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s1">&#39;dist_consistency_bias.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;ratio&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s1">&#39;dist_consistency_ratio.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0adebd6a9fd18c4bd35f5143e6c2e3c7e9851b16d6005b131bfa75586d612e40.png" src="../../_images/0adebd6a9fd18c4bd35f5143e6c2e3c7e9851b16d6005b131bfa75586d612e40.png" />
+<img alt="../../_images/cd3de11d9f957a48e2abb608757f6ad5bf0789d8c9fbb6872269129fc7ba423f.png" src="../../_images/cd3de11d9f957a48e2abb608757f6ad5bf0789d8c9fbb6872269129fc7ba423f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;ratio&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/0ebee698ab91e775672ccd1a6945593734f85b933bd0fe36990c00a5a95b0eb4.png" src="../../_images/0ebee698ab91e775672ccd1a6945593734f85b933bd0fe36990c00a5a95b0eb4.png" />
+<img alt="../../_images/28b951304de974e6900a7edfd0e058c22ce5ecbe30da29c3116e02eee45fc39c.png" src="../../_images/28b951304de974e6900a7edfd0e058c22ce5ecbe30da29c3116e02eee45fc39c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span>
+    <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">rates_to_plot</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;ratio&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)],</span>
+    <span class="n">add_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f85c235ebe1ab573b775738c39d51e25262531e32aa8a3d1b1f58e917aee4a99.png" src="../../_images/f85c235ebe1ab573b775738c39d51e25262531e32aa8a3d1b1f58e917aee4a99.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span>
+    <span class="n">df2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">rates_to_plot</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;ratio&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># [(0, 0), (0, 1), (0, 2)],</span>
+    <span class="n">add_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">lam_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rates_to_plot</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;dist_moments_lam-</span><span class="si">{</span><span class="n">lam_str</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/5f8b368313fb2c7cc248f894d1b37f5271930dd3d3a35db26806cdde7beaf394.png" src="../../_images/5f8b368313fb2c7cc248f894d1b37f5271930dd3d3a35db26806cdde7beaf394.png" />
+</div>
+</div>
+</section>
+<section id="wasserstein-distance">
+<h3>Wasserstein distance<a class="headerlink" href="#wasserstein-distance" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df3</span> <span class="o">=</span> <span class="n">run_wasserstein_analysis</span><span class="p">(</span><span class="n">normalization</span><span class="o">=</span><span class="s1">&#39;std&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Running Wasserstein Analysis <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">n_samples</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">50000</span>, <span style="color: #808000; text-decoration-color: #808000">n_trials</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span>, <span style="color: #808000; text-decoration-color: #808000">norm</span>=<span style="color: #800080; text-decoration-color: #800080">std</span><span style="font-weight: bold">)</span>
+
+firing rates:
+<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">8</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">15</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">20</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">30</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">70</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">100</span><span style="font-weight: bold">]</span>
+
+temperatures:
+<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.02</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.05</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.15</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.25</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.35</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.45</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.5</span><span style="font-weight: bold">]</span>
+
+</pre>
+</div><script type="application/vnd.jupyter.widget-view+json">{"model_id": "7dd7af4bfc3f4e76bbc183d09750160e", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script><script type="application/vnd.jupyter.widget-view+json">{"model_id": "", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;wasser&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="s1">&#39;dist_consistency_wasser.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a9152a1c381f0c4015e12c0dd15b3232879e30d9e12d2eef81aedf48f044631c.png" src="../../_images/a9152a1c381f0c4015e12c0dd15b3232879e30d9e12d2eef81aedf48f044631c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span><span class="n">df3</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;wasser&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/db2943c0a02bfba7a834ba125487661cbf94627df6f6c205a2141f5a5a94918c.png" src="../../_images/db2943c0a02bfba7a834ba125487661cbf94627df6f6c205a2141f5a5a94918c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rates_to_plot</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+<span class="n">ylims</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.005</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plot_dist_consistency</span><span class="p">(</span>
+    <span class="n">df3</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">rates_to_plot</span><span class="p">)],</span>
+    <span class="n">add_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;wasser&#39;</span><span class="p">,</span>
+    <span class="n">legend</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="n">sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+<span class="c1"># 1. Set ylim lower bound from list</span>
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="n">ymin_val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">ylims</span><span class="p">):</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin_val</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
+
+<span class="c1"># 2. Recover x-axis tick labels (lost when row 1 was removed due to sharex)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelbottom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Temp&#39;</span><span class="p">)</span>
+
+<span class="n">lam_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rates_to_plot</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">fig_dir</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;dist_wasser_lam-</span><span class="si">{</span><span class="n">lam_str</span><span class="si">}</span><span class="s1">.pdf&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e73cfa16c33f24f48db1c647a19a6764dc8d69b5cc769b2778c792e21ee7671e.png" src="../../_images/e73cfa16c33f24f48db1c647a19a6764dc8d69b5cc769b2778c792e21ee7671e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/672fba24cc30038db2a3add1e5ba582e3a1264d566b31685d2a27024a73e700c.png" src="../../_images/672fba24cc30038db2a3add1e5ba582e3a1264d566b31685d2a27024a73e700c.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="surrogate-bad">
+<h2>Surrogate = bad<a class="headerlink" href="#surrogate-bad" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_fixed_point_analysis</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">50000</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sweeps firing rates to find where the gradient actually crosses zero.</span>
+<span class="sd">    Target Rate = 10.0.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target_k</span> <span class="o">=</span> <span class="mf">10.0</span>
+    <span class="c1"># Sweep rates around the target</span>
+    <span class="n">rates</span> <span class="o">=</span> <span class="p">[</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">9.5</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">10.5</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">]</span>
+    
+    <span class="c1"># We choose a high temp to exaggerate the &quot;Ghost&quot; effect for the Jab</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">1.0</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running Fixed Point Analysis (Target=</span><span class="si">{</span><span class="n">target_k</span><span class="si">}</span><span class="s2">, Temp=</span><span class="si">{</span><span class="n">tau</span><span class="si">}</span><span class="s2">)...&quot;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rates</span><span class="p">:</span>
+        <span class="n">lambda_val</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span> <span class="o">*</span> <span class="n">r</span>
+        <span class="n">log_rate</span> <span class="o">=</span> <span class="n">lambda_val</span><span class="o">.</span><span class="n">log</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># --- 1. EAT Cubic (Relaxed Fwd / Relaxed Bwd) ---</span>
+        <span class="c1"># &quot;Our Method&quot;</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="n">Poisson</span><span class="p">(</span><span class="n">log_rate</span><span class="o">=</span><span class="n">log_rate</span><span class="p">,</span> <span class="n">temp</span><span class="o">=</span><span class="n">tau</span><span class="p">,</span> <span class="n">indicator_approx</span><span class="o">=</span><span class="s1">&#39;cubic&#39;</span><span class="p">)</span>
+        <span class="n">z_soft</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">rsample</span><span class="p">()</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">target_k</span> <span class="o">-</span> <span class="n">z_soft</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># Soft Loss</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">log_rate</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Rate&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span>
+            <span class="s1">&#39;Gradient&#39;</span><span class="p">:</span> <span class="n">grad</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+            <span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="s1">&#39;EAT (Cubic)&#39;</span>
+        <span class="p">})</span>
+
+        <span class="c1"># --- 2. SNN Surrogate (Hard Fwd / Sigmoid Bwd) ---</span>
+        <span class="c1"># &quot;Their Method&quot; - Coupled noise</span>
+        <span class="c1"># Forward: True Poisson (Hard). Backward: Sigmoid (Soft).</span>
+        <span class="n">log_rate</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># Reset</span>
+        
+        <span class="c1"># We manually construct the coupled surrogate</span>
+        <span class="c1"># 1. Sample exponential times (shared source of randomness)</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_rate</span><span class="p">)</span>
+        <span class="n">n_exp</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">n_exp</span> <span class="c1"># Reuse from previous or recompute</span>
+        <span class="n">exp_dist</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">distributions</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">exp_dist</span><span class="o">.</span><span class="n">rsample</span><span class="p">((</span><span class="n">n_exp</span><span class="p">,)),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1"># 2. Hard Forward (True Counts)</span>
+        <span class="n">z_hard</span> <span class="o">=</span> <span class="p">(</span><span class="n">times</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        
+        <span class="c1"># 3. Soft Backward (Sigmoid Ghosts)</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">times</span><span class="p">)</span> <span class="o">/</span> <span class="n">tau</span>
+        <span class="n">z_soft_sigmoid</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        
+        <span class="c1"># 4. Surrogate Pass: z_surr = z_hard + (z_soft - z_soft.detach())</span>
+        <span class="n">z_surr</span> <span class="o">=</span> <span class="n">z_hard</span> <span class="o">+</span> <span class="p">(</span><span class="n">z_soft_sigmoid</span> <span class="o">-</span> <span class="n">z_soft_sigmoid</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+        
+        <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">target_k</span> <span class="o">-</span> <span class="n">z_surr</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="c1"># Hard Loss (what they care about)</span>
+        <span class="n">grad</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">log_rate</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s1">&#39;Rate&#39;</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span>
+            <span class="s1">&#39;Gradient&#39;</span><span class="p">:</span> <span class="n">grad</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+            <span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="s1">&#39;SNN Surrogate (Sigmoid)&#39;</span>
+        <span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_fixed_point</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    
+    <span class="n">sns</span><span class="o">.</span><span class="n">lineplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;Rate&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Gradient&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Add visual guides</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True Target (10)&#39;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimization Fixed Point Analysis (Temp=1.0)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Gradient (Positive = Decrease Rate)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Current Firing Rate&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">fig</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df4</span> <span class="o">=</span> <span class="n">run_fixed_point_analysis</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100_000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Running Fixed Point Analysis <span style="font-weight: bold">(</span><span style="color: #808000; text-decoration-color: #808000">Target</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10.0</span>, <span style="color: #808000; text-decoration-color: #808000">Temp</span>=<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1.0</span><span style="font-weight: bold">)</span><span style="color: #808000; text-decoration-color: #808000">...</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fgi</span> <span class="o">=</span> <span class="n">plot_fixed_point</span><span class="p">(</span><span class="n">df4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2772607756e104a0b4aff68f63ef2a4433ac74e9d34cdc4d93f83ce2657ae3eb.png" src="../../_images/2772607756e104a0b4aff68f63ef2a4433ac74e9d34cdc4d93f83ce2657ae3eb.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-01"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="14_gra-tables-language.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">(14) GRA — tables (language)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="23_grad-fixed-point.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(23) Grad Fixed Point Analysis</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-fig-dir">Make fig dir</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-model">Load model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-analysis">Gradient analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consistency-analysis">Consistency analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-and-var-bias-ratios">Mean and Var (bias/ratios)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wasserstein-distance">Wasserstein distance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#surrogate-bad">Surrogate = bad</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
