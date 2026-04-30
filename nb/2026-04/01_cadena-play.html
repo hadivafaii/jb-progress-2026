@@ -1,0 +1,1286 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(01) Cadena Data (Michael’s Demo) &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-04/01_cadena-play';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="(01) Cadena: fit P-VAE (final)" href="01_cadena-pvae-final.html" />
+    <link rel="prev" title="Updates" href="../../md/2026-04_updates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/22_grad-bias-var.html">(22) Analysis: Grad Bias Var + Dist Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/23_grad-fixed-point.html">(23) Grad Fixed Point Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/24_gra-adam-vs-grlion.html">(24) GRA — AdamW vs. GR-Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_fig-eat-moments-theory.html">(26) EAT method – bias of moments plot (theory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_grad-bias-var%2Bscore.html">(26) Grad Bias Var Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/30_fig-gamma-vs-exp.html">(30) Gamma vs Exp: inter-event intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/31_grad-bias-var-quintic.html">(31) Grad Bias Var + Dist Consistency (+quintic added)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">February 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-02.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-02_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/03_various-dists-pdf-plots.html">(03) various VAEs: dist PDF plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/09_ipvae-ood.html">(09) iP-VAE OOD tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/10_metabolic-cost-figs.html">(10) metabolic cost pvae (CCN 2026) figs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/24_nb-ig-pois.html">(24) neg. binomial / poisson / gamma / inv. gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/tmp-feb26.html">tmp — feb26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">April 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-04.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-04_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(01) Cadena Data (Michael’s Demo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_cadena-pvae-final.html">(01) Cadena: fit P-VAE (final)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_cadena-pvae-play.html">(01) Cadena: fit P-VAE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_imgnet40-process.html">(01) ImageNet40: crop, process, save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_curvature-analysis.html">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-apr26.html">tmp — apr26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-04/01_cadena-play.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-04/01_cadena-play.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(01) Cadena Data (Michael’s Demo)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-conv-deep">my conv (deep)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-conv-linear">my conv (linear)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-jake-s-model">fit Jake’s model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval">eval</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cadena-data-michael-s-demo">
+<h1>(01) Cadena Data (Michael’s Demo)<a class="headerlink" href="#cadena-data-michael-s-demo" title="Link to this heading">#</a></h1>
+<p>Standalone ConvNet training on Cadena V1 data with held-out FEV reporting.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.utils.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;CUDA_VISIBLE_DEVICES&#39;</span><span class="p">,</span> <span class="s1">&#39;2,3&#39;</span><span class="p">)</span>
+
+<span class="n">module_file_path</span> <span class="o">=</span> <span class="s1">&#39;/home/hadi/Dropbox/git/_CadenaV1/modules.py&#39;</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="s1">&#39;modules_file&#39;</span><span class="p">,</span> <span class="n">module_file_path</span><span class="p">)</span>
+<span class="n">modules_file</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;modules_file&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">modules_file</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">modules_file</span><span class="p">)</span>
+
+<span class="n">DEFAULT_DATA_PATH</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">DEFAULT_DATA_PATH</span>
+<span class="n">build_dataloaders</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">build_dataloaders</span>
+<span class="n">fit_sgd</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">fit_sgd</span>
+<span class="n">get_dataset_specs</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">get_dataset_specs</span>
+<span class="n">get_train_val_datasets</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">get_train_val_datasets</span>
+<span class="n">pick_device</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">pick_device</span>
+<span class="n">run_eval</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">run_eval</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CUDA_VISIBLE_DEVICES =&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CUDA_VISIBLE_DEVICES&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Dataset path =&#39;</span><span class="p">,</span> <span class="n">DEFAULT_DATA_PATH</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CUDA available =&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">())</span>
+<span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Visible GPUs =&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">device_count</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;GPU[0] =&#39;</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">get_device_name</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">CUDA_VISIBLE_DEVICES = <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Dataset path = <span style="color: #800080; text-decoration-color: #800080">/home/hadi/Datasets/CadenaV1/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">cadena_ploscb_data.pkl</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">CUDA available = <span style="color: #00ff00; text-decoration-color: #00ff00; font-style: italic">True</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Visible GPUs = <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">GPU<span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0</span><span style="font-weight: bold">]</span> = NVIDIA RTX <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">6000</span> Ada Generation
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">spec</span> <span class="o">=</span> <span class="n">get_dataset_specs</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Neurons:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">num_neurons</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Total images:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">num_images_total</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;First split train images:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">train_images_first_split</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;First split val images:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">val_images_first_split</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Repetition distribution (trials/image by neuron):&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">unique_repetition_counts</span><span class="p">)</span>
+
+<span class="n">train_ds</span><span class="p">,</span> <span class="n">val_ds</span> <span class="o">=</span> <span class="n">get_train_val_datasets</span><span class="p">()</span>
+<span class="n">device</span> <span class="o">=</span> <span class="n">pick_device</span><span class="p">()</span>
+<span class="n">train_ds</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">val_ds</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">train_dl</span><span class="p">,</span> <span class="n">val_dl</span> <span class="o">=</span> <span class="n">build_dataloaders</span><span class="p">(</span><span class="n">train_ds</span><span class="p">,</span> <span class="n">val_ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1_000</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Device:&#39;</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train samples:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_ds</span><span class="p">),</span> <span class="s1">&#39;Val samples:&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">val_ds</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Neurons: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Total images: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">7250</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">First split train images: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">5800</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">First split val images: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1450</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Repetition distribution <span style="font-weight: bold">(</span>trials/image by neuron<span style="font-weight: bold">)</span>:
+<span style="font-weight: bold">{</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">51</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">115</span><span style="font-weight: bold">}</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Device: cu<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">da:1</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Train samples: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">18560</span> Val samples: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4640</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.main.load_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.common.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_num_params</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="my-conv-deep">
+<h2>my conv (deep)<a class="headerlink" href="#my-conv-deep" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">train_ds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">num_neurons</span> <span class="o">=</span> <span class="n">train_ds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;robs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dims = </span><span class="si">{</span><span class="n">dims</span><span class="si">}</span><span class="s2">,</span><span class="se">\t</span><span class="s2">num_neurons = </span><span class="si">{</span><span class="n">num_neurons</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">dims = <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span><span style="font-weight: bold">]</span>,     num_neurons = <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">latent_channels</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">latent_pixels</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">ConvNetHadi</span><span class="p">(</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+    <span class="n">latent_channels</span><span class="o">=</span><span class="n">latent_channels</span><span class="p">,</span>
+    <span class="n">latent_pixels</span><span class="o">=</span><span class="n">latent_pixels</span><span class="p">,</span>
+    <span class="n">num_neurons</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span>
+    <span class="n">base_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">use_se</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">deep</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_num_params</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">+-------------+------------+
+| Module Name | Num Params |
++-------------+------------+
+| ConvNetHadi |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">441.8</span> K   |
+|     ———     |    ———     |
+|     net     |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">323.4</span> K   |
+|   readout   |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">118.4</span> K   |
++-------------+------------+ 
+
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lr</span> <span class="o">=</span> <span class="mf">1e-3</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+    <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+
+<span class="n">best_state</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">vlosses</span> <span class="o">=</span> <span class="n">fit_sgd</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dl</span><span class="p">,</span>
+    <span class="n">val_dl</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">laplace_coeff</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">min_lr</span><span class="o">=</span><span class="n">lr</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/hadi/Dropbox/git/_CadenaV1/modules.py:305: RuntimeWarning: Degrees of freedom &lt;= 0 for slice.
+  obs_var = torch.nanmean(torch.tensor(np.nanvar(resp_n.numpy(), axis=0, ddof=1)))
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0, lr: 0.000021, Validation Loss: 2.516765594482422
+New best model
+Epoch 10, lr: 0.000221, Validation Loss: 0.0008521754061803222
+Epoch 20, lr: 0.000421, Validation Loss: -0.03522922471165657
+Epoch 30, lr: 0.000620, Validation Loss: -0.2002895325422287
+Epoch 40, lr: 0.000820, Validation Loss: -0.3451235890388489
+New best model
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/hadi/anaconda3/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:209: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 50, lr: 0.001000, Validation Loss: -0.4194369614124298
+New best model
+Epoch 60, lr: 0.001000, Validation Loss: -0.44988980889320374
+Epoch 70, lr: 0.000999, Validation Loss: -0.4351850748062134
+Epoch 80, lr: 0.000998, Validation Loss: -0.4442605972290039
+Stopping early due to no improvement
+CPU times: user 7min 17s, sys: 820 ms, total: 7min 17s
+Wall time: 2min 45s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;All keys matched successfully&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fev</span><span class="p">,</span> <span class="n">var_explained</span><span class="p">,</span> <span class="n">explainable_var</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">total_variance</span> <span class="o">=</span> <span class="n">run_eval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">)</span>
+<span class="n">fev_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">fev</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">fev_all</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">fev</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of neurons:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">num_neurons</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trials per image (repeat-count distribution):&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">unique_repetition_counts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Held-out FEV mean:&#39;</span><span class="p">,</span> <span class="n">fev_mean</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Per-neuron FEV (mean=</span><span class="si">{</span><span class="n">fev_mean</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">,  median=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Neuron&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FEV&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Number of neurons: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Trials per image <span style="font-weight: bold">(</span>repeat-count distribution<span style="font-weight: bold">)</span>:
+<span style="font-weight: bold">{</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">51</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">115</span><span style="font-weight: bold">}</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.46396347880363464</span>
+</pre>
+</div><img alt="../../_images/893d6b457d2a132da4a17617296d91711349495be1c9fcab0a5bd4e890399e56.png" src="../../_images/893d6b457d2a132da4a17617296d91711349495be1c9fcab0a5bd4e890399e56.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">histplot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ce73d4e99b47272ccf41ab35c1efb82b1ed301405f991ebde0b0768f821da744.png" src="../../_images/ce73d4e99b47272ccf41ab35c1efb82b1ed301405f991ebde0b0768f821da744.png" />
+</div>
+</div>
+</section>
+<section id="my-conv-linear">
+<h2>my conv (linear)<a class="headerlink" href="#my-conv-linear" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">train_ds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">num_neurons</span> <span class="o">=</span> <span class="n">train_ds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;robs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;dims = </span><span class="si">{</span><span class="n">dims</span><span class="si">}</span><span class="s2">,</span><span class="se">\t</span><span class="s2">num_neurons = </span><span class="si">{</span><span class="n">num_neurons</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">dims = <span style="font-weight: bold">[</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">40</span><span style="font-weight: bold">]</span>,     num_neurons = <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">latent_channels</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">latent_pixels</span> <span class="o">=</span> <span class="mi">11</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">ConvNetHadi</span><span class="p">(</span>
+    <span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span>
+    <span class="n">latent_channels</span><span class="o">=</span><span class="n">latent_channels</span><span class="p">,</span>
+    <span class="n">latent_pixels</span><span class="o">=</span><span class="n">latent_pixels</span><span class="p">,</span>
+    <span class="n">num_neurons</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span>
+    <span class="n">base_channels</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">use_se</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">print_num_params</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">+-------------+------------+
+| Module Name | Num Params |
++-------------+------------+
+| ConvNetHadi |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">151.2</span> K   |
+|     ———     |    ———     |
+|     net     |   <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">25.9</span> K   |
+|   readout   |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">125.3</span> K   |
++-------------+------------+ 
+
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #800080; text-decoration-color: #800080; font-weight: bold">Conv2d</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">256</span>, <span style="color: #808000; text-decoration-color: #808000">kernel_size</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span><span style="font-weight: bold">)</span>, <span style="color: #808000; text-decoration-color: #808000">stride</span>=<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">))</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lr</span> <span class="o">=</span> <span class="mf">1e-3</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+    <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+
+<span class="n">best_state</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">vlosses</span> <span class="o">=</span> <span class="n">fit_sgd</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dl</span><span class="p">,</span>
+    <span class="n">val_dl</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">laplace_coeff</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">min_lr</span><span class="o">=</span><span class="n">lr</span> <span class="o">/</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/hadi/Dropbox/git/_CadenaV1/modules.py:305: RuntimeWarning: Degrees of freedom &lt;= 0 for slice.
+  obs_var = torch.nanmean(torch.tensor(np.nanvar(resp_n.numpy(), axis=0, ddof=1)))
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0, lr: 0.000021, Validation Loss: 2.535613536834717
+New best model
+Epoch 10, lr: 0.000221, Validation Loss: 0.172164648771286
+New best model
+Epoch 20, lr: 0.000421, Validation Loss: -0.08768348395824432
+New best model
+Epoch 30, lr: 0.000620, Validation Loss: -0.12579092383384705
+New best model
+Epoch 40, lr: 0.000820, Validation Loss: -0.12193469703197479
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/hadi/anaconda3/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:209: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 50, lr: 0.001000, Validation Loss: -0.10453908145427704
+Stopping early due to no improvement
+CPU times: user 3min 20s, sys: 315 ms, total: 3min 20s
+Wall time: 32.8 s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;All keys matched successfully&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fev</span><span class="p">,</span> <span class="n">var_explained</span><span class="p">,</span> <span class="n">explainable_var</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">total_variance</span> <span class="o">=</span> <span class="n">run_eval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">)</span>
+<span class="n">fev_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">fev</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">fev_all</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">fev</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of neurons:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">num_neurons</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trials per image (repeat-count distribution):&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">unique_repetition_counts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Held-out FEV mean:&#39;</span><span class="p">,</span> <span class="n">fev_mean</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Per-neuron FEV (mean=</span><span class="si">{</span><span class="n">fev_mean</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">,  median=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Neuron&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FEV&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Number of neurons: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Trials per image <span style="font-weight: bold">(</span>repeat-count distribution<span style="font-weight: bold">)</span>:
+<span style="font-weight: bold">{</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">51</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">115</span><span style="font-weight: bold">}</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.12765207886695862</span>
+</pre>
+</div><img alt="../../_images/32f2f6b19178f3f2468ee14de3d83136679a5255d4b7719ab881537464d46468.png" src="../../_images/32f2f6b19178f3f2468ee14de3d83136679a5255d4b7719ab881537464d46468.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">histplot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/9ad8a8b6bdb80983574526157ad1168f12dcf9a47520d10d1599edcdfcaf0cc3.png" src="../../_images/9ad8a8b6bdb80983574526157ad1168f12dcf9a47520d10d1599edcdfcaf0cc3.png" />
+</div>
+</div>
+</section>
+<section id="fit-jake-s-model">
+<h2>fit Jake’s model<a class="headerlink" href="#fit-jake-s-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">train_ds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">num_neurons</span> <span class="o">=</span> <span class="n">train_ds</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;robs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">modules_file</span><span class="o">.</span><span class="n">ConvNet</span><span class="p">(</span><span class="n">dims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">output_channels</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+    <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.common.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_num_params</span>
+
+<span class="n">print_num_params</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">+-------------+------------+
+| Module Name | Num Params |
++-------------+------------+
+|   ConvNet   |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">246.0</span> K   |
+|     ———     |    ———     |
+|     net     |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">127.7</span> K   |
+|   readout   |  <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">118.4</span> K   |
++-------------+------------+ 
+
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+
+<span class="n">best_state</span><span class="p">,</span> <span class="n">losses</span><span class="p">,</span> <span class="n">vlosses</span> <span class="o">=</span> <span class="n">fit_sgd</span><span class="p">(</span>
+    <span class="n">model</span><span class="p">,</span>
+    <span class="n">train_dl</span><span class="p">,</span>
+    <span class="n">val_dl</span><span class="p">,</span>
+    <span class="n">optimizer</span><span class="p">,</span>
+    <span class="n">max_epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+    <span class="n">laplace_coeff</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_state</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/hadi/Dropbox/git/_CadenaV1/modules.py:295: RuntimeWarning: Degrees of freedom &lt;= 0 for slice.
+  obs_var = torch.nanmean(torch.tensor(np.nanvar(resp_n.numpy(), axis=0, ddof=1)))
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0, LR: 0.000168, Validation Loss: 1979.427490234375
+New best model
+Epoch 1, LR: 0.000334, Validation Loss: 575.0392456054688
+New best model
+Epoch 2, LR: 0.000501, Validation Loss: 63.87322998046875
+New best model
+Epoch 3, LR: 0.000667, Validation Loss: 3.693742036819458
+New best model
+Epoch 4, LR: 0.000834, Validation Loss: 0.6995421648025513
+New best model
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/hadi/anaconda3/lib/python3.11/site-packages/torch/optim/lr_scheduler.py:209: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 5, LR: 0.001000, Validation Loss: 0.19936513900756836
+New best model
+Epoch 6, LR: 0.001000, Validation Loss: 0.015290189534425735
+New best model
+Epoch 7, LR: 0.000999, Validation Loss: -0.05756127089262009
+New best model
+Epoch 8, LR: 0.000998, Validation Loss: -0.10106614977121353
+New best model
+Epoch 9, LR: 0.000997, Validation Loss: -0.1257004588842392
+New best model
+Epoch 10, LR: 0.000995, Validation Loss: -0.15615405142307281
+New best model
+Epoch 11, LR: 0.000993, Validation Loss: -0.15673241019248962
+New best model
+Epoch 12, LR: 0.000991, Validation Loss: -0.20177286863327026
+New best model
+Epoch 13, LR: 0.000988, Validation Loss: -0.2165473848581314
+New best model
+Epoch 14, LR: 0.000985, Validation Loss: -0.21852178871631622
+New best model
+Epoch 15, LR: 0.000981, Validation Loss: -0.24608729779720306
+New best model
+Epoch 16, LR: 0.000977, Validation Loss: -0.2623971104621887
+New best model
+Epoch 17, LR: 0.000973, Validation Loss: -0.27697187662124634
+New best model
+Epoch 18, LR: 0.000969, Validation Loss: -0.28299444913864136
+New best model
+Epoch 19, LR: 0.000964, Validation Loss: -0.29529622197151184
+New best model
+Epoch 20, LR: 0.000958, Validation Loss: -0.3061249852180481
+New best model
+Epoch 21, LR: 0.000953, Validation Loss: -0.30715036392211914
+New best model
+Epoch 22, LR: 0.000947, Validation Loss: -0.3229755163192749
+New best model
+Epoch 23, LR: 0.000940, Validation Loss: -0.3234703242778778
+New best model
+Epoch 24, LR: 0.000934, Validation Loss: -0.3305278420448303
+New best model
+Epoch 25, LR: 0.000927, Validation Loss: -0.3329048752784729
+New best model
+Epoch 26, LR: 0.000919, Validation Loss: -0.3437587320804596
+New best model
+Epoch 27, LR: 0.000912, Validation Loss: -0.34682217240333557
+New best model
+Epoch 28, LR: 0.000904, Validation Loss: -0.35015010833740234
+New best model
+Epoch 29, LR: 0.000896, Validation Loss: -0.3679486811161041
+New best model
+Epoch 30, LR: 0.000887, Validation Loss: -0.3708798885345459
+New best model
+Epoch 31, LR: 0.000878, Validation Loss: -0.37364715337753296
+New best model
+Epoch 32, LR: 0.000869, Validation Loss: -0.377844899892807
+New best model
+Epoch 33, LR: 0.000860, Validation Loss: -0.37626197934150696
+Epoch 34, LR: 0.000850, Validation Loss: -0.3842422664165497
+New best model
+Epoch 35, LR: 0.000840, Validation Loss: -0.3903994858264923
+New best model
+Epoch 36, LR: 0.000830, Validation Loss: -0.3943852484226227
+New best model
+Epoch 37, LR: 0.000820, Validation Loss: -0.39492854475975037
+New best model
+Epoch 38, LR: 0.000809, Validation Loss: -0.40163540840148926
+New best model
+Epoch 39, LR: 0.000798, Validation Loss: -0.3972223103046417
+Epoch 40, LR: 0.000787, Validation Loss: -0.4021366536617279
+New best model
+Epoch 41, LR: 0.000776, Validation Loss: -0.410613089799881
+New best model
+Epoch 42, LR: 0.000764, Validation Loss: -0.4047175943851471
+Epoch 43, LR: 0.000753, Validation Loss: -0.41167619824409485
+New best model
+Epoch 44, LR: 0.000741, Validation Loss: -0.40782850980758667
+Epoch 45, LR: 0.000729, Validation Loss: -0.417129248380661
+New best model
+Epoch 46, LR: 0.000716, Validation Loss: -0.4133031368255615
+Epoch 47, LR: 0.000704, Validation Loss: -0.4192364811897278
+New best model
+Epoch 48, LR: 0.000691, Validation Loss: -0.416782021522522
+Epoch 49, LR: 0.000679, Validation Loss: -0.42265379428863525
+New best model
+Epoch 50, LR: 0.000666, Validation Loss: -0.4249534606933594
+New best model
+Epoch 51, LR: 0.000653, Validation Loss: -0.4191432297229767
+Epoch 52, LR: 0.000640, Validation Loss: -0.4285297989845276
+New best model
+Epoch 53, LR: 0.000627, Validation Loss: -0.4279091954231262
+Epoch 54, LR: 0.000613, Validation Loss: -0.42974090576171875
+New best model
+Epoch 55, LR: 0.000600, Validation Loss: -0.42992013692855835
+New best model
+Epoch 56, LR: 0.000586, Validation Loss: -0.4231323301792145
+Epoch 57, LR: 0.000573, Validation Loss: -0.424179345369339
+Epoch 58, LR: 0.000559, Validation Loss: -0.43407145142555237
+New best model
+Epoch 59, LR: 0.000546, Validation Loss: -0.4316490888595581
+Epoch 60, LR: 0.000532, Validation Loss: -0.4185311794281006
+Epoch 61, LR: 0.000519, Validation Loss: -0.43555358052253723
+New best model
+Epoch 62, LR: 0.000505, Validation Loss: -0.43538376688957214
+Epoch 63, LR: 0.000491, Validation Loss: -0.4365343749523163
+New best model
+Epoch 64, LR: 0.000478, Validation Loss: -0.42207852005958557
+Epoch 65, LR: 0.000464, Validation Loss: -0.4406052231788635
+New best model
+Epoch 66, LR: 0.000451, Validation Loss: -0.3936976194381714
+Epoch 67, LR: 0.000437, Validation Loss: -0.43486398458480835
+Epoch 68, LR: 0.000424, Validation Loss: -0.4287233054637909
+Epoch 69, LR: 0.000410, Validation Loss: -0.4358108639717102
+Epoch 70, LR: 0.000397, Validation Loss: -0.4431706666946411
+New best model
+Epoch 71, LR: 0.000383, Validation Loss: -0.3970404863357544
+Epoch 72, LR: 0.000370, Validation Loss: -0.42898330092430115
+Epoch 73, LR: 0.000357, Validation Loss: -0.4400918781757355
+Epoch 74, LR: 0.000344, Validation Loss: -0.4428657591342926
+Epoch 75, LR: 0.000331, Validation Loss: -0.4441245198249817
+New best model
+Epoch 76, LR: 0.000319, Validation Loss: -0.44464313983917236
+New best model
+Epoch 77, LR: 0.000306, Validation Loss: -0.4356848895549774
+Epoch 78, LR: 0.000294, Validation Loss: -0.4398619532585144
+Epoch 79, LR: 0.000281, Validation Loss: -0.44174569845199585
+Epoch 80, LR: 0.000269, Validation Loss: -0.4474753737449646
+New best model
+Epoch 81, LR: 0.000258, Validation Loss: -0.4404126703739166
+Epoch 82, LR: 0.000246, Validation Loss: -0.4432106614112854
+Epoch 83, LR: 0.000234, Validation Loss: -0.44019851088523865
+Epoch 84, LR: 0.000223, Validation Loss: -0.44410622119903564
+Epoch 85, LR: 0.000212, Validation Loss: -0.4473690390586853
+Epoch 86, LR: 0.000201, Validation Loss: -0.4470250606536865
+Epoch 87, LR: 0.000190, Validation Loss: -0.4372248351573944
+Epoch 88, LR: 0.000180, Validation Loss: -0.4465509355068207
+Epoch 89, LR: 0.000170, Validation Loss: -0.4465748965740204
+Epoch 90, LR: 0.000160, Validation Loss: -0.4500674605369568
+New best model
+Epoch 91, LR: 0.000150, Validation Loss: -0.44600561261177063
+Epoch 92, LR: 0.000141, Validation Loss: -0.44868654012680054
+Epoch 93, LR: 0.000132, Validation Loss: -0.4500522315502167
+Epoch 94, LR: 0.000123, Validation Loss: -0.4499441087245941
+Epoch 95, LR: 0.000114, Validation Loss: -0.44805532693862915
+Epoch 96, LR: 0.000106, Validation Loss: -0.44701945781707764
+Epoch 97, LR: 0.000098, Validation Loss: -0.4470151960849762
+Epoch 98, LR: 0.000091, Validation Loss: -0.4480215311050415
+Epoch 99, LR: 0.000083, Validation Loss: -0.44537046551704407
+Epoch 100, LR: 0.000076, Validation Loss: -0.4463728070259094
+Epoch 101, LR: 0.000070, Validation Loss: -0.45079854130744934
+New best model
+Epoch 102, LR: 0.000063, Validation Loss: -0.44932159781455994
+Epoch 103, LR: 0.000057, Validation Loss: -0.4469248354434967
+Epoch 104, LR: 0.000052, Validation Loss: -0.45127615332603455
+New best model
+Epoch 105, LR: 0.000046, Validation Loss: -0.45078492164611816
+Epoch 106, LR: 0.000041, Validation Loss: -0.4514051675796509
+New best model
+Epoch 107, LR: 0.000037, Validation Loss: -0.4504493474960327
+Epoch 108, LR: 0.000033, Validation Loss: -0.4494101405143738
+Epoch 109, LR: 0.000029, Validation Loss: -0.45118969678878784
+Epoch 110, LR: 0.000025, Validation Loss: -0.44799861311912537
+Epoch 111, LR: 0.000022, Validation Loss: -0.44974610209465027
+Epoch 112, LR: 0.000019, Validation Loss: -0.45029082894325256
+Epoch 113, LR: 0.000017, Validation Loss: -0.449974924325943
+Epoch 114, LR: 0.000015, Validation Loss: -0.44811105728149414
+Epoch 115, LR: 0.000013, Validation Loss: -0.4494428038597107
+Epoch 116, LR: 0.000012, Validation Loss: -0.4495518207550049
+Epoch 117, LR: 0.000011, Validation Loss: -0.45035111904144287
+Epoch 118, LR: 0.000010, Validation Loss: -0.44937142729759216
+Epoch 119, LR: 0.000010, Validation Loss: -0.45070919394493103
+CPU times: user 9min 4s, sys: 1.32 s, total: 9min 6s
+Wall time: 2min 39s
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;All keys matched successfully&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="eval">
+<h2>eval<a class="headerlink" href="#eval" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fev</span><span class="p">,</span> <span class="n">var_explained</span><span class="p">,</span> <span class="n">explainable_var</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">total_variance</span> <span class="o">=</span> <span class="n">run_eval</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">)</span>
+<span class="n">fev_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">fev</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">fev_all</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">fev</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Number of neurons:&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">num_neurons</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Trials per image (repeat-count distribution):&#39;</span><span class="p">,</span> <span class="n">spec</span><span class="o">.</span><span class="n">unique_repetition_counts</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Held-out FEV mean:&#39;</span><span class="p">,</span> <span class="n">fev_mean</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Per-neuron FEV (mean=</span><span class="si">{</span><span class="n">fev_mean</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Neuron&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FEV&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Number of neurons: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Trials per image <span style="font-weight: bold">(</span>repeat-count distribution<span style="font-weight: bold">)</span>:
+<span style="font-weight: bold">{</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">2</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">51</span>, <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">4</span>: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">115</span><span style="font-weight: bold">}</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.4514051675796509</span>
+</pre>
+</div><img alt="../../_images/83a44b7eccfba82884a7940db1e42312f7e24c06d5b8f9f9613b8c181b9f4809.png" src="../../_images/83a44b7eccfba82884a7940db1e42312f7e24c06d5b8f9f9613b8c181b9f4809.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">histplot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/af63115e3211f97e1625a1c98ed9e02925148656fadc6a7187b2915e3ab079a1.png" src="../../_images/af63115e3211f97e1625a1c98ed9e02925148656fadc6a7187b2915e3ab079a1.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../md/2026-04_updates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Updates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01_cadena-pvae-final.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(01) Cadena: fit P-VAE (final)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-conv-deep">my conv (deep)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-conv-linear">my conv (linear)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fit-jake-s-model">fit Jake’s model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eval">eval</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

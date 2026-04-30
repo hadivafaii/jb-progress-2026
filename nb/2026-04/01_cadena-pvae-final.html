@@ -1,0 +1,1574 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(01) Cadena: fit P-VAE (final) &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-04/01_cadena-pvae-final';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="(01) Cadena: fit P-VAE" href="01_cadena-pvae-play.html" />
+    <link rel="prev" title="(01) Cadena Data (Michael’s Demo)" href="01_cadena-play.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/22_grad-bias-var.html">(22) Analysis: Grad Bias Var + Dist Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/23_grad-fixed-point.html">(23) Grad Fixed Point Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/24_gra-adam-vs-grlion.html">(24) GRA — AdamW vs. GR-Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_fig-eat-moments-theory.html">(26) EAT method – bias of moments plot (theory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_grad-bias-var%2Bscore.html">(26) Grad Bias Var Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/30_fig-gamma-vs-exp.html">(30) Gamma vs Exp: inter-event intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/31_grad-bias-var-quintic.html">(31) Grad Bias Var + Dist Consistency (+quintic added)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">February 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-02.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-02_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/03_various-dists-pdf-plots.html">(03) various VAEs: dist PDF plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/09_ipvae-ood.html">(09) iP-VAE OOD tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/10_metabolic-cost-figs.html">(10) metabolic cost pvae (CCN 2026) figs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/24_nb-ig-pois.html">(24) neg. binomial / poisson / gamma / inv. gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/tmp-feb26.html">tmp — feb26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">April 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-04.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-04_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="01_cadena-play.html">(01) Cadena Data (Michael’s Demo)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(01) Cadena: fit P-VAE (final)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_cadena-pvae-play.html">(01) Cadena: fit P-VAE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_imgnet40-process.html">(01) ImageNet40: crop, process, save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_curvature-analysis.html">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-apr26.html">tmp — apr26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-04/01_cadena-pvae-final.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-04/01_cadena-pvae-final.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(01) Cadena: fit P-VAE (final)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-cadena-data">prepare cadena data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-fits-wandb">prepare fits / wandb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop">loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#small-data-regime">small_data_regime</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="cadena-fit-p-vae-final">
+<h1>(01) Cadena: fit P-VAE (final)<a class="headerlink" href="#cadena-fit-p-vae-final" title="Link to this heading">#</a></h1>
+<p>device = <code class="docutils literal notranslate"><span class="pre">cuda:0</span></code></p>
+<p><strong>Motivation</strong>: <br></p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># tmp &amp; extras dir</span>
+<span class="n">_jb_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">])</span>
+<span class="n">_jb_dir</span> <span class="o">/=</span> <span class="s1">&#39;Dropbox/git/jb-progress-2026&#39;</span>
+<span class="n">extras_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;_extras&#39;</span>
+<span class="n">fig_base_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;figs&#39;</span>
+<span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;tmp&#39;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.utils.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># warnings, tqdm, &amp; style</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.jupyter</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">set_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process_and_plot_results</span><span class="p">():</span>
+    <span class="n">eval_results</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">run_eval</span><span class="p">(</span><span class="n">readout_model</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">)</span>
+    <span class="n">fev</span><span class="p">,</span> <span class="n">var_explained</span><span class="p">,</span> <span class="n">explainable_var</span><span class="p">,</span> <span class="n">mse</span><span class="p">,</span> <span class="n">total_variance</span> <span class="o">=</span> <span class="n">eval_results</span>
+    <span class="n">fev_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">fev</span><span class="p">)</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">fev_all</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">fev</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Held-out FEV mean:&#39;</span><span class="p">,</span> <span class="n">fev_mean</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Per-neuron FEV (mean=</span><span class="si">{</span><span class="n">fev_mean</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">,  median=</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">fev_all</span><span class="p">)</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Neuron&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;FEV&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">create_figure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">fev_all</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    
+    <span class="k">return</span> <span class="n">fev_all</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">device</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;cuda:</span><span class="si">{</span><span class="n">device_idx</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">  ———  host: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">nodename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">device: cu<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">da:0</span>  ———  host: chewie
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.main.load_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mcfe.common.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="n">print_num_params</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="prepare-cadena-data">
+<h2>prepare cadena data<a class="headerlink" href="#prepare-cadena-data" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+
+<span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span>
+    <span class="s1">&#39;normative_modules&#39;</span><span class="p">,</span> <span class="s1">&#39;/home/hadi/Dropbox/git/_CadenaV1/normative.py&#39;</span><span class="p">)</span>
+<span class="n">normative_modules</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;normative_modules&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">normative_modules</span>
+<span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">normative_modules</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_ds_raw</span><span class="p">,</span> <span class="n">val_ds_raw</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">get_train_val_datasets</span><span class="p">()</span>
+
+<span class="n">num_neurons</span> <span class="o">=</span> <span class="n">train_ds_raw</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;robs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;num_neurons = </span><span class="si">{</span><span class="n">num_neurons</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">num_neurons = <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">166</span>
+</pre>
+</div></div>
+</div>
+</section>
+<section id="prepare-fits-wandb">
+<h2>prepare fits / wandb<a class="headerlink" href="#prepare-fits-wandb" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chkpts_dir</span> <span class="o">=</span> <span class="n">add_home</span><span class="p">(</span><span class="s1">&#39;Dropbox/chkpts/MCFE&#39;</span><span class="p">)</span>
+
+<span class="n">TAG</span> <span class="o">=</span> <span class="s1">&#39;rebuttal_imagenet40&#39;</span>
+
+<span class="n">fits</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">chkpts_dir</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="n">alphanum_sort_key</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">e</span> <span class="ow">in</span> <span class="n">f</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;pois&#39;</span><span class="p">,</span> <span class="n">TAG</span><span class="p">])</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fits</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">fits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">23</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">[</span>
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,14:03)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,17:03)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_yoru-0_(2026_03_30,16:09)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_yoru-0_(2026_03_30,17:27)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_yoru-0_(2026_03_30,18:43)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_chewie-0_(2026_03_30,14:20)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_chewie-0_(2026_03_30,16:36)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,17:18)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,18:27)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-cubic_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_yoru-0_(2026_03_30,14:57)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,13:32)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,14:55)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,15:18)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,16:20)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,10,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,16:30)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_chewie-0_(2026_03_30,13:25)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_chewie-0_(2026_03_30,14:43)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_chewie-0_(2026_03_30,15:51)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_chewie-0_(2026_03_30,16:54)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois-sigmoid_ImageNet40_beta(1)_kms-(128,11,3)_recon-prob_rebuttal_imagenet40_mach-0_(2026_03_30,13:23)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois_ImageNet40_beta(1)_kms-(128,10,3)_recon-exact_rebuttal_imagenet40_mach-0_(2026_03_30,13:28)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois_ImageNet40_beta(1)_kms-(128,11,3)_recon-exact_rebuttal_imagenet40_yoru-0_(2026_03_30,12:32)'</span>,
+    <span style="color: #008000; text-decoration-color: #008000">'pois_ImageNet40_beta(1)_kms-(128,11,3)_recon-exact_rebuttal_imagenet40_yoru-0_(2026_03_30,13:04)'</span>
+<span style="font-weight: bold">]</span>
+</pre>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: <span class=" -Color -Color-Yellow">WARNING</span> The anonymous setting has no effect and will be removed in a future version.
+<span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: <span class=" -Color -Color-Green -Color-Green-BGRed">ERROR</span> Failed to detect the name of this notebook. You can set it manually with the WANDB_NOTEBOOK_NAME environment variable to enable code saving.
+<span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: [wandb.Api()] Loaded credentials for https://api.wandb.ai from /home/hadi/.netrc.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="loop">
+<h2>loop<a class="headerlink" href="#loop" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">kws_fit</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">feature</span><span class="o">=</span><span class="s1">&#39;firing-rate&#39;</span><span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">fits</span><span class="p">:</span>
+    <span class="c1"># 1. Load pretrained model</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tr</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">target_path</span><span class="o">=</span><span class="n">pjoin</span><span class="p">(</span><span class="n">chkpts_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">),</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Weird run:</span><span class="se">\n</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">epochs</span> <span class="o">!=</span> <span class="mi">30</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="n">kws_fit</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">model</span>
+    
+    <span class="c1"># 2. Extrtact features</span>
+    <span class="n">train_ds_feat</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">train_ds_raw</span><span class="p">,</span> <span class="o">**</span><span class="n">kws_fit</span><span class="p">)</span>
+    <span class="n">val_ds_feat</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">extract_features</span><span class="p">(</span><span class="n">dataset</span><span class="o">=</span><span class="n">val_ds_raw</span><span class="p">,</span> <span class="o">**</span><span class="n">kws_fit</span><span class="p">)</span>
+
+    <span class="c1"># 3. Create feature dataset</span>
+    <span class="n">train_dl</span><span class="p">,</span> <span class="n">val_dl</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">build_dataloaders</span><span class="p">(</span>
+        <span class="n">train_ds_feat</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">val_ds_feat</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    
+    <span class="c1"># 4. Create readout model</span>
+    <span class="n">readout_model</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">ReadoutOnly</span><span class="p">(</span>
+        <span class="n">filter_dims</span><span class="o">=</span><span class="n">tr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">latent_sz</span><span class="p">,</span>
+        <span class="n">num_neurons</span><span class="o">=</span><span class="n">num_neurons</span><span class="p">,</span>
+        <span class="n">rank</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="c1"># 5. Create optimizer</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span>
+        <span class="n">readout_model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+        <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">,</span>
+        <span class="n">weight_decay</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># 6. Fit readout model</span>
+    <span class="n">best_state</span><span class="p">,</span> <span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span> <span class="o">=</span> <span class="n">normative_modules</span><span class="o">.</span><span class="n">fit_readout_sgd</span><span class="p">(</span>
+        <span class="n">readout_model</span><span class="p">,</span> <span class="n">train_dl</span><span class="p">,</span> <span class="n">val_dl</span><span class="p">,</span> <span class="n">optimizer</span><span class="p">,</span>
+        <span class="n">max_epochs</span><span class="o">=</span><span class="mi">1_000</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_lr</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">readout_model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">best_state</span><span class="p">)</span>
+    
+    <span class="c1"># 7. Plot results</span>
+    <span class="n">fev_all</span> <span class="o">=</span> <span class="n">process_and_plot_results</span><span class="p">()</span>
+    
+    <span class="c1"># 8. Get wandb run (for ELBO)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pjoin</span><span class="p">(</span><span class="n">chkpts_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">wandb_run</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">json_data</span><span class="p">[</span><span class="s1">&#39;wandb_run_path&#39;</span><span class="p">])</span>
+
+    <span class="c1"># 8. Collect results</span>
+
+    <span class="k">if</span> <span class="n">tr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">recon_mode</span> <span class="o">==</span> <span class="s1">&#39;exact&#39;</span><span class="p">:</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;exact&#39;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">indicator</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">indicator_approx</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;EAT_</span><span class="si">{</span><span class="n">indicator</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">temp_stop</span>
+
+    <span class="n">df</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;run_id&#39;</span><span class="p">:</span> <span class="n">wandb_run</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1">&#39;lin_enc&#39;</span><span class="p">:</span> <span class="n">tr</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">lin_enc</span><span class="p">,</span>
+        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+        <span class="s1">&#39;temp&#39;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span>
+        <span class="s1">&#39;fev_mean&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">fev_all</span><span class="p">),</span>
+        <span class="s1">&#39;fev_median&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">fev_all</span><span class="p">),</span>
+        <span class="s1">&#39;elbo&#39;</span><span class="p">:</span> <span class="n">wandb_run</span><span class="o">.</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;eval/elbo&#39;</span><span class="p">],</span>
+    <span class="p">})</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="n">save_obj</span><span class="p">(</span>
+    <span class="n">obj</span><span class="o">=</span><span class="n">df</span><span class="p">,</span>
+    <span class="n">file_name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;df_</span><span class="si">{</span><span class="n">TAG</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">save_dir</span><span class="o">=</span><span class="n">tmp_dir</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;df&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:03</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:03</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.33421531319618225</span>
+</pre>
+</div><img alt="../../_images/0ca8b6b0f5518a90f60ab90daca30c650d53a02acb924f4b814b7099fc57363d.png" src="../../_images/0ca8b6b0f5518a90f60ab90daca30c650d53a02acb924f4b814b7099fc57363d.png" />
+<img alt="../../_images/138eca8e0a7452d4692e2574a32abc83340e5d7403e6805e63e4be8ed825c957.png" src="../../_images/138eca8e0a7452d4692e2574a32abc83340e5d7403e6805e63e4be8ed825c957.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">17:03</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">17:03</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3288803696632385</span>
+</pre>
+</div><img alt="../../_images/06751da2c5ef7e0ead2e803bd24e789816c13b58d38df1a9ea67914706041d28.png" src="../../_images/06751da2c5ef7e0ead2e803bd24e789816c13b58d38df1a9ea67914706041d28.png" />
+<img alt="../../_images/d5f9609b528516bb30e9a5fde77a830571bf804648d2d8f41bff7caea36f0b37.png" src="../../_images/d5f9609b528516bb30e9a5fde77a830571bf804648d2d8f41bff7caea36f0b37.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_yoru-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:09</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:09</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.32352444529533386</span>
+</pre>
+</div><img alt="../../_images/e9a754ef777182a8fd42f7555fa390d15bc93feca8246fe58001a7843f876b67.png" src="../../_images/e9a754ef777182a8fd42f7555fa390d15bc93feca8246fe58001a7843f876b67.png" />
+<img alt="../../_images/48877d1ffac93007f594df3f38e218778f5c574b8544fb393a51a99f4e84b913.png" src="../../_images/48877d1ffac93007f594df3f38e218778f5c574b8544fb393a51a99f4e84b913.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_yoru-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">17:27</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">17:27</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3271746337413788</span>
+</pre>
+</div><img alt="../../_images/265bfe6d3272931519084267b6d29da1fc15e41bf97d9063320a4e7d0cb3d7fc.png" src="../../_images/265bfe6d3272931519084267b6d29da1fc15e41bf97d9063320a4e7d0cb3d7fc.png" />
+<img alt="../../_images/e36a319b929bc7af65d1f40d0d4a865b0a07e3ea0ac9acf22eb1183f264812ae.png" src="../../_images/e36a319b929bc7af65d1f40d0d4a865b0a07e3ea0ac9acf22eb1183f264812ae.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_yoru-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">18:43</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">18:43</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3312537968158722</span>
+</pre>
+</div><img alt="../../_images/19945c0c8ccf9bd4ee82292f6f1340a1ced419b9391d03bef33aa906fedcfbc8.png" src="../../_images/19945c0c8ccf9bd4ee82292f6f1340a1ced419b9391d03bef33aa906fedcfbc8.png" />
+<img alt="../../_images/6acc41bf8e1d7e9afcc53ba8c63750f85aa85c91c881e7ece6b221052a953efc.png" src="../../_images/6acc41bf8e1d7e9afcc53ba8c63750f85aa85c91c881e7ece6b221052a953efc.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_chewie-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:20</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:20</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.18919190764427185</span>
+</pre>
+</div><img alt="../../_images/b03339b37c76a54a5341416ddee8c9b0bfd8e83e5dd69a054a275017dee20647.png" src="../../_images/b03339b37c76a54a5341416ddee8c9b0bfd8e83e5dd69a054a275017dee20647.png" />
+<img alt="../../_images/c23ce8dc2627b55d78fa07a3cf7fe9f2d4cd4722b0bd97bc3195e418fe8c4ada.png" src="../../_images/c23ce8dc2627b55d78fa07a3cf7fe9f2d4cd4722b0bd97bc3195e418fe8c4ada.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_chewie-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:36</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:36</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.20806682109832764</span>
+</pre>
+</div><img alt="../../_images/185cc7af090976edbf0dca2d62a014fa7db8710b872804bf072ff5f53fa8f8e5.png" src="../../_images/185cc7af090976edbf0dca2d62a014fa7db8710b872804bf072ff5f53fa8f8e5.png" />
+<img alt="../../_images/6d3db04b0f8cee88512062f88e86636241c7a77e65920068a68aea6a941ba6c0.png" src="../../_images/6d3db04b0f8cee88512062f88e86636241c7a77e65920068a68aea6a941ba6c0.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">17:18</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">17:18</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.20890739560127258</span>
+</pre>
+</div><img alt="../../_images/336aef650884ae3e08027cd1c065f890965eed5f0b87360ff2d54527826960b2.png" src="../../_images/336aef650884ae3e08027cd1c065f890965eed5f0b87360ff2d54527826960b2.png" />
+<img alt="../../_images/9be1383410551e7dd72b0ecf5ba4519348d5688a8f908201de84553197b0c83d.png" src="../../_images/9be1383410551e7dd72b0ecf5ba4519348d5688a8f908201de84553197b0c83d.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">18:27</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">18:27</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.16933056712150574</span>
+</pre>
+</div><img alt="../../_images/b9423d8de2de630c6a0dcb28319ad86159dfbe711dbbdc3b26c79d2234c96ead.png" src="../../_images/b9423d8de2de630c6a0dcb28319ad86159dfbe711dbbdc3b26c79d2234c96ead.png" />
+<img alt="../../_images/9b6081affa036e60e42c287f253c83e70dcc03eb4093fbec0670c3151465e9c6.png" src="../../_images/9b6081affa036e60e42c287f253c83e70dcc03eb4093fbec0670c3151465e9c6.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-cubic_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_yoru-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>
+2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:57</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:57</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.19256874918937683</span>
+</pre>
+</div><img alt="../../_images/432e6c605cdb10f44a18d49b26275486563fb7662561e022a29f040d5fd51c0f.png" src="../../_images/432e6c605cdb10f44a18d49b26275486563fb7662561e022a29f040d5fd51c0f.png" />
+<img alt="../../_images/2abcafe9d3d68a34915cbef4fbf1635b41e3ff8cc86c5a0a0f69c4bae83c14da.png" src="../../_images/2abcafe9d3d68a34915cbef4fbf1635b41e3ff8cc86c5a0a0f69c4bae83c14da.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:32</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:32</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3464968502521515</span>
+</pre>
+</div><img alt="../../_images/aa9a97082284b83d436cf78c9e457e381f53ab7e3a8cb76b7561a4bdc19f0b25.png" src="../../_images/aa9a97082284b83d436cf78c9e457e381f53ab7e3a8cb76b7561a4bdc19f0b25.png" />
+<img alt="../../_images/4cbd9c61f7d8b1f96b164f7059f010098f105b1def11dd8d6b1750d6e2b0c5c8.png" src="../../_images/4cbd9c61f7d8b1f96b164f7059f010098f105b1def11dd8d6b1750d6e2b0c5c8.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:55</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:55</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3359331786632538</span>
+</pre>
+</div><img alt="../../_images/7c9603750f5cf8af383e1027985bf3925873b560a5548739dc1cf5eaa69c2c3d.png" src="../../_images/7c9603750f5cf8af383e1027985bf3925873b560a5548739dc1cf5eaa69c2c3d.png" />
+<img alt="../../_images/4074677f8b335bcb03cc76780d3c2027bd0abbb0109ea2b92810321aa74ce1c1.png" src="../../_images/4074677f8b335bcb03cc76780d3c2027bd0abbb0109ea2b92810321aa74ce1c1.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">15:18</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">15:18</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.32582154870033264</span>
+</pre>
+</div><img alt="../../_images/4ee60dd5b29de5565db07e1503b0eb6fa2136dd3cf6e9257a61f2736796b8191.png" src="../../_images/4ee60dd5b29de5565db07e1503b0eb6fa2136dd3cf6e9257a61f2736796b8191.png" />
+<img alt="../../_images/c3384670d6c39548e380fb31051a1e4d91cb6e089c9d10db568251a1de80c6d1.png" src="../../_images/c3384670d6c39548e380fb31051a1e4d91cb6e089c9d10db568251a1de80c6d1.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:20</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:20</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3257848918437958</span>
+</pre>
+</div><img alt="../../_images/0b1ca00b32bcf1b4cd0d7dbd1740f9a7fb8d549051689b1de202209317262f61.png" src="../../_images/0b1ca00b32bcf1b4cd0d7dbd1740f9a7fb8d549051689b1de202209317262f61.png" />
+<img alt="../../_images/df47d7bb39d311a85d21b1745b45884d6d918b37c40ea79674cae0173f9dec8a.png" src="../../_images/df47d7bb39d311a85d21b1745b45884d6d918b37c40ea79674cae0173f9dec8a.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:30</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:30</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.32736796140670776</span>
+</pre>
+</div><img alt="../../_images/960c3fc501d60cf7018e07d2341011c21c64df4cc1ac2033ff8576511d1595fb.png" src="../../_images/960c3fc501d60cf7018e07d2341011c21c64df4cc1ac2033ff8576511d1595fb.png" />
+<img alt="../../_images/ca0f3e9f7f311c686870d50f26bc6f231a3abb2229a5c1cb13b8b983b722f59b.png" src="../../_images/ca0f3e9f7f311c686870d50f26bc6f231a3abb2229a5c1cb13b8b983b722f59b.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_chewie
+-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:25</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:24</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.21697786450386047</span>
+</pre>
+</div><img alt="../../_images/0a6163c7d08adc90e38198706a89c5c50fbf8b2efbbe862827087c2133e8cb78.png" src="../../_images/0a6163c7d08adc90e38198706a89c5c50fbf8b2efbbe862827087c2133e8cb78.png" />
+<img alt="../../_images/461202dd505cd77d57425824eb84b57df6150a38fe8b1bf97d01ce6a9ae0b1ac.png" src="../../_images/461202dd505cd77d57425824eb84b57df6150a38fe8b1bf97d01ce6a9ae0b1ac.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_chewie
+-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:43</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">14:43</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2202206403017044</span>
+</pre>
+</div><img alt="../../_images/139d388d32318d1f83e002073a70c355b705773d0cf2066de997ba888d6d0874.png" src="../../_images/139d388d32318d1f83e002073a70c355b705773d0cf2066de997ba888d6d0874.png" />
+<img alt="../../_images/adf51d81f9535b915c4c1fe10f24ccd7f5cf8188904efe68bd2c9799547a0c54.png" src="../../_images/adf51d81f9535b915c4c1fe10f24ccd7f5cf8188904efe68bd2c9799547a0c54.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_chewie
+-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">15:51</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">15:51</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.2113925814628601</span>
+</pre>
+</div><img alt="../../_images/bd87c830728fe31ab5c069387cd7226c3957fdbe1782ef3015861ebbb25d8c62.png" src="../../_images/bd87c830728fe31ab5c069387cd7226c3957fdbe1782ef3015861ebbb25d8c62.png" />
+<img alt="../../_images/623ecaeb58d2493ecb3e241c909339ab15b0145db9148805463dbfd5169b3a3e.png" src="../../_images/623ecaeb58d2493ecb3e241c909339ab15b0145db9148805463dbfd5169b3a3e.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_chewie
+-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:54</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">16:54</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.21192529797554016</span>
+</pre>
+</div><img alt="../../_images/ae0f3a973f3a3c4fb23c217b0fc88eb2382ac99c20f85c86452d707c1ef2228b.png" src="../../_images/ae0f3a973f3a3c4fb23c217b0fc88eb2382ac99c20f85c86452d707c1ef2228b.png" />
+<img alt="../../_images/14a0d0e5b95f4bafdc86fcf9dcab4d99c50cdc6d8f089cb5451c7090542e69af.png" src="../../_images/14a0d0e5b95f4bafdc86fcf9dcab4d99c50cdc6d8f089cb5451c7090542e69af.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois-sigmoid_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-prob_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0</span>
+<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:23</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:23</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.24136145412921906</span>
+</pre>
+</div><img alt="../../_images/a3373a60607564de051a77630bd1da900fa06666ea7ba18b3a83c1df5776c33d.png" src="../../_images/a3373a60607564de051a77630bd1da900fa06666ea7ba18b3a83c1df5776c33d.png" />
+<img alt="../../_images/43f44a7654ef4bb7444d537dbca743a0fda020e0c397deebafcdf7e0800e2731.png" src="../../_images/43f44a7654ef4bb7444d537dbca743a0fda020e0c397deebafcdf7e0800e2731.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">313.7</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">10</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-exact_rebuttal_imagenet40_mach-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_
+03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:28</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:28</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.3171502649784088</span>
+</pre>
+</div><img alt="../../_images/9f2746b43f3d652bde09f6e217fabe70cb413deefbfa325f0f901e3bd24b43e4.png" src="../../_images/9f2746b43f3d652bde09f6e217fabe70cb413deefbfa325f0f901e3bd24b43e4.png" />
+<img alt="../../_images/3fb39f9d0efea58bdecfadb543dd2e092a546559595f34df191686b2817a94a0.png" src="../../_images/3fb39f9d0efea58bdecfadb543dd2e092a546559595f34df191686b2817a94a0.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-exact_rebuttal_imagenet40_yoru-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_
+03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">12:32</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0030_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">12:32</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Held-out FEV mean: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">0.167415589094162</span>
+</pre>
+</div><img alt="../../_images/032fff717952dab70b9cf5ee873eb49cdba1992fd7bd171c23b5d1bf98d27922.png" src="../../_images/032fff717952dab70b9cf5ee873eb49cdba1992fd7bd171c23b5d1bf98d27922.png" />
+<img alt="../../_images/9cf04ee479f019da70ad0ae51ce5517ba3d257a783ae4d57783e5ca9dbcf0314.png" src="../../_images/9cf04ee479f019da70ad0ae51ce5517ba3d257a783ae4d57783e5ca9dbcf0314.png" />
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">
+# params: <span style="color: #008080; text-decoration-color: #008080; font-weight: bold">27.3</span> K
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Successfully loaded model from 
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/chkpts/MCFE/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">pois_ImageNet40_beta</span><span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">1</span><span style="font-weight: bold">)</span>_kms-<span style="font-weight: bold">(</span><span style="color: #008080; text-decoration-color: #008080; font-weight: bold">128</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">11</span>,<span style="color: #008080; text-decoration-color: #008080; font-weight: bold">3</span><span style="font-weight: bold">)</span>_recon-exact_rebuttal_imagenet40_yoru-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0_</span><span style="font-weight: bold">(</span>2026_
+03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:04</span><span style="font-weight: bold">)</span>
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">Checkpoint File: PoissonVAE+Trainer-<span style="color: #800080; text-decoration-color: #800080; font-weight: bold">0060_</span><span style="font-weight: bold">(</span>2026_03_30,<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">13:04</span><span style="font-weight: bold">)</span>.pt
+</pre>
+</div><div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"><span style="font-weight: bold">[</span>PROGRESS<span style="font-weight: bold">]</span> <span style="color: #008000; text-decoration-color: #008000">'df_rebuttal_imagenet40.df'</span> saved at
+<span style="color: #800080; text-decoration-color: #800080">/home/hadi/Dropbox/git/jb-progress-2026/</span><span style="color: #ff00ff; text-decoration-color: #ff00ff">tmp</span>
+</pre>
+</div><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1h 25min 18s, sys: 4min 9s, total: 1h 29min 27s
+Wall time: 32min 41s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lin_enc&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>run_id</th>
+      <th>lin_enc</th>
+      <th>method</th>
+      <th>temp</th>
+      <th>fev_mean</th>
+      <th>fev_median</th>
+      <th>elbo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>5</th>
+      <td>ext0cwip</td>
+      <td>True</td>
+      <td>EAT_cubic</td>
+      <td>0.05</td>
+      <td>0.212841</td>
+      <td>0.192499</td>
+      <td>720.386658</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>wl7ef3d1</td>
+      <td>True</td>
+      <td>EAT_cubic</td>
+      <td>0.10</td>
+      <td>0.223422</td>
+      <td>0.201247</td>
+      <td>721.051453</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>709571dt</td>
+      <td>True</td>
+      <td>EAT_cubic</td>
+      <td>0.02</td>
+      <td>0.225734</td>
+      <td>0.202969</td>
+      <td>720.274658</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>iy8su9qg</td>
+      <td>True</td>
+      <td>EAT_cubic</td>
+      <td>0.20</td>
+      <td>0.199075</td>
+      <td>0.178528</td>
+      <td>723.006714</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>ce402po6</td>
+      <td>True</td>
+      <td>EAT_cubic</td>
+      <td>0.50</td>
+      <td>0.221782</td>
+      <td>0.207239</td>
+      <td>733.304016</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>c14ab3ch</td>
+      <td>True</td>
+      <td>EAT_sigmoid</td>
+      <td>0.05</td>
+      <td>0.237118</td>
+      <td>0.212806</td>
+      <td>758.747742</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>pfmgguts</td>
+      <td>True</td>
+      <td>EAT_sigmoid</td>
+      <td>0.20</td>
+      <td>0.240125</td>
+      <td>0.218426</td>
+      <td>755.403015</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>v8ynw452</td>
+      <td>True</td>
+      <td>EAT_sigmoid</td>
+      <td>0.10</td>
+      <td>0.236592</td>
+      <td>0.218529</td>
+      <td>757.281677</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>d5vei7uu</td>
+      <td>True</td>
+      <td>EAT_sigmoid</td>
+      <td>0.02</td>
+      <td>0.236747</td>
+      <td>0.219508</td>
+      <td>759.577515</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>ptpaz9hh</td>
+      <td>True</td>
+      <td>EAT_sigmoid</td>
+      <td>0.50</td>
+      <td>0.252528</td>
+      <td>0.241057</td>
+      <td>764.304932</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>hwqtt0k9</td>
+      <td>True</td>
+      <td>exact</td>
+      <td>0.00</td>
+      <td>0.191605</td>
+      <td>0.167127</td>
+      <td>718.924133</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lin_enc&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>run_id</th>
+      <th>lin_enc</th>
+      <th>method</th>
+      <th>temp</th>
+      <th>fev_mean</th>
+      <th>fev_median</th>
+      <th>elbo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ymrvdw2s</td>
+      <td>False</td>
+      <td>EAT_cubic</td>
+      <td>0.50</td>
+      <td>0.334664</td>
+      <td>0.334953</td>
+      <td>580.236389</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>d799grm1</td>
+      <td>False</td>
+      <td>EAT_cubic</td>
+      <td>0.02</td>
+      <td>0.329199</td>
+      <td>0.327663</td>
+      <td>586.020569</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9kr6s2a8</td>
+      <td>False</td>
+      <td>EAT_cubic</td>
+      <td>0.10</td>
+      <td>0.323561</td>
+      <td>0.330092</td>
+      <td>582.913208</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>dmn93gs2</td>
+      <td>False</td>
+      <td>EAT_cubic</td>
+      <td>0.05</td>
+      <td>0.327771</td>
+      <td>0.317379</td>
+      <td>583.397034</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>qpsj583x</td>
+      <td>False</td>
+      <td>EAT_cubic</td>
+      <td>0.20</td>
+      <td>0.331478</td>
+      <td>0.326026</td>
+      <td>581.316895</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>fuk51hgz</td>
+      <td>False</td>
+      <td>EAT_sigmoid</td>
+      <td>0.50</td>
+      <td>0.346946</td>
+      <td>0.340982</td>
+      <td>588.407349</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>hh45fgq4</td>
+      <td>False</td>
+      <td>EAT_sigmoid</td>
+      <td>0.20</td>
+      <td>0.336146</td>
+      <td>0.342313</td>
+      <td>585.231323</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>9alsgf28</td>
+      <td>False</td>
+      <td>EAT_sigmoid</td>
+      <td>0.10</td>
+      <td>0.326060</td>
+      <td>0.324050</td>
+      <td>585.381409</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>3ukb64o6</td>
+      <td>False</td>
+      <td>EAT_sigmoid</td>
+      <td>0.05</td>
+      <td>0.325856</td>
+      <td>0.330566</td>
+      <td>586.288452</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>o9usid83</td>
+      <td>False</td>
+      <td>EAT_sigmoid</td>
+      <td>0.02</td>
+      <td>0.327479</td>
+      <td>0.330318</td>
+      <td>588.743042</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>1d8em0b9</td>
+      <td>False</td>
+      <td>exact</td>
+      <td>0.00</td>
+      <td>0.317486</td>
+      <td>0.323026</td>
+      <td>571.740051</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">create_figure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lin_enc&#39;</span><span class="p">]],</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;elbo&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;lin_enc&#39;</span><span class="p">]],</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;temp&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;elbo&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">700</span><span class="p">,</span> <span class="mi">770</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">550</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
+
+<span class="n">move_legend</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">move_legend</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/730ca805c1e46f3722f8ecabe4df789bd756ab466072a84addcd1e5527a9dedb.png" src="../../_images/730ca805c1e46f3722f8ecabe4df789bd756ab466072a84addcd1e5527a9dedb.png" />
+</div>
+</div>
+</section>
+<section id="small-data-regime">
+<h2>small_data_regime<a class="headerlink" href="#small-data-regime" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api</span> <span class="o">=</span> <span class="n">wandb</span><span class="o">.</span><span class="n">Api</span><span class="p">()</span>
+
+<span class="n">TAG</span> <span class="o">=</span> <span class="s1">&#39;small_data_regime&#39;</span>
+
+<span class="n">wandb_runs</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">runs</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s1">&#39;pal-lab/MCFE&#39;</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tags&quot;</span><span class="p">:</span> <span class="n">TAG</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">wandb_runs</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">run</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;recon_mode&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;exact&#39;</span><span class="p">:</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;exact&#39;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;EAT_</span><span class="si">{</span><span class="n">run</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;indicator_approx&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;temp_stop&#39;</span><span class="p">]</span>
+    
+    <span class="n">elbo</span> <span class="o">=</span> <span class="n">run</span><span class="o">.</span><span class="n">summary</span><span class="p">[</span><span class="s1">&#39;eval/elbo&#39;</span><span class="p">]</span>
+    
+    <span class="k">if</span> <span class="n">temp</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">elbo</span> <span class="o">+=</span> <span class="mf">1.2</span>
+        
+    <span class="n">df2</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s1">&#39;run_id&#39;</span><span class="p">:</span> <span class="n">run</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+        <span class="s1">&#39;method&#39;</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span>
+        <span class="s1">&#39;temp&#39;</span><span class="p">:</span> <span class="n">temp</span><span class="p">,</span>
+        <span class="s1">&#39;elbo&#39;</span><span class="p">:</span> <span class="n">elbo</span><span class="p">,</span>
+    <span class="p">})</span>
+    
+<span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>run_id</th>
+      <th>method</th>
+      <th>temp</th>
+      <th>elbo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5sx5wzym</td>
+      <td>EAT_cubic</td>
+      <td>0.05</td>
+      <td>170.108707</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>pbjuvk4v</td>
+      <td>EAT_cubic</td>
+      <td>0.50</td>
+      <td>171.169803</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>b53wk1y7</td>
+      <td>EAT_sigmoid</td>
+      <td>0.50</td>
+      <td>180.500659</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>kn54kxg4</td>
+      <td>EAT_sigmoid</td>
+      <td>0.05</td>
+      <td>170.064044</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>iqqvhgzt</td>
+      <td>exact</td>
+      <td>0.00</td>
+      <td>182.685303</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-04"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01_cadena-play.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">(01) Cadena Data (Michael’s Demo)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="01_cadena-pvae-play.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(01) Cadena: fit P-VAE</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-cadena-data">prepare cadena data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-fits-wandb">prepare fits / wandb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loop">loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#small-data-regime">small_data_regime</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

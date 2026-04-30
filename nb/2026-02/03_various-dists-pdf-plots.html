@@ -1,0 +1,1240 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(03) various VAEs: dist PDF plots &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-02/03_various-dists-pdf-plots';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="(09) iP-VAE OOD tests" href="09_ipvae-ood.html" />
+    <link rel="prev" title="Updates" href="../../md/2026-02_updates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/22_grad-bias-var.html">(22) Analysis: Grad Bias Var + Dist Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/23_grad-fixed-point.html">(23) Grad Fixed Point Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/24_gra-adam-vs-grlion.html">(24) GRA — AdamW vs. GR-Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_fig-eat-moments-theory.html">(26) EAT method – bias of moments plot (theory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_grad-bias-var%2Bscore.html">(26) Grad Bias Var Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/30_fig-gamma-vs-exp.html">(30) Gamma vs Exp: inter-event intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/31_grad-bias-var-quintic.html">(31) Grad Bias Var + Dist Consistency (+quintic added)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">February 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-02.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-02_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(03) various VAEs: dist PDF plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="09_ipvae-ood.html">(09) iP-VAE OOD tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="10_metabolic-cost-figs.html">(10) metabolic cost pvae (CCN 2026) figs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="24_nb-ig-pois.html">(24) neg. binomial / poisson / gamma / inv. gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-feb26.html">tmp — feb26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">April 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-04.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-04_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_cadena-play.html">(01) Cadena Data (Michael’s Demo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_cadena-pvae-final.html">(01) Cadena: fit P-VAE (final)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_cadena-pvae-play.html">(01) Cadena: fit P-VAE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_imgnet40-process.html">(01) ImageNet40: crop, process, save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/30_curvature-analysis.html">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/tmp-apr26.html">tmp — apr26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-02/03_various-dists-pdf-plots.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-02/03_various-dists-pdf-plots.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(03) various VAEs: dist PDF plots</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dists-plots">Dists plots</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="various-vaes-dist-pdf-plots">
+<h1>(03) various VAEs: dist PDF plots<a class="headerlink" href="#various-vaes-dist-pdf-plots" title="Link to this heading">#</a></h1>
+<p>project = <code class="docutils literal notranslate"><span class="pre">P-VAE</span></code>, host = <code class="docutils literal notranslate"><span class="pre">chewie</span></code>, device = <code class="docutils literal notranslate"><span class="pre">cuda:1</span></code></p>
+<p><strong>Motivation</strong>: used for the full metabolic cost VAE paper</p>
+<p>Goal: <code class="docutils literal notranslate"><span class="pre">MetabolicCost</span></code></p>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="n">project_name</span> <span class="o">=</span> <span class="s1">&#39;PoissonVAE&#39;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># tmp &amp; extras dir</span>
+<span class="n">git_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">],</span> <span class="s1">&#39;Dropbox/git&#39;</span><span class="p">)</span>
+<span class="n">extras_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">git_dir</span><span class="p">,</span> <span class="s1">&#39;jb-progress-2025/_extras&#39;</span><span class="p">)</span>
+<span class="n">fig_base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">git_dir</span><span class="p">,</span> <span class="s1">&#39;jb-progress-2025/figs&#39;</span><span class="p">)</span>
+<span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">git_dir</span><span class="p">,</span> <span class="s1">&#39;jb-progress-2025/tmp&#39;</span><span class="p">)</span>
+
+<span class="c1"># GitHub</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">git_dir</span><span class="p">,</span> <span class="n">project_name</span><span class="p">))</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">figures.fighelper</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">main.train_vae</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># warnings, tqdm, &amp; style</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.jupyter</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">set_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device_idx</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">device</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;cuda:</span><span class="si">{</span><span class="n">device_idx</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">  ———  host: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">nodename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">device: cu<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">da:1</span>  ———  host: mach
+</pre>
+</div></div>
+</div>
+<section id="dists-plots">
+<h2>Dists plots<a class="headerlink" href="#dists-plots" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pal</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;poisson&#39;</span><span class="p">:</span> <span class="s1">&#39;C0&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;negative_binomial&#39;</span><span class="p">:</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">:</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gaussian_relu&#39;</span><span class="p">:</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;laplace_relu&#39;</span><span class="p">:</span> <span class="s1">&#39;C8&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">color</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">pal</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/850e63f1204cc212663933679006c30d6c5b295ecf76e5108092f1454218eb00.png" src="../../_images/850e63f1204cc212663933679006c30d6c5b295ecf76e5108092f1454218eb00.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp_stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_rgb</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_distribution_comparison</span><span class="p">(</span>
+    <span class="n">shapes</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">lamb</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot comparison of VAE distributions across three panels.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shapes : float, list, or dict</span>
+<span class="sd">        Shape/dispersion parameter(s) for NB, Gamma, and Inv. Gaussian.</span>
+<span class="sd">        - Single value or list: used for all distributions</span>
+<span class="sd">        - Dict: keys should match distribution names </span>
+<span class="sd">          (&#39;negative_binomial&#39;, &#39;gamma&#39;, &#39;inverse_gaussian&#39;)</span>
+<span class="sd">    lamb : float or dict</span>
+<span class="sd">        Rate parameter(s).</span>
+<span class="sd">        - Single value: used for all distributions</span>
+<span class="sd">        - Dict: keys should match distribution names</span>
+<span class="sd">          (&#39;poisson&#39;, &#39;negative_binomial&#39;, &#39;gamma&#39;, &#39;inverse_gaussian&#39;)</span>
+<span class="sd">    scale_signal : float</span>
+<span class="sd">        Scale parameter (σ for Gaussian, b for Laplace) for signal models.</span>
+<span class="sd">    colors : dict, optional</span>
+<span class="sd">        Custom colors for each distribution. Keys should match distribution names:</span>
+<span class="sd">        (&#39;poisson&#39;, &#39;negative_binomial&#39;, &#39;gamma&#39;, &#39;inverse_gaussian&#39;, </span>
+<span class="sd">         &#39;gaussian_relu&#39;, &#39;laplace_relu&#39;)</span>
+<span class="sd">        Values can be:</span>
+<span class="sd">        - None: use default gradient from palette</span>
+<span class="sd">        - Single color (str or RGB tuple): use for all shapes</span>
+<span class="sd">        - List of colors: one per shape (must match number of shapes)</span>
+<span class="sd">    figsize : tuple</span>
+<span class="sd">        Figure size.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Override any default styling parameters (see `defaults` dict in code).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Default parameters (can be overridden via kwargs)</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="n">defaults</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="c1"># Panel 0: Count models</span>
+        <span class="s1">&#39;count_xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">16.5</span><span class="p">),</span>
+        <span class="s1">&#39;count_ylim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span>
+        <span class="s1">&#39;count_x_range&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span>
+        <span class="s1">&#39;bar_total_width&#39;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span>
+        <span class="s1">&#39;bar_alpha&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+        <span class="s1">&#39;bar_edgecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;bar_edgewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s1">&#39;poisson_markersize&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="s1">&#39;nb_markersize&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s1">&#39;marker_edgecolor&#39;</span><span class="p">:</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;marker_edgewidth&#39;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        
+        <span class="c1"># Panel 1: Interval models</span>
+        <span class="s1">&#39;interval_xlim&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Auto</span>
+        <span class="s1">&#39;interval_ylim&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Auto</span>
+        <span class="s1">&#39;interval_x_range_factor&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># x goes from 0 to mean_isi * factor</span>
+        <span class="s1">&#39;interval_n_points&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+        <span class="s1">&#39;gamma_lw&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;ig_lw&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;ig_linestyle&#39;</span><span class="p">:</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+        
+        <span class="c1"># Panel 2: Rectified models</span>
+        <span class="s1">&#39;scale_signal&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> 
+        <span class="s1">&#39;rect_xlim&#39;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="s1">&#39;rect_ylim&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># Auto</span>
+        <span class="s1">&#39;rect_n_points&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+        <span class="s1">&#39;rect_fill_alpha&#39;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="s1">&#39;rect_line_alpha&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+        <span class="s1">&#39;rect_linestyle&#39;</span><span class="p">:</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;rect_lw&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        
+        <span class="c1"># General</span>
+        <span class="s1">&#39;axhline_color&#39;</span><span class="p">:</span> <span class="s1">&#39;dimgrey&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axhline_ls&#39;</span><span class="p">:</span> <span class="s1">&#39;:&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;axhline_lw&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+        <span class="s1">&#39;legend_fontsize_count&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;legend_fontsize_interval&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="s1">&#39;legend_fontsize_rect&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="s1">&#39;label_fontsize&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+        <span class="s1">&#39;title_fontsize&#39;</span><span class="p">:</span> <span class="mi">17</span><span class="p">,</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># Update defaults with any user-provided kwargs</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">defaults</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">}</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Default color palette</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="n">pal</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;poisson&#39;</span><span class="p">:</span> <span class="s1">&#39;C0&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;negative_binomial&#39;</span><span class="p">:</span> <span class="s1">&#39;C1&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="s1">&#39;C2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">:</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;gaussian_relu&#39;</span><span class="p">:</span> <span class="s1">&#39;C4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;laplace_relu&#39;</span><span class="p">:</span> <span class="s1">&#39;C8&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Process shapes parameter</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_shapes</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract shapes for a specific distribution.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">shapes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">shapes</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="p">[</span><span class="n">val</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Process lamb parameter</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_lamb</span><span class="p">(</span><span class="n">lamb</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract lambda for a specific distribution.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lamb</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">lamb</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lamb</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Process colors parameter</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_color_gradient</span><span class="p">(</span><span class="n">base_color</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate n colors as gradients from a base color.&quot;&quot;&quot;</span>
+        <span class="n">base_rgb</span> <span class="o">=</span> <span class="n">to_rgb</span><span class="p">(</span><span class="n">base_color</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">base_color</span><span class="p">]</span>
+        <span class="n">colors_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">light_to_dark</span><span class="p">:</span>
+                <span class="n">factor</span> <span class="o">=</span> <span class="mf">0.4</span> <span class="o">+</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">factor</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">new_rgb</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">base_rgb</span><span class="p">)</span>
+            <span class="n">colors_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_rgb</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">colors_list</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_colors</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">n_shapes</span><span class="p">,</span> <span class="n">default_base</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extract colors for a specific distribution.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        colors : dict or None</span>
+<span class="sd">            User-provided colors dict</span>
+<span class="sd">        key : str</span>
+<span class="sd">            Distribution key</span>
+<span class="sd">        n_shapes : int</span>
+<span class="sd">            Number of shapes (determines how many colors needed)</span>
+<span class="sd">        default_base : str</span>
+<span class="sd">            Default base color from palette for gradient</span>
+<span class="sd">            </span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list of colors, one per shape</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">colors</span> <span class="ow">or</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Use default gradient</span>
+            <span class="k">return</span> <span class="n">get_color_gradient</span><span class="p">(</span><span class="n">default_base</span><span class="p">,</span> <span class="n">n_shapes</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">user_colors</span> <span class="o">=</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        
+        <span class="c1"># Single color provided - use for all shapes</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">user_colors</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">user_colors</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_colors</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">user_colors</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_shapes</span>
+        
+        <span class="c1"># List of colors provided</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">user_colors</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>
+            <span class="n">user_colors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">user_colors</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">user_colors</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_shapes</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;colors[&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39;] has </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">user_colors</span><span class="p">)</span><span class="si">}</span><span class="s2"> colors but </span><span class="si">{</span><span class="n">n_shapes</span><span class="si">}</span><span class="s2"> shapes provided. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Must match or provide a single color.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">return</span> <span class="n">user_colors</span>
+        
+        <span class="c1"># Single color of unknown type - try to use it</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">user_colors</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_shapes</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">parse_single_color</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default_base</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Extract a single color for distributions without shape variation.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">colors</span> <span class="ow">or</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">default_base</span>
+        <span class="k">return</span> <span class="n">colors</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Parse all parameters</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="n">shapes_nb</span> <span class="o">=</span> <span class="n">parse_shapes</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="s1">&#39;negative_binomial&#39;</span><span class="p">)</span>
+    <span class="n">shapes_gamma</span> <span class="o">=</span> <span class="n">parse_shapes</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">)</span>
+    <span class="n">shapes_ig</span> <span class="o">=</span> <span class="n">parse_shapes</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">)</span>
+    
+    <span class="n">lamb_poisson</span> <span class="o">=</span> <span class="n">parse_lamb</span><span class="p">(</span><span class="n">lamb</span><span class="p">,</span> <span class="s1">&#39;poisson&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+    <span class="n">lamb_nb</span> <span class="o">=</span> <span class="n">parse_lamb</span><span class="p">(</span><span class="n">lamb</span><span class="p">,</span> <span class="s1">&#39;negative_binomial&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">6.0</span><span class="p">)</span>
+    <span class="n">lamb_gamma</span> <span class="o">=</span> <span class="n">parse_lamb</span><span class="p">(</span><span class="n">lamb</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">lamb_ig</span> <span class="o">=</span> <span class="n">parse_lamb</span><span class="p">(</span><span class="n">lamb</span><span class="p">,</span> <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    
+    <span class="c1"># Sort NB shapes in descending order (larger alpha = closer to Poisson)</span>
+    <span class="n">shapes_nb_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">shapes_nb</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># Get colors for each distribution</span>
+    <span class="n">color_poisson</span> <span class="o">=</span> <span class="n">parse_single_color</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;poisson&#39;</span><span class="p">,</span> <span class="n">pal</span><span class="p">[</span><span class="s1">&#39;poisson&#39;</span><span class="p">])</span>
+    <span class="n">colors_nb</span> <span class="o">=</span> <span class="n">parse_colors</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;negative_binomial&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapes_nb_sorted</span><span class="p">),</span> <span class="n">pal</span><span class="p">[</span><span class="s1">&#39;negative_binomial&#39;</span><span class="p">])</span>
+    <span class="n">colors_gamma</span> <span class="o">=</span> <span class="n">parse_colors</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapes_gamma</span><span class="p">),</span> <span class="n">pal</span><span class="p">[</span><span class="s1">&#39;gamma&#39;</span><span class="p">])</span>
+    <span class="n">colors_ig</span> <span class="o">=</span> <span class="n">parse_colors</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapes_ig</span><span class="p">),</span> <span class="n">pal</span><span class="p">[</span><span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">])</span>
+    <span class="n">color_gaussian</span> <span class="o">=</span> <span class="n">parse_single_color</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;gaussian_relu&#39;</span><span class="p">,</span> <span class="n">pal</span><span class="p">[</span><span class="s1">&#39;gaussian_relu&#39;</span><span class="p">])</span>
+    <span class="n">color_laplace</span> <span class="o">=</span> <span class="n">parse_single_color</span><span class="p">(</span><span class="n">colors</span><span class="p">,</span> <span class="s1">&#39;laplace_relu&#39;</span><span class="p">,</span> <span class="n">pal</span><span class="p">[</span><span class="s1">&#39;laplace_relu&#39;</span><span class="p">])</span>
+    
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">create_figure</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="n">width_ratios</span><span class="p">)</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Panel 0: Poisson / Negative Binomial (Count Models) - GROUPED BARS</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">x_k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">*</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;count_x_range&#39;</span><span class="p">])</span>
+    
+    <span class="n">n_shapes_nb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">shapes_nb_sorted</span><span class="p">)</span>
+    <span class="n">n_dists</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">n_shapes_nb</span>
+    
+    <span class="n">total_width</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_total_width&#39;</span><span class="p">]</span>
+    <span class="n">bar_width</span> <span class="o">=</span> <span class="n">total_width</span> <span class="o">/</span> <span class="n">n_dists</span>
+    <span class="n">offsets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">total_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">+</span> <span class="n">bar_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> 
+                          <span class="n">total_width</span><span class="o">/</span><span class="mi">2</span> <span class="o">-</span> <span class="n">bar_width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> 
+                          <span class="n">n_dists</span><span class="p">)</span>
+    
+    <span class="c1"># Poisson</span>
+    <span class="n">y_pmf_poisson</span> <span class="o">=</span> <span class="n">sp_stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x_k</span><span class="p">,</span> <span class="n">lamb_poisson</span><span class="p">)</span>
+    <span class="n">x_poisson</span> <span class="o">=</span> <span class="n">x_k</span> <span class="o">+</span> <span class="n">offsets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_poisson</span><span class="p">,</span> <span class="n">y_pmf_poisson</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_poisson</span><span class="p">,</span> 
+           <span class="n">alpha</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_alpha&#39;</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_edgecolor&#39;</span><span class="p">],</span> 
+           <span class="n">linewidth</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_edgewidth&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_poisson</span><span class="p">,</span> <span class="n">y_pmf_poisson</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_poisson</span><span class="p">,</span> 
+            <span class="n">markersize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;poisson_markersize&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mathrm</span><span class="si">{Poisson}</span><span class="s1">$&#39;</span><span class="p">,</span> 
+            <span class="n">markeredgecolor</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;marker_edgecolor&#39;</span><span class="p">],</span> 
+            <span class="n">markeredgewidth</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;marker_edgewidth&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># Negative Binomial</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes_nb_sorted</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">+</span> <span class="n">lamb_nb</span><span class="p">)</span>
+        <span class="n">y_pmf_nb</span> <span class="o">=</span> <span class="n">sp_stats</span><span class="o">.</span><span class="n">nbinom</span><span class="o">.</span><span class="n">pmf</span><span class="p">(</span><span class="n">x_k</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p</span><span class="p">)</span>
+        <span class="n">x_nb</span> <span class="o">=</span> <span class="n">x_k</span> <span class="o">+</span> <span class="n">offsets</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="sa">rf</span><span class="s1">&#39;$\mathrm</span><span class="se">{{</span><span class="s1">NB</span><span class="se">}}</span><span class="s1">,\, \alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$&#39;</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x_nb</span><span class="p">,</span> <span class="n">y_pmf_nb</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">bar_width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors_nb</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+               <span class="n">alpha</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_alpha&#39;</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_edgecolor&#39;</span><span class="p">],</span> 
+               <span class="n">linewidth</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;bar_edgewidth&#39;</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_nb</span><span class="p">,</span> <span class="n">y_pmf_nb</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors_nb</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> 
+                <span class="n">markersize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;nb_markersize&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> 
+                <span class="n">markeredgecolor</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;marker_edgecolor&#39;</span><span class="p">],</span> 
+                <span class="n">markeredgewidth</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;marker_edgewidth&#39;</span><span class="p">])</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_color&#39;</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_ls&#39;</span><span class="p">],</span> 
+               <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_lw&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;count_xlim&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;count_xlim&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;count_ylim&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;count_ylim&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$q(z \vert x)$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;label_fontsize&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$z$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;label_fontsize&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Count Models&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;title_fontsize&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;legend_fontsize_count&#39;</span><span class="p">],</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;upper right&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Panel 1: Gamma / Inverse Gaussian (Interval Models)</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="c1"># Compute x_grid based on the larger mean ISI</span>
+    <span class="n">mean_isi_gamma</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">lamb_gamma</span>
+    <span class="n">mean_isi_ig</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">lamb_ig</span>
+    <span class="n">max_mean_isi</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">mean_isi_gamma</span><span class="p">,</span> <span class="n">mean_isi_ig</span><span class="p">)</span>
+    <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">max_mean_isi</span> <span class="o">*</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;interval_x_range_factor&#39;</span><span class="p">],</span> 
+                         <span class="n">params</span><span class="p">[</span><span class="s1">&#39;interval_n_points&#39;</span><span class="p">])</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes_gamma</span><span class="p">):</span>
+        <span class="n">gamma_shape</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="n">gamma_scale</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">lamb_gamma</span><span class="p">)</span>
+        <span class="n">y_gamma</span> <span class="o">=</span> <span class="n">sp_stats</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">gamma_shape</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">gamma_scale</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_gamma</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors_gamma</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;gamma_lw&#39;</span><span class="p">],</span> 
+                <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$\mathrm</span><span class="se">{{</span><span class="s1">Gamma</span><span class="se">}}</span><span class="s1">,\, \alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shapes_ig</span><span class="p">):</span>
+        <span class="n">mu_param</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">lamb_ig</span>
+        <span class="n">lambda_param</span> <span class="o">=</span> <span class="n">alpha</span>
+        <span class="n">y_ig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">lambda_param</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x_grid</span><span class="o">**</span><span class="mi">3</span><span class="p">))</span> <span class="o">*</span> \
+               <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">lambda_param</span> <span class="o">*</span> <span class="p">(</span><span class="n">x_grid</span> <span class="o">-</span> <span class="n">mu_param</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mu_param</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x_grid</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_ig</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors_ig</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ig_lw&#39;</span><span class="p">],</span> 
+                <span class="n">linestyle</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;ig_linestyle&#39;</span><span class="p">],</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">rf</span><span class="s1">&#39;$\mathrm</span><span class="se">{{</span><span class="s1">IG</span><span class="se">}}</span><span class="s1">,\, \alpha=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_color&#39;</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_ls&#39;</span><span class="p">],</span> 
+               <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_lw&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;interval_xlim&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;interval_xlim&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;interval_ylim&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;interval_ylim&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$z$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;label_fontsize&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Interval Models&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;title_fontsize&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;legend_fontsize_interval&#39;</span><span class="p">],</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="c1"># =========================================================================</span>
+    <span class="c1"># Panel 2: Truncated Gaussian / Laplace (ReLU)</span>
+    <span class="c1"># =========================================================================</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">xlim</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_xlim&#39;</span><span class="p">]</span>
+    <span class="n">x_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_n_points&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># Gaussian + ReLU</span>
+    <span class="n">y_gauss</span> <span class="o">=</span> <span class="n">sp_stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;scale_signal&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_gauss</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_gaussian</span><span class="p">,</span> 
+                    <span class="n">alpha</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_fill_alpha&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_gauss</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_gaussian</span><span class="p">,</span> 
+            <span class="n">alpha</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_line_alpha&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_linestyle&#39;</span><span class="p">])</span>
+    <span class="n">y_gauss_relu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x_grid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y_gauss</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_gauss_relu</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_gaussian</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_lw&#39;</span><span class="p">],</span> 
+            <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mathrm</span><span class="si">{Gauss}</span><span class="s1">_\mathrm</span><span class="si">{ReLU}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Laplace + ReLU</span>
+    <span class="n">y_laplace</span> <span class="o">=</span> <span class="n">sp_stats</span><span class="o">.</span><span class="n">laplace</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;scale_signal&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_laplace</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_laplace</span><span class="p">,</span> 
+                    <span class="n">alpha</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_fill_alpha&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_laplace</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_laplace</span><span class="p">,</span> 
+            <span class="n">alpha</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_line_alpha&#39;</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_linestyle&#39;</span><span class="p">])</span>
+    <span class="n">y_laplace_relu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x_grid</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y_laplace</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_grid</span><span class="p">,</span> <span class="n">y_laplace_relu</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_laplace</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_lw&#39;</span><span class="p">],</span> 
+            <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\mathrm</span><span class="si">{Laplace}</span><span class="s1">_\mathrm</span><span class="si">{ReLU}</span><span class="s1">$&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_color&#39;</span><span class="p">],</span> <span class="n">ls</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_ls&#39;</span><span class="p">],</span> 
+               <span class="n">lw</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;axhline_lw&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_xlim&#39;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_ylim&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;rect_ylim&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$z$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;label_fontsize&#39;</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Continuous + Rectified&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;title_fontsize&#39;</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;legend_fontsize_rect&#39;</span><span class="p">],</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mcolors</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_rgb</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_color_gradient</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_factor</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">max_factor</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                        <span class="n">cmap_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate n colors as a gradient.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : str, tuple, list, or matplotlib colormap</span>
+<span class="sd">        Color source, can be:</span>
+<span class="sd">        - Single color: str (&#39;C0&#39;, &#39;tab:blue&#39;, &#39;#1f77b4&#39;) or RGB tuple (0.1, 0.2, 0.5)</span>
+<span class="sd">          Creates gradient by darkening/lightening</span>
+<span class="sd">        - Pair of colors: list/tuple of 2 colors, e.g., [&#39;lightblue&#39;, &#39;darkblue&#39;]</span>
+<span class="sd">          Interpolates between them</span>
+<span class="sd">        - Colormap: str name (&#39;viridis&#39;, &#39;plasma&#39;) or matplotlib Colormap object</span>
+<span class="sd">          Samples n colors from the colormap</span>
+<span class="sd">    n : int</span>
+<span class="sd">        Number of colors to generate</span>
+<span class="sd">    light_to_dark : bool</span>
+<span class="sd">        For single color mode: if True, gradient goes light to dark. If False, dark to light.</span>
+<span class="sd">        For pair/cmap mode: if False, reverses the gradient direction.</span>
+<span class="sd">    min_factor : float</span>
+<span class="sd">        For single color mode: minimum brightness factor (0-1)</span>
+<span class="sd">    max_factor : float</span>
+<span class="sd">        For single color mode: maximum brightness factor (0-1)</span>
+<span class="sd">    cmap_range : tuple of (float, float)</span>
+<span class="sd">        For colormap mode: range of colormap to sample from (0-1).</span>
+<span class="sd">        E.g., (0.2, 0.8) avoids extreme light/dark ends.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of RGB tuples</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    # Single color (darken/lighten)</span>
+<span class="sd">    make_color_gradient(&#39;tab:blue&#39;, 5)</span>
+<span class="sd">    make_color_gradient(&#39;#e74c3c&#39;, 3, light_to_dark=False)</span>
+<span class="sd">    </span>
+<span class="sd">    # Pair of colors (interpolate)</span>
+<span class="sd">    make_color_gradient([&#39;lightblue&#39;, &#39;darkblue&#39;], 5)</span>
+<span class="sd">    make_color_gradient([(0.9, 0.9, 0.2), (0.1, 0.5, 0.1)], 4)</span>
+<span class="sd">    </span>
+<span class="sd">    # Colormap</span>
+<span class="sd">    make_color_gradient(&#39;viridis&#39;, 5)</span>
+<span class="sd">    make_color_gradient(&#39;coolwarm&#39;, 5, cmap_range=(0.2, 0.8))</span>
+<span class="sd">    make_color_gradient(plt.cm.Greens, 4, cmap_range=(0.3, 0.9))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="c1"># Detect source type</span>
+    <span class="n">source_type</span> <span class="o">=</span> <span class="n">_detect_source_type</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s1">&#39;single&#39;</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">_gradient_from_single</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="p">,</span> <span class="n">min_factor</span><span class="p">,</span> <span class="n">max_factor</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s1">&#39;pair&#39;</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">_gradient_from_pair</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s1">&#39;cmap&#39;</span><span class="p">:</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">_gradient_from_cmap</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="p">,</span> <span class="n">cmap_range</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot interpret source: </span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">colors</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_detect_source_type</span><span class="p">(</span><span class="n">source</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Detect whether source is a single color, pair of colors, or colormap.&quot;&quot;&quot;</span>
+    <span class="c1"># Check if it&#39;s a matplotlib colormap object</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">mcolors</span><span class="o">.</span><span class="n">Colormap</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;cmap&#39;</span>
+    
+    <span class="c1"># Check if it&#39;s a string</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># Try to interpret as colormap name</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s1">&#39;cmap&#39;</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="c1"># Otherwise it&#39;s a single color string</span>
+        <span class="k">return</span> <span class="s1">&#39;single&#39;</span>
+    
+    <span class="c1"># Check if it&#39;s a tuple/list</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+        <span class="c1"># RGB/RGBA tuple (single color)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">source</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s1">&#39;single&#39;</span>
+        <span class="c1"># Pair of colors</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="c1"># Check if both elements look like colors</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">to_rgb</span><span class="p">(</span><span class="n">source</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">to_rgb</span><span class="p">(</span><span class="n">source</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">return</span> <span class="s1">&#39;pair&#39;</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="k">pass</span>
+        <span class="c1"># Could be a list of colors - treat as pair if length 2</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;pair&#39;</span>
+    
+    <span class="k">return</span> <span class="s1">&#39;unknown&#39;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_clamp_rgb</span><span class="p">(</span><span class="n">rgb</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clamp RGB values to valid [0, 1] range.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">c</span><span class="p">))</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">rgb</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gradient_from_single</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="p">,</span> <span class="n">min_factor</span><span class="p">,</span> <span class="n">max_factor</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create gradient by darkening/lightening a single color.&quot;&quot;&quot;</span>
+    <span class="n">base_rgb</span> <span class="o">=</span> <span class="n">to_rgb</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">base_rgb</span><span class="p">]</span>
+    
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">light_to_dark</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="n">min_factor</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_factor</span> <span class="o">-</span> <span class="n">min_factor</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">factor</span> <span class="o">=</span> <span class="n">max_factor</span> <span class="o">-</span> <span class="p">(</span><span class="n">max_factor</span> <span class="o">-</span> <span class="n">min_factor</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">new_rgb</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">c</span> <span class="o">*</span> <span class="n">factor</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">base_rgb</span><span class="p">)</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_clamp_rgb</span><span class="p">(</span><span class="n">new_rgb</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">colors</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gradient_from_pair</span><span class="p">(</span><span class="n">color_pair</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create gradient by interpolating between two colors.&quot;&quot;&quot;</span>
+    <span class="n">rgb1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">rgb2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">to_rgb</span><span class="p">(</span><span class="n">color_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">rgb1</span><span class="p">)]</span>
+    
+    <span class="c1"># Create interpolation</span>
+    <span class="n">t_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">light_to_dark</span><span class="p">:</span>
+        <span class="n">t_values</span> <span class="o">=</span> <span class="n">t_values</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_values</span><span class="p">:</span>
+        <span class="n">rgb</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">rgb1</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="n">rgb2</span>
+        <span class="n">colors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_clamp_rgb</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">rgb</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">colors</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_gradient_from_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="p">,</span> <span class="n">cmap_range</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extract colors from a colormap.&quot;&quot;&quot;</span>
+    <span class="c1"># Get colormap object</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cmap</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">cmap</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="n">cmap</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">cmap_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">cmap_range</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">cmap</span><span class="p">(</span><span class="n">mid</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]]</span>
+    
+    <span class="c1"># Sample positions within the specified range</span>
+    <span class="n">t_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmap_range</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap_range</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">light_to_dark</span><span class="p">:</span>
+        <span class="n">t_values</span> <span class="o">=</span> <span class="n">t_values</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    
+    <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmap</span><span class="p">(</span><span class="n">t</span><span class="p">)[:</span><span class="mi">3</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_values</span><span class="p">]</span>  <span class="c1"># [:3] to drop alpha</span>
+    <span class="k">return</span> <span class="n">colors</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">show_gradient</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">colors</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">colors</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">colors</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+
+<span class="c1"># Row 1: Single color gradients</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> 
+              <span class="s2">&quot;Single: &#39;tab:blue&#39; (light→dark)&quot;</span><span class="p">)</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">light_to_dark</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> 
+              <span class="s2">&quot;Single: &#39;tab:blue&#39; (dark→light)&quot;</span><span class="p">)</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">min_factor</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">max_factor</span><span class="o">=</span><span class="mf">1.2</span><span class="p">),</span> 
+              <span class="s2">&quot;Single: &#39;#e74c3c&#39; (custom range, clamped)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Row 2: Pair of colors</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">([</span><span class="s1">&#39;lightblue&#39;</span><span class="p">,</span> <span class="s1">&#39;darkblue&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">),</span> 
+              <span class="s2">&quot;Pair: lightblue → darkblue&quot;</span><span class="p">)</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">([</span><span class="s1">&#39;#ffffcc&#39;</span><span class="p">,</span> <span class="s1">&#39;#006837&#39;</span><span class="p">],</span> <span class="mi">5</span><span class="p">),</span> 
+              <span class="s2">&quot;Pair: yellow → green&quot;</span><span class="p">)</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span> <span class="mi">5</span><span class="p">),</span> 
+              <span class="s2">&quot;Pair: RGB tuples&quot;</span><span class="p">)</span>
+
+<span class="c1"># Row 3: Colormaps</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> 
+              <span class="s2">&quot;Cmap: &#39;viridis&#39;&quot;</span><span class="p">)</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;plasma&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">cmap_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)),</span> 
+              <span class="s2">&quot;Cmap: &#39;plasma&#39; (0.2-0.8)&quot;</span><span class="p">)</span>
+<span class="n">show_gradient</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;Greens&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">cmap_range</span><span class="o">=</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">)),</span> 
+              <span class="s2">&quot;Cmap: &#39;Greens&#39; (0.3-0.9)&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f1ff06129ceea86f767fed5bde25dd91d147a6ac86822d67584b69c0c40d225e.png" src="../../_images/f1ff06129ceea86f767fed5bde25dd91d147a6ac86822d67584b69c0c40d225e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nb_colors</span> <span class="o">=</span> <span class="n">make_color_gradient</span><span class="p">(</span><span class="s1">&#39;Spectral&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="c1">#[:-2]</span>
+<span class="n">nb_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">nb_colors</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="c1"># nb_colors = [&#39;red&#39;, &#39;C2&#39;, &#39;C0&#39;, &#39;orange&#39;]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plot_distribution_comparison</span><span class="p">(</span>
+    <span class="n">shapes</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;negative_binomial&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+        <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+    <span class="p">},</span>
+    <span class="n">lamb</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;poisson&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s1">&#39;negative_binomial&#39;</span><span class="p">:</span> <span class="mf">5.0</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+    <span class="n">colors</span><span class="o">=</span><span class="p">{</span>
+        <span class="s1">&#39;poisson&#39;</span><span class="p">:</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;negative_binomial&#39;</span><span class="p">:</span> <span class="n">nb_colors</span><span class="p">,</span>
+        <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;C9&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">],</span>  <span class="c1"># Green gradient</span>
+        <span class="s1">&#39;inverse_gaussian&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;C9&#39;</span><span class="p">,</span> <span class="s1">&#39;C3&#39;</span><span class="p">,</span> <span class="s1">&#39;C2&#39;</span><span class="p">],</span>   <span class="c1"># Red gradient</span>
+    <span class="p">},</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4ef1403d3f4581f523202a1aead6fd22dac710e02f2bd702922c436a85b982bb.png" src="../../_images/4ef1403d3f4581f523202a1aead6fd22dac710e02f2bd702922c436a85b982bb.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-02"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../md/2026-02_updates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Updates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="09_ipvae-ood.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(09) iP-VAE OOD tests</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dists-plots">Dists plots</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
