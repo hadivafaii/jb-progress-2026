@@ -57,6 +57,8 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-04/30_curvature-analysis-2';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -601,9 +603,10 @@ document.write(`
 <section id="function-space-adversarial-kl-sensitivity">
 <h3>2. Function-Space Adversarial KL Sensitivity<a class="headerlink" href="#function-space-adversarial-kl-sensitivity" title="Link to this heading">#</a></h3>
 <p>This metric measures predictive distribution change:</p>
-<p>[
+<div class="math notranslate nohighlight">
+\[
 KL(p_\theta || p_{\theta+\delta}) \approx \frac{1}{2}\delta^\top F\delta
-]</p>
+\]</div>
 <p>So it probes Fisher/information-geometric stiffness of the learned function.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
