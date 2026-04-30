@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>(30) Curvature analysis: Lion vs. MassiveLion &#8212; Research Progress [2026]</title>
+    <title>(30) Curvature analysis: MassiveLion vs. Lion (regular) &#8212; Research Progress [2026]</title>
   
   
   
@@ -221,7 +221,7 @@
 <li class="toctree-l2"><a class="reference internal" href="01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
 <li class="toctree-l2"><a class="reference internal" href="30_curvature-analysis-1.html">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(30) Curvature analysis: MassiveLion vs. Lion (regular)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tmp-apr26.html">tmp — apr26</a></li>
 </ul>
 </details></li>
@@ -410,7 +410,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>(30) Curvature analysis: Lion vs. MassiveLion</h1>
+    <h1>(30) Curvature analysis: MassiveLion vs. Lion (regular)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -450,11 +450,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="curvature-analysis-lion-vs-massivelion">
-<h1>(30) Curvature analysis: Lion vs. MassiveLion<a class="headerlink" href="#curvature-analysis-lion-vs-massivelion" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="curvature-analysis-massivelion-vs-lion-regular">
+<h1>(30) Curvature analysis: MassiveLion vs. Lion (regular)<a class="headerlink" href="#curvature-analysis-massivelion-vs-lion-regular" title="Link to this heading">#</a></h1>
 <p>device = <code class="docutils literal notranslate"><span class="pre">cuda:0</span></code></p>
-<p>This time, use a more reasonable Lion model (lower learning rate)</p>
-<p><strong>Motivation</strong>: <br></p>
+<p>This time, use a more reasonable Lion model (lower learning rate, larger batch size, and most importantly, with a positive curvature coupling term).</p>
 <section id="follow-up-sharpness-report-massivelion-vs-larger-batch-smaller-lr-lion">
 <h2>Follow-Up Sharpness Report: MassiveLion vs Larger-Batch / Smaller-LR Lion<a class="headerlink" href="#follow-up-sharpness-report-massivelion-vs-larger-batch-smaller-lr-lion" title="Link to this heading">#</a></h2>
 <section id="motivation">
