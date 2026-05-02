@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>(30) Curvature analysis: Lion vs. MassiveLion &#8212; Research Progress [2026]</title>
+    <title>(30) Curvature analysis: MassiveLion vs. Lion (sharp) &#8212; Research Progress [2026]</title>
   
   
   
@@ -62,7 +62,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-04/30_curvature-analysis-1';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="(30) Curvature analysis: Lion vs. MassiveLion" href="30_curvature-analysis-2.html" />
+    <link rel="next" title="(30) Curvature analysis: MassiveLion vs. Lion (regular)" href="30_curvature-analysis-2.html" />
     <link rel="prev" title="(02) Stroop PVAE task" href="02_stroop_ccn2026.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -220,9 +220,19 @@
 <li class="toctree-l2"><a class="reference internal" href="01_imgnet40-process.html">(01) ImageNet40: crop, process, save</a></li>
 <li class="toctree-l2"><a class="reference internal" href="01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
-<li class="toctree-l2"><a class="reference internal" href="30_curvature-analysis-2.html">(30) Curvature analysis: Lion vs. MassiveLion</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(30) Curvature analysis: MassiveLion vs. Lion (sharp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="30_curvature-analysis-2.html">(30) Curvature analysis: MassiveLion vs. Lion (regular)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tmp-apr26.html">tmp — apr26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">May 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-05.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-05_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-05/1_invariant-curvature-analysis.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-05/1_invariant-curvature-zeta.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-05/tmp-may26.html">tmp — may26</a></li>
 </ul>
 </details></li>
 </ul>
@@ -410,7 +420,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>(30) Curvature analysis: Lion vs. MassiveLion</h1>
+    <h1>(30) Curvature analysis: MassiveLion vs. Lion (sharp)</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -447,17 +457,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="curvature-analysis-lion-vs-massivelion">
-<h1>(30) Curvature analysis: Lion vs. MassiveLion<a class="headerlink" href="#curvature-analysis-lion-vs-massivelion" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="curvature-analysis-massivelion-vs-lion-sharp">
+<h1>(30) Curvature analysis: MassiveLion vs. Lion (sharp)<a class="headerlink" href="#curvature-analysis-massivelion-vs-lion-sharp" title="Link to this heading">#</a></h1>
 <p>device = <code class="docutils literal notranslate"><span class="pre">cuda:1</span></code></p>
-<p><strong>Motivation</strong>: <br></p>
 <section id="sharpness-analysis-report-massivelion-vs-lion-limit-run">
 <h2>Sharpness Analysis Report: MassiveLion vs Lion-Limit Run<a class="headerlink" href="#sharpness-analysis-report-massivelion-vs-lion-limit-run" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
 <p><strong>Important update:</strong></p>
 <blockquote>
 <div><p>I learned that this Lion was in fact a <span class="math notranslate nohighlight">\(\beta_1 &gt; \beta_2\)</span> fit (or equivalently, <span class="math notranslate nohighlight">\(\zeta &lt; 0\)</span>).</p>
 </div></blockquote>
 <p>This is reassuring. The energy injection mechanism clearly sends the system toward a bad, sharp area. But the actuall Hessian metric says low curvature for this bad Lion fit. Experiments confirm theory. This is beautiful!</p>
+<hr class="docutils" />
 <section id="motivation">
 <h3>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h3>
 <p>The original puzzle was that the top MassiveLion run appeared <strong>much sharper</strong> than the top Lion-like run under cached scalar curvature diagnostics, even though MassiveLion also performed better. This was suspicious because the Lion-like model had a much larger parameter norm:</p>
@@ -2418,7 +2429,7 @@ p95_loss_inc <span style="color: #008080; text-decoration-color: #008080; font-w
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">(30) Curvature analysis: Lion vs. MassiveLion</p>
+        <p class="prev-next-title">(30) Curvature analysis: MassiveLion vs. Lion (regular)</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

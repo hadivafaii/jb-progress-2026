@@ -1,0 +1,3794 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>(1) Invariant curvature analysis: MassiveLion vs. Lion &#8212; Research Progress [2026]</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'nb/2026-05/1_invariant-curvature-analysis';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="(1) Invariant curvature analysis: MassiveLion vs. Lion" href="1_invariant-curvature-zeta.html" />
+    <link rel="prev" title="Updates" href="../../md/2026-05_updates.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../md/intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Research Progress [2026] - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Research Progress [2026] - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../md/intro.html">
+                    Welcome
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">January 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-01.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-01_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/22_grad-bias-var.html">(22) Analysis: Grad Bias Var + Dist Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/23_grad-fixed-point.html">(23) Grad Fixed Point Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/24_gra-adam-vs-grlion.html">(24) GRA — AdamW vs. GR-Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_fig-eat-moments-theory.html">(26) EAT method – bias of moments plot (theory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/26_grad-bias-var%2Bscore.html">(26) Grad Bias Var Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/30_fig-gamma-vs-exp.html">(30) Gamma vs Exp: inter-event intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/31_grad-bias-var-quintic.html">(31) Grad Bias Var + Dist Consistency (+quintic added)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-01/tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">February 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-02.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-02_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/03_various-dists-pdf-plots.html">(03) various VAEs: dist PDF plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/09_ipvae-ood.html">(09) iP-VAE OOD tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/10_metabolic-cost-figs.html">(10) metabolic cost pvae (CCN 2026) figs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/24_nb-ig-pois.html">(24) neg. binomial / poisson / gamma / inv. gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-02/tmp-feb26.html">tmp — feb26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">April 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-04.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../md/2026-04_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_cadena-play.html">(01) Cadena Data (Michael’s Demo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_cadena-pvae-final.html">(01) Cadena: fit P-VAE (final)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_cadena-pvae-play.html">(01) Cadena: fit P-VAE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_imgnet40-process.html">(01) ImageNet40: crop, process, save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/30_curvature-analysis-1.html">(30) Curvature analysis: MassiveLion vs. Lion (sharp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/30_curvature-analysis-2.html">(30) Curvature analysis: MassiveLion vs. Lion (regular)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../2026-04/tmp-apr26.html">tmp — apr26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">May 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../md/2026-05.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../md/2026-05_updates.html">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="1_invariant-curvature-zeta.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tmp-may26.html">tmp — may26</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/hadivafaii/jb-progress-2026/issues/new?title=Issue%20on%20page%20%2Fnb/2026-05/1_invariant-curvature-analysis.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/nb/2026-05/1_invariant-curvature-analysis.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(1) Invariant curvature analysis: MassiveLion vs. Lion</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-massivelion-vs-lion-bad-vs-lion-ok">Interpretation: MassiveLion vs <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> vs <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-mode-spectrum">Normal-Mode Spectrum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thermal-susceptibility">Thermal Susceptibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-kl">Adversarial KL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-ce-sharpness">Adversarial CE Sharpness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0-load-stuff">step 0 — load stuff</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-runs">load runs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-run-the-big-loop">step 1 — run the big loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-inspect-visualize">step 2 — inspect / visualize</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-to-m-lion">relative to m_lion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-df">results df</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="invariant-curvature-analysis-massivelion-vs-lion">
+<h1>(1) Invariant curvature analysis: MassiveLion vs. Lion<a class="headerlink" href="#invariant-curvature-analysis-massivelion-vs-lion" title="Link to this heading">#</a></h1>
+<p>device = <code class="docutils literal notranslate"><span class="pre">cuda:0</span></code></p>
+<section id="interpretation-massivelion-vs-lion-bad-vs-lion-ok">
+<h2>Interpretation: MassiveLion vs <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> vs <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code><a class="headerlink" href="#interpretation-massivelion-vs-lion-bad-vs-lion-ok" title="Link to this heading">#</a></h2>
+<p>The invariant/function-space probes now separate the three runs cleanly.</p>
+<p>The key new fact is that <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> had <strong>negative curvature coupling</strong> because <span class="math notranslate nohighlight">\(\beta_1 &gt; \beta_2\)</span>. That makes its pathology much less mysterious: the optimizer dynamics were effectively amplifying the wrong curvature response rather than damping it. The diagnostics show exactly that kind of unstable, stiff solution.</p>
+<section id="normal-mode-spectrum">
+<h3>Normal-Mode Spectrum<a class="headerlink" href="#normal-mode-spectrum" title="Link to this heading">#</a></h3>
+<p>The Fisher/KL normal-mode spectrum is the most mechanistic summary. It treats the local predictive KL as an elastic energy,</p>
+<div class="math notranslate nohighlight">
+\[
+KL(p_\theta || p_{\theta+\delta}) \;\approx\; \frac{1}{2}\delta^\top F\delta,
+\]</div>
+<p>so eigenvalues of the filter-normalized Fisher/KL matrix behave like <strong>spring constants</strong>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> has a dramatically larger <code class="docutils literal notranslate"><span class="pre">lambda_max</span></code> and <code class="docutils literal notranslate"><span class="pre">random_rayleigh_mean</span></code> than both <code class="docutils literal notranslate"><span class="pre">m_lion</span></code> and <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code>. This means it is not just sharp in one unlucky direction; its functional stiffness scale is globally much higher. Its <code class="docutils literal notranslate"><span class="pre">stiff_mode_ratio</span></code> is also large, indicating strong anisotropy: rare directions are extremely stiff relative to typical directions.</p>
+<p>By contrast, <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> has normal-mode stiffness comparable to or lower than <code class="docutils literal notranslate"><span class="pre">m_lion</span></code>, though its typical random stiffness is slightly higher. This supports the idea that Lion itself is not necessarily pathological; the bad behavior came from the negative-coupling regime.</p>
+</section>
+<section id="thermal-susceptibility">
+<h3>Thermal Susceptibility<a class="headerlink" href="#thermal-susceptibility" title="Link to this heading">#</a></h3>
+<p>The thermal probes measure typical response to random filter-normalized perturbations. This is a finite-temperature / basin-volume view: instead of asking for the worst direction, we ask how much nearby normalized volume changes the function.</p>
+<p>Both <code class="docutils literal notranslate"><span class="pre">mean_KL</span></code> and <code class="docutils literal notranslate"><span class="pre">p95_KL</span></code> show:</p>
+<div class="math notranslate nohighlight">
+\[
+\texttt{lion_bad} \;\gg\; \texttt{lion_ok} \;\gtrsim\; \texttt{m_lion}.
+\]</div>
+<p>So <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> is thermally more susceptible across all perturbation scales. Random perturbations already change its predictive distribution much more than they change the others. <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> and <code class="docutils literal notranslate"><span class="pre">m_lion</span></code> remain close, with <code class="docutils literal notranslate"><span class="pre">m_lion</span></code> usually slightly more stable.</p>
+</section>
+<section id="adversarial-kl">
+<h3>Adversarial KL<a class="headerlink" href="#adversarial-kl" title="Link to this heading">#</a></h3>
+<p>The adversarial KL probe is the zero-temperature, worst-case version of functional sensitivity. It asks: how much can an adversary change the model’s predictions under a scale-aware perturbation?</p>
+<p>Here the separation is extreme. <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> has much larger KL even at tiny perturbation scales, then catastrophically explodes at moderate scales. This is the clearest signature of unstable stiff modes. <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> and <code class="docutils literal notranslate"><span class="pre">m_lion</span></code> track each other closely at small scales, only rising at larger perturbations.</p>
+<p>This means the previous “Lion is functionally brittle” conclusion should be refined:</p>
+<blockquote>
+<div><p>The pathological Lion run was functionally brittle because it was in the negative curvature-coupling regime, not because all Lion-like fits must be brittle.</p>
+</div></blockquote>
+</section>
+<section id="adversarial-ce-sharpness">
+<h3>Adversarial CE Sharpness<a class="headerlink" href="#adversarial-ce-sharpness" title="Link to this heading">#</a></h3>
+<p>The CE sharpness plot tells the same story in supervised-loss space. <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> becomes explosively sharp, with loss increases spanning many orders of magnitude. <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> and <code class="docutils literal notranslate"><span class="pre">m_lion</span></code> remain well behaved and close together until larger perturbation scales.</p>
+<p>At the largest scales, both <code class="docutils literal notranslate"><span class="pre">m_lion</span></code> and <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> eventually become vulnerable, but this is less informative because large perturbations leave the local regime. The small-to-moderate perturbation range is the important one, and there <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> is the clear outlier.</p>
+</section>
+<section id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h3>
+<p>The converging interpretation is:</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> is not merely a high-norm or unlucky Lion solution. It is dynamically pathological because (\beta_1 &gt; \beta_2) gives negative curvature coupling, producing extremely stiff and unstable functional modes.</strong></p>
+<p>The invariant probes all agree:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> has enormous worst-case functional sensitivity.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> has much higher typical thermal susceptibility.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> has a vastly larger Fisher/KL stiffness scale.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> is mechanically much healthier and often close to <code class="docutils literal notranslate"><span class="pre">m_lion</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">m_lion</span></code> remains the most consistently stable or near-stable model across typical perturbation probes.</p></li>
+</ul>
+<p>Mechanistically, MassiveLion behaves like a curvature-damped system that reaches a stable functional basin. <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code> is a reasonable Lion solution without the negative-coupling instability. <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> behaves like an anti-damped or wrong-sign curvature-coupled system: it lands in a basin with hidden stiff modes that explode under normalized adversarial perturbations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># display_probe_interpretation();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<h3 class="rubric" id="adv-ce-filter-normalized-adversarial-ce-sharpness"><code class="docutils literal notranslate"><span class="pre">adv_ce</span></code>: Filter-normalized adversarial CE sharpness</h3>
+<p><strong>Question.</strong> How much can an adversary increase supervised loss using a scale-aware perturbation of the weights?</p>
+<p><strong>Mechanics view.</strong> Worst-case elastic energy under a normalized displacement. The filter normalization changes coordinates from raw weights to relative per-filter strain, so large parameter norms do not automatically look flatter or sharper.</p>
+<p><strong>Thermo view.</strong> This is a zero-temperature / adversarial probe: it finds the most damaging local direction instead of averaging over typical thermal kicks.</p>
+<p><strong>Large values mean.</strong> A nearby scale-aware displacement can strongly increase CE loss. The basin has a brittle direction in label-loss space.</p>
+<p><strong>Small values mean.</strong> The supervised loss is locally stable to worst-case normalized weight perturbations at this perturb_scale.</p>
+<p><strong>Primary readouts.</strong> <code class="docutils literal notranslate"><span class="pre">sharpness,</span> <span class="pre">relative_sharpness,</span> <span class="pre">sharp_acc</span></code></p>
+<p><strong>Caveat.</strong> CE can explode when logits become confidently wrong. Interpret small perturb_scale values before accuracy collapses most heavily.</p>
+<h3 class="rubric" id="adv-kl-filter-normalized-adversarial-function-space-kl"><code class="docutils literal notranslate"><span class="pre">adv_kl</span></code>: Filter-normalized adversarial function-space KL</h3>
+<p><strong>Question.</strong> How much can an adversary change the predictive distribution using a scale-aware weight perturbation?</p>
+<p><strong>Mechanics view.</strong> For small perturbations, KL(p_theta || p_theta+delta) is roughly 0.5 * delta^T F delta, so this is a direct stiffness measurement of the learned function in normalized coordinates.</p>
+<p><strong>Thermo view.</strong> This is still a zero-temperature probe, but the energy is information-geometric rather than label CE.</p>
+<p><strong>Large values mean.</strong> The input-output map has a stiff functional direction. The model can change predictions substantially without a large normalized parameter displacement.</p>
+<p><strong>Small values mean.</strong> The function is locally stable; predictions are insensitive to worst-case normalized perturbations at this scale.</p>
+<p><strong>Primary readouts.</strong> <code class="docutils literal notranslate"><span class="pre">kl,</span> <span class="pre">pert_acc,</span> <span class="pre">pert_loss</span></code></p>
+<p><strong>Caveat.</strong> When KL is near numerical floor, ratios can look dramatic but the qualitative ordering matters more than exact factors.</p>
+<h3 class="rubric" id="thermal-filter-normalized-thermal-susceptibility"><code class="docutils literal notranslate"><span class="pre">thermal</span></code>: Filter-normalized thermal susceptibility</h3>
+<p><strong>Question.</strong> How much does the function fluctuate under random isotropic normalized weight noise?</p>
+<p><strong>Mechanics view.</strong> Measures typical susceptibility rather than the stiffest mode. Think of random small kicks to a mechanical system and observe the average response.</p>
+<p><strong>Thermo view.</strong> Finite-temperature basin-volume probe. Mean and tail KL estimate how much nearby normalized volume preserves the function.</p>
+<p><strong>Large values mean.</strong> A substantial fraction of nearby normalized parameter volume changes the function or loss.</p>
+<p><strong>Small values mean.</strong> Typical nearby perturbations are harmless. If adversarial probes are large but thermal probes are small, the brittleness is anisotropic and concentrated in rare directions.</p>
+<p><strong>Primary readouts.</strong> <code class="docutils literal notranslate"><span class="pre">mean_kl,</span> <span class="pre">p95_kl,</span> <span class="pre">mean_loss_increase,</span> <span class="pre">worst_acc</span></code></p>
+<p><strong>Caveat.</strong> Random directions in very high dimension often miss narrow stiff subspaces, so use this alongside adversarial probes.</p>
+<h3 class="rubric" id="normal-modes-filter-normalized-fisher-kl-normal-modes"><code class="docutils literal notranslate"><span class="pre">normal_modes</span></code>: Filter-normalized Fisher/KL normal modes</h3>
+<p><strong>Question.</strong> What are the stiffest functional modes, and how anisotropic is the local geometry?</p>
+<p><strong>Mechanics view.</strong> Treat S F S as a stiffness matrix, where F is the predictive Fisher/KL Hessian and S maps normalized coordinates to real weights. Eigenvectors are normal modes; eigenvalues are spring constants.</p>
+<p><strong>Thermo view.</strong> The top eigenvalue gives the stiffest low-temperature mode, while random Rayleigh probes estimate typical thermal stiffness.</p>
+<p><strong>Large values mean.</strong> Large lambda_max means a very stiff functional direction. A large stiff_mode_ratio means a highly anisotropic basin with rare sharp modes and many softer directions.</p>
+<p><strong>Small values mean.</strong> The local function-space stiffness scale is lower, or less anisotropic if stiff_mode_ratio is also small.</p>
+<p><strong>Primary readouts.</strong> <code class="docutils literal notranslate"><span class="pre">lambda_max,</span> <span class="pre">top_eigs,</span> <span class="pre">random_rayleigh_mean,</span> <span class="pre">stiff_mode_ratio</span></code></p>
+<p><strong>Caveat.</strong> Lanczos estimates depend on max_batches, random initialization, and number of steps. Compare runs under identical settings.</p>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">pathlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">display</span>
+
+<span class="c1"># tmp &amp; extras dir</span>
+<span class="n">_jb_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">])</span>
+<span class="n">_jb_dir</span> <span class="o">/=</span> <span class="s1">&#39;Dropbox/git/jb-progress-2026&#39;</span>
+<span class="n">extras_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;_extras&#39;</span>
+<span class="n">fig_base_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;figs&#39;</span>
+<span class="n">tmp_dir</span> <span class="o">=</span> <span class="n">_jb_dir</span> <span class="o">/</span> <span class="s1">&#39;tmp&#39;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.utils.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># warnings, tqdm, &amp; style</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rich.jupyter</span><span class="w"> </span><span class="kn">import</span> <span class="nb">print</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">set_style</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell tag_hide-input docutils container">
+<details class="admonition hide above-input">
+<summary aria-label="Toggle hidden content">
+<p class="collapsed admonition-title">Show code cell source</p>
+<p class="expanded admonition-title">Hide code cell source</p>
+</summary>
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## HIDE CODE</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.experiments.vision.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">WideResNet</span><span class="p">,</span> <span class="n">ResNet18</span><span class="p">,</span> <span class="n">ConvNet</span><span class="p">,</span> <span class="n">MLP</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_ckpt_arg</span><span class="p">(</span><span class="n">ckpt</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">ckpt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;args&quot;</span><span class="p">,</span> <span class="p">{})</span>
+    <span class="k">return</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_clean_state_dict</span><span class="p">(</span><span class="n">sd</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="n">k</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;_orig_mod.&quot;</span><span class="p">):</span> <span class="n">v</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">sd</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ckpt_to_vision_model</span><span class="p">(</span><span class="n">ckpt</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">):</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_ckpt_arg</span><span class="p">(</span><span class="n">ckpt</span><span class="p">,</span> <span class="s2">&quot;dataset&quot;</span><span class="p">,</span> <span class="s2">&quot;CIFAR10&quot;</span><span class="p">))</span>
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">_ckpt_arg</span><span class="p">(</span><span class="n">ckpt</span><span class="p">,</span> <span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="s2">&quot;resnet&quot;</span><span class="p">)</span>
+    <span class="n">num_classes</span> <span class="o">=</span> <span class="mi">1000</span> <span class="k">if</span> <span class="s2">&quot;imagenet&quot;</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">else</span> <span class="mi">10</span>
+
+    <span class="n">model_cls</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;resnet&quot;</span><span class="p">:</span> <span class="n">ResNet18</span><span class="p">,</span>
+        <span class="s2">&quot;wrn&quot;</span><span class="p">:</span> <span class="n">WideResNet</span><span class="p">,</span>
+        <span class="s2">&quot;convnet&quot;</span><span class="p">:</span> <span class="n">ConvNet</span><span class="p">,</span>
+        <span class="s2">&quot;mlp&quot;</span><span class="p">:</span> <span class="n">MLP</span><span class="p">,</span>
+    <span class="p">}[</span><span class="n">model_name</span><span class="p">]</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">model_cls</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">_clean_state_dict</span><span class="p">(</span><span class="n">ckpt</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">model</span>
+</pre></div>
+</div>
+</div>
+</details>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">gra.diagnostics.invariant_curvature_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_PERTURB_SCALES</span><span class="p">,</span>
+    <span class="n">display_probe_interpretation</span><span class="p">,</span>
+    <span class="n">filter_normalized_adversarial_sharpness</span><span class="p">,</span>
+    <span class="n">filter_normalized_adversarial_kl</span><span class="p">,</span>
+    <span class="n">filter_normalized_thermal_susceptibility</span><span class="p">,</span>
+    <span class="n">filter_normalized_fisher_normal_modes</span><span class="p">,</span>
+    <span class="n">plot_scale_sweep</span><span class="p">,</span>
+    <span class="n">plot_normal_mode_bars</span><span class="p">,</span>
+    <span class="n">compare_to_reference</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.utils.dataset</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_dataloader</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">device_idx</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">device</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;cuda:</span><span class="si">{</span><span class="n">device_idx</span><span class="si">}</span><span class="s1">&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="s2">  ———  host: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">uname</span><span class="p">()</span><span class="o">.</span><span class="n">nodename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">device: cu<span style="color: #00ff00; text-decoration-color: #00ff00; font-weight: bold">da:0</span>  ———  host: chewie
+</pre>
+</div></div>
+</div>
+</section>
+</section>
+<section id="step-0-load-stuff">
+<h2>step 0 — load stuff<a class="headerlink" href="#step-0-load-stuff" title="Link to this heading">#</a></h2>
+<section id="load-runs">
+<h3>load runs<a class="headerlink" href="#load-runs" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">gra.experiments.common.checkpointing</span><span class="w"> </span><span class="kn">import</span> <span class="n">resolve_resume_source</span><span class="p">,</span> <span class="n">load_checkpoint</span>
+
+<span class="n">run_paths</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;adamw&quot;</span><span class="p">:</span> <span class="s2">&quot;pal-lab/GRA-CIFAR10/tcan6k5g&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;m_lion&quot;</span><span class="p">:</span> <span class="s2">&quot;pal-lab/GRA-CIFAR10/ikft1odq&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lion_ok&quot;</span><span class="p">:</span> <span class="s2">&quot;pal-lab/GRA-CIFAR10/h9vl6ugr&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lion_bad&quot;</span><span class="p">:</span> <span class="s2">&quot;pal-lab/GRA-CIFAR10/5ljlbsbj&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;m_signum&quot;</span><span class="p">:</span> <span class="s2">&quot;pal-lab/GRA-CIFAR10/umh5vvwk&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">sources</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">resolve_resume_source</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">run_paths</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">ckpts</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">k</span><span class="p">:</span> <span class="n">load_checkpoint</span><span class="p">(</span><span class="n">src</span><span class="o">.</span><span class="n">checkpoint_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">sources</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">models</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">ckpt_to_vision_model</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">ckpts</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: <span class=" -Color -Color-Yellow">WARNING</span> The anonymous setting has no effect and will be removed in a future version.
+<span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: <span class=" -Color -Color-Green -Color-Green-BGRed">ERROR</span> Failed to detect the name of this notebook. You can set it manually with the WANDB_NOTEBOOK_NAME environment variable to enable code saving.
+<span class=" -Color -Color-Bold -Color-Bold-Blue">wandb</span>: [wandb.Api()] Loaded credentials for https://api.wandb.ai from /home/hadi/.netrc.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.81 s, sys: 379 ms, total: 2.19 s
+Wall time: 6.05 s
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-data">
+<h3>Load data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_loader</span><span class="p">,</span> <span class="n">val_loader</span> <span class="o">=</span> <span class="n">make_dataloader</span><span class="p">(</span>
+    <span class="n">dataset</span><span class="o">=</span><span class="s2">&quot;CIFAR10&quot;</span><span class="p">,</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">val_loader</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="step-1-run-the-big-loop">
+<h2>step 1 — run the big loop<a class="headerlink" href="#step-1-run-the-big-loop" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%time</span>
+
+
+<span class="n">shared</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;device&quot;</span><span class="p">:</span> <span class="n">device</span><span class="p">,</span>
+    <span class="s2">&quot;max_batches&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="s2">&quot;perturb_scales&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-4</span><span class="p">,</span> <span class="mf">3e-4</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="mf">3e-3</span><span class="p">,</span> <span class="mf">1e-2</span><span class="p">,</span> <span class="mf">3e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mf">3e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">adv_ce_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">adv_kl_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">thermal_rows</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">normal_mode_rows</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="k">for</span> <span class="n">perturb_scale</span> <span class="ow">in</span> <span class="n">shared</span><span class="p">[</span><span class="s2">&quot;perturb_scales&quot;</span><span class="p">]:</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">filter_normalized_adversarial_sharpness</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">loader</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">],</span>
+            <span class="n">perturb_scale</span><span class="o">=</span><span class="n">perturb_scale</span><span class="p">,</span>
+            <span class="n">ascent_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">max_batches</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;max_batches&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">adv_ce_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">out</span><span class="p">})</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="n">filter_normalized_adversarial_kl</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">loader</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">],</span>
+            <span class="n">perturb_scale</span><span class="o">=</span><span class="n">perturb_scale</span><span class="p">,</span>
+            <span class="n">ascent_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">max_batches</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;max_batches&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">adv_kl_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">out</span><span class="p">})</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="n">filter_normalized_thermal_susceptibility</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">loader</span><span class="p">,</span>
+            <span class="n">device</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">],</span>
+            <span class="n">perturb_scale</span><span class="o">=</span><span class="n">perturb_scale</span><span class="p">,</span>
+            <span class="n">samples</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+            <span class="n">max_batches</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;max_batches&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">thermal_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">out</span><span class="p">})</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">filter_normalized_fisher_normal_modes</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">loader</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">shared</span><span class="p">[</span><span class="s2">&quot;device&quot;</span><span class="p">],</span>
+        <span class="n">max_batches</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">lanczos_steps</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+        <span class="n">random_probes</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">normal_mode_rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">out</span><span class="p">})</span>
+
+<span class="n">adv_ce_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adv_ce_rows</span><span class="p">)</span>
+<span class="n">adv_kl_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adv_kl_rows</span><span class="p">)</span>
+<span class="n">thermal_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">thermal_rows</span><span class="p">)</span>
+<span class="n">normal_modes_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">normal_mode_rows</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "de8def294adc45b5aa31e5902f02f36b", "version_major": 2, "version_minor": 0}</script><div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 9min 31s, sys: 5min 29s, total: 15min
+Wall time: 13min 43s
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-inspect-visualize">
+<h2>step 2 — inspect / visualize<a class="headerlink" href="#step-2-inspect-visualize" title="Link to this heading">#</a></h2>
+<section id="plots">
+<h3>plots<a class="headerlink" href="#plots" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_scale_sweep</span><span class="p">(</span><span class="n">adv_ce_df</span><span class="p">,</span> <span class="s2">&quot;sharpness&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Filter-normalized adversarial CE sharpness&quot;</span><span class="p">)</span>
+<span class="n">plot_scale_sweep</span><span class="p">(</span><span class="n">adv_kl_df</span><span class="p">,</span> <span class="s2">&quot;kl&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Filter-normalized adversarial KL&quot;</span><span class="p">)</span>
+<span class="n">plot_scale_sweep</span><span class="p">(</span><span class="n">thermal_df</span><span class="p">,</span> <span class="s2">&quot;mean_kl&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Thermal susceptibility: mean KL&quot;</span><span class="p">)</span>
+<span class="n">plot_scale_sweep</span><span class="p">(</span><span class="n">thermal_df</span><span class="p">,</span> <span class="s2">&quot;p95_kl&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Thermal susceptibility: p95 KL&quot;</span><span class="p">)</span>
+
+<span class="n">plot_normal_mode_bars</span><span class="p">(</span><span class="n">normal_modes_df</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/ddfc36f1bc169255438c7b2c41675e98154f33e3a1c40aa2f7b770be373e12d5.png" src="../../_images/ddfc36f1bc169255438c7b2c41675e98154f33e3a1c40aa2f7b770be373e12d5.png" />
+<img alt="../../_images/483874929a493444ffde677e7ab882b9ab6c52b122bec8b0c7862451d7bd2a6d.png" src="../../_images/483874929a493444ffde677e7ab882b9ab6c52b122bec8b0c7862451d7bd2a6d.png" />
+<img alt="../../_images/efe459584eedac4ac317ee971d3a447bd6681e71b0b6dc2557069526fe714f09.png" src="../../_images/efe459584eedac4ac317ee971d3a447bd6681e71b0b6dc2557069526fe714f09.png" />
+<img alt="../../_images/fc2118acbccb4aa89845b4d42dc7562c49ec93b2ee2237e9d67bd56727bff1c2.png" src="../../_images/fc2118acbccb4aa89845b4d42dc7562c49ec93b2ee2237e9d67bd56727bff1c2.png" />
+<img alt="../../_images/93f935b93ef349c27074d4e25873c5c799df021ba0efbd356ddd1ee0b822bdd8.png" src="../../_images/93f935b93ef349c27074d4e25873c5c799df021ba0efbd356ddd1ee0b822bdd8.png" />
+</div>
+</div>
+</section>
+<section id="relative-to-m-lion">
+<h3>relative to m_lion<a class="headerlink" href="#relative-to-m-lion" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Useful ratio tables against MassiveLion.</span>
+<span class="n">adv_ce_vs_mlion</span> <span class="o">=</span> <span class="n">compare_to_reference</span><span class="p">(</span><span class="n">adv_ce_df</span><span class="p">,</span> <span class="s2">&quot;sharpness&quot;</span><span class="p">,</span> <span class="n">reference_label</span><span class="o">=</span><span class="s2">&quot;m_lion&quot;</span><span class="p">)</span>
+<span class="n">adv_kl_vs_mlion</span> <span class="o">=</span> <span class="n">compare_to_reference</span><span class="p">(</span><span class="n">adv_kl_df</span><span class="p">,</span> <span class="s2">&quot;kl&quot;</span><span class="p">,</span> <span class="n">reference_label</span><span class="o">=</span><span class="s2">&quot;m_lion&quot;</span><span class="p">)</span>
+<span class="n">thermal_vs_mlion</span> <span class="o">=</span> <span class="n">compare_to_reference</span><span class="p">(</span><span class="n">thermal_df</span><span class="p">,</span> <span class="s2">&quot;mean_kl&quot;</span><span class="p">,</span> <span class="n">reference_label</span><span class="o">=</span><span class="s2">&quot;m_lion&quot;</span><span class="p">)</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">adv_ce_vs_mlion</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">adv_kl_vs_mlion</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">thermal_vs_mlion</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>label</th>
+      <th>perturb_scale</th>
+      <th>adamw</th>
+      <th>lion_bad</th>
+      <th>lion_ok</th>
+      <th>m_lion</th>
+      <th>m_signum</th>
+      <th>adamw_over_m_lion</th>
+      <th>adamw_minus_m_lion</th>
+      <th>lion_bad_over_m_lion</th>
+      <th>lion_bad_minus_m_lion</th>
+      <th>lion_ok_over_m_lion</th>
+      <th>lion_ok_minus_m_lion</th>
+      <th>m_lion_over_m_lion</th>
+      <th>m_lion_minus_m_lion</th>
+      <th>m_signum_over_m_lion</th>
+      <th>m_signum_minus_m_lion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0001</td>
+      <td>0.000176</td>
+      <td>4.546112e-03</td>
+      <td>0.000294</td>
+      <td>0.000096</td>
+      <td>0.000094</td>
+      <td>1.841193</td>
+      <td>0.000080</td>
+      <td>4.752760e+01</td>
+      <td>4.450460e-03</td>
+      <td>3.074294</td>
+      <td>0.000198</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.982046</td>
+      <td>-0.000002</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0003</td>
+      <td>0.000520</td>
+      <td>1.399356e-02</td>
+      <td>0.000903</td>
+      <td>0.000304</td>
+      <td>0.000271</td>
+      <td>1.711423</td>
+      <td>0.000216</td>
+      <td>4.609007e+01</td>
+      <td>1.368995e-02</td>
+      <td>2.972866</td>
+      <td>0.000599</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.893743</td>
+      <td>-0.000032</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0010</td>
+      <td>0.001762</td>
+      <td>5.155075e-02</td>
+      <td>0.002915</td>
+      <td>0.001044</td>
+      <td>0.000943</td>
+      <td>1.687286</td>
+      <td>0.000718</td>
+      <td>4.937516e+01</td>
+      <td>5.050669e-02</td>
+      <td>2.792168</td>
+      <td>0.001871</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.903212</td>
+      <td>-0.000101</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0030</td>
+      <td>0.005325</td>
+      <td>8.870783e-01</td>
+      <td>0.008715</td>
+      <td>0.003455</td>
+      <td>0.003252</td>
+      <td>1.541313</td>
+      <td>0.001870</td>
+      <td>2.567747e+02</td>
+      <td>8.836236e-01</td>
+      <td>2.522617</td>
+      <td>0.005260</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.941275</td>
+      <td>-0.000203</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0100</td>
+      <td>0.018215</td>
+      <td>8.229956e+00</td>
+      <td>0.029991</td>
+      <td>0.016080</td>
+      <td>0.016934</td>
+      <td>1.132807</td>
+      <td>0.002136</td>
+      <td>5.118187e+02</td>
+      <td>8.213876e+00</td>
+      <td>1.865106</td>
+      <td>0.013911</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.053115</td>
+      <td>0.000854</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.0300</td>
+      <td>0.061029</td>
+      <td>2.403107e+09</td>
+      <td>0.103021</td>
+      <td>0.106189</td>
+      <td>0.134735</td>
+      <td>0.574718</td>
+      <td>-0.045160</td>
+      <td>2.263042e+10</td>
+      <td>2.403107e+09</td>
+      <td>0.970167</td>
+      <td>-0.003168</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.268822</td>
+      <td>0.028546</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.1000</td>
+      <td>0.772530</td>
+      <td>8.027951e+10</td>
+      <td>0.725524</td>
+      <td>1.793478</td>
+      <td>2.407045</td>
+      <td>0.430744</td>
+      <td>-1.020948</td>
+      <td>4.476190e+10</td>
+      <td>8.027951e+10</td>
+      <td>0.404534</td>
+      <td>-1.067955</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.342110</td>
+      <td>0.613567</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.3000</td>
+      <td>15.191350</td>
+      <td>3.941699e+14</td>
+      <td>28.263963</td>
+      <td>9.707215</td>
+      <td>10.285832</td>
+      <td>1.564955</td>
+      <td>5.484135</td>
+      <td>4.060587e+13</td>
+      <td>3.941699e+14</td>
+      <td>2.911645</td>
+      <td>18.556748</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.059607</td>
+      <td>0.578618</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.0000</td>
+      <td>1755.821259</td>
+      <td>1.544401e+17</td>
+      <td>1124.333954</td>
+      <td>66.348792</td>
+      <td>58.822911</td>
+      <td>26.463500</td>
+      <td>1689.472467</td>
+      <td>2.327701e+15</td>
+      <td>1.544401e+17</td>
+      <td>16.945809</td>
+      <td>1057.985162</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.886571</td>
+      <td>-7.525880</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>label</th>
+      <th>perturb_scale</th>
+      <th>adamw</th>
+      <th>lion_bad</th>
+      <th>lion_ok</th>
+      <th>m_lion</th>
+      <th>m_signum</th>
+      <th>adamw_over_m_lion</th>
+      <th>adamw_minus_m_lion</th>
+      <th>lion_bad_over_m_lion</th>
+      <th>lion_bad_minus_m_lion</th>
+      <th>lion_ok_over_m_lion</th>
+      <th>lion_ok_minus_m_lion</th>
+      <th>m_lion_over_m_lion</th>
+      <th>m_lion_minus_m_lion</th>
+      <th>m_signum_over_m_lion</th>
+      <th>m_signum_minus_m_lion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0001</td>
+      <td>5.172320e-08</td>
+      <td>9.000959e-04</td>
+      <td>6.872920e-08</td>
+      <td>2.264386e-08</td>
+      <td>2.692305e-08</td>
+      <td>2.284204</td>
+      <td>2.907934e-08</td>
+      <td>3.975010e+04</td>
+      <td>9.000733e-04</td>
+      <td>3.035224</td>
+      <td>4.608533e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.188978</td>
+      <td>4.279182e-09</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0003</td>
+      <td>6.614619e-08</td>
+      <td>6.907446e-03</td>
+      <td>8.481446e-08</td>
+      <td>2.586776e-08</td>
+      <td>2.994188e-08</td>
+      <td>2.557090</td>
+      <td>4.027843e-08</td>
+      <td>2.670292e+05</td>
+      <td>6.907420e-03</td>
+      <td>3.278772</td>
+      <td>5.894671e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.157498</td>
+      <td>4.074121e-09</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0010</td>
+      <td>1.060503e-07</td>
+      <td>9.380548e-02</td>
+      <td>9.080281e-08</td>
+      <td>3.272992e-08</td>
+      <td>4.148977e-08</td>
+      <td>3.240165</td>
+      <td>7.332042e-08</td>
+      <td>2.866047e+06</td>
+      <td>9.380545e-02</td>
+      <td>2.774306</td>
+      <td>5.807289e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.267641</td>
+      <td>8.759853e-09</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0030</td>
+      <td>1.617462e-07</td>
+      <td>5.068066e-01</td>
+      <td>1.516202e-07</td>
+      <td>1.523644e-07</td>
+      <td>8.431213e-08</td>
+      <td>1.061575</td>
+      <td>9.381763e-09</td>
+      <td>3.326279e+06</td>
+      <td>5.068064e-01</td>
+      <td>0.995116</td>
+      <td>-7.441855e-10</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.553358</td>
+      <td>-6.805228e-08</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0100</td>
+      <td>9.055109e-07</td>
+      <td>5.485270e+00</td>
+      <td>9.291199e-07</td>
+      <td>2.075474e-06</td>
+      <td>1.945804e-04</td>
+      <td>0.436291</td>
+      <td>-1.169963e-06</td>
+      <td>2.642899e+06</td>
+      <td>5.485268e+00</td>
+      <td>0.447666</td>
+      <td>-1.146354e-06</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>93.752274</td>
+      <td>1.925050e-04</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.0300</td>
+      <td>1.713797e-04</td>
+      <td>3.216989e+09</td>
+      <td>7.484621e-04</td>
+      <td>4.939638e-02</td>
+      <td>1.333180e-01</td>
+      <td>0.003469</td>
+      <td>-4.922500e-02</td>
+      <td>6.512600e+10</td>
+      <td>3.216989e+09</td>
+      <td>0.015152</td>
+      <td>-4.864792e-02</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>2.698942</td>
+      <td>8.392160e-02</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.1000</td>
+      <td>6.929758e-01</td>
+      <td>2.460751e+11</td>
+      <td>4.262021e-01</td>
+      <td>1.812200e+00</td>
+      <td>2.379761e+00</td>
+      <td>0.382395</td>
+      <td>-1.119224e+00</td>
+      <td>1.357881e+11</td>
+      <td>2.460751e+11</td>
+      <td>0.235185</td>
+      <td>-1.385998e+00</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.313189</td>
+      <td>5.675616e-01</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.3000</td>
+      <td>4.599975e+01</td>
+      <td>9.008319e+13</td>
+      <td>1.225934e+01</td>
+      <td>8.238544e+00</td>
+      <td>1.377581e+01</td>
+      <td>5.583480</td>
+      <td>3.776120e+01</td>
+      <td>1.093436e+13</td>
+      <td>9.008319e+13</td>
+      <td>1.488046</td>
+      <td>4.020792e+00</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.672117</td>
+      <td>5.537266e+00</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.0000</td>
+      <td>4.018710e+01</td>
+      <td>3.123029e+16</td>
+      <td>6.968011e+02</td>
+      <td>7.107198e+01</td>
+      <td>4.234771e+01</td>
+      <td>0.565442</td>
+      <td>-3.088487e+01</td>
+      <td>4.394177e+14</td>
+      <td>3.123029e+16</td>
+      <td>9.804160</td>
+      <td>6.257291e+02</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.595842</td>
+      <td>-2.872427e+01</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>label</th>
+      <th>perturb_scale</th>
+      <th>adamw</th>
+      <th>lion_bad</th>
+      <th>lion_ok</th>
+      <th>m_lion</th>
+      <th>m_signum</th>
+      <th>adamw_over_m_lion</th>
+      <th>adamw_minus_m_lion</th>
+      <th>lion_bad_over_m_lion</th>
+      <th>lion_bad_minus_m_lion</th>
+      <th>lion_ok_over_m_lion</th>
+      <th>lion_ok_minus_m_lion</th>
+      <th>m_lion_over_m_lion</th>
+      <th>m_lion_minus_m_lion</th>
+      <th>m_signum_over_m_lion</th>
+      <th>m_signum_minus_m_lion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0001</td>
+      <td>4.191967e-08</td>
+      <td>2.213287e-07</td>
+      <td>6.472214e-08</td>
+      <td>2.051926e-08</td>
+      <td>2.654162e-08</td>
+      <td>2.042942</td>
+      <td>2.140041e-08</td>
+      <td>10.786388</td>
+      <td>2.008095e-07</td>
+      <td>3.154213</td>
+      <td>4.420287e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.293498</td>
+      <td>6.022359e-09</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.0003</td>
+      <td>5.312945e-08</td>
+      <td>2.627388e-07</td>
+      <td>7.058505e-08</td>
+      <td>2.341949e-08</td>
+      <td>3.005750e-08</td>
+      <td>2.268600</td>
+      <td>2.970996e-08</td>
+      <td>11.218810</td>
+      <td>2.393193e-07</td>
+      <td>3.013945</td>
+      <td>4.716556e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.283440</td>
+      <td>6.638013e-09</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.0010</td>
+      <td>7.162583e-08</td>
+      <td>3.875603e-07</td>
+      <td>8.287261e-08</td>
+      <td>3.001163e-08</td>
+      <td>3.567225e-08</td>
+      <td>2.386602</td>
+      <td>4.161419e-08</td>
+      <td>12.913669</td>
+      <td>3.575487e-07</td>
+      <td>2.761349</td>
+      <td>5.286098e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.188614</td>
+      <td>5.660620e-09</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.0030</td>
+      <td>9.418854e-08</td>
+      <td>1.020898e-06</td>
+      <td>1.012928e-07</td>
+      <td>3.882890e-08</td>
+      <td>4.775286e-08</td>
+      <td>2.425733</td>
+      <td>5.535965e-08</td>
+      <td>26.292223</td>
+      <td>9.820691e-07</td>
+      <td>2.608695</td>
+      <td>6.246387e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.229828</td>
+      <td>8.923966e-09</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.0100</td>
+      <td>1.562880e-07</td>
+      <td>6.824071e-06</td>
+      <td>1.576943e-07</td>
+      <td>6.315071e-08</td>
+      <td>8.477863e-08</td>
+      <td>2.474842</td>
+      <td>9.313732e-08</td>
+      <td>108.060089</td>
+      <td>6.760920e-06</td>
+      <td>2.497111</td>
+      <td>9.454359e-08</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.342481</td>
+      <td>2.162793e-08</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.0300</td>
+      <td>3.484402e-07</td>
+      <td>5.998309e-05</td>
+      <td>3.421170e-07</td>
+      <td>1.490757e-07</td>
+      <td>1.959457e-07</td>
+      <td>2.337338</td>
+      <td>1.993645e-07</td>
+      <td>402.366776</td>
+      <td>5.983402e-05</td>
+      <td>2.294922</td>
+      <td>1.930414e-07</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.314404</td>
+      <td>4.687000e-08</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.1000</td>
+      <td>1.493251e-06</td>
+      <td>6.181580e-04</td>
+      <td>1.911391e-06</td>
+      <td>8.782868e-07</td>
+      <td>1.101879e-06</td>
+      <td>1.700186</td>
+      <td>6.149638e-07</td>
+      <td>703.822506</td>
+      <td>6.172797e-04</td>
+      <td>2.176272</td>
+      <td>1.033104e-06</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.254578</td>
+      <td>2.235926e-07</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.3000</td>
+      <td>1.048008e-05</td>
+      <td>5.599122e-03</td>
+      <td>1.487179e-05</td>
+      <td>7.386106e-06</td>
+      <td>1.037903e-05</td>
+      <td>1.418891</td>
+      <td>3.093976e-06</td>
+      <td>758.061354</td>
+      <td>5.591735e-03</td>
+      <td>2.013482</td>
+      <td>7.485685e-06</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.405210</td>
+      <td>2.992922e-06</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>1.0000</td>
+      <td>1.119767e-04</td>
+      <td>6.096368e-02</td>
+      <td>1.613533e-04</td>
+      <td>8.807871e-05</td>
+      <td>1.138325e-04</td>
+      <td>1.271326</td>
+      <td>2.389801e-05</td>
+      <td>692.150026</td>
+      <td>6.087560e-02</td>
+      <td>1.831922</td>
+      <td>7.327460e-05</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.292396</td>
+      <td>2.575383e-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="results-df">
+<h3>results df<a class="headerlink" href="#results-df" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">adv_ce_df</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">adv_kl_df</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">thermal_df</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">normal_modes_df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>perturb_scale</th>
+      <th>base_loss</th>
+      <th>base_acc</th>
+      <th>sharp_loss</th>
+      <th>sharp_acc</th>
+      <th>sharpness</th>
+      <th>relative_sharpness</th>
+      <th>ascent_steps</th>
+      <th>max_batches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>adamw</td>
+      <td>0.0001</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.626332e-01</td>
+      <td>0.910937</td>
+      <td>1.761138e-04</td>
+      <td>3.131152e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>adamw</td>
+      <td>0.0003</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.629767e-01</td>
+      <td>0.910937</td>
+      <td>5.196109e-04</td>
+      <td>9.238233e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>adamw</td>
+      <td>0.0010</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.642187e-01</td>
+      <td>0.910742</td>
+      <td>1.761632e-03</td>
+      <td>3.132029e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>adamw</td>
+      <td>0.0030</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.677819e-01</td>
+      <td>0.910547</td>
+      <td>5.324766e-03</td>
+      <td>9.466973e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>adamw</td>
+      <td>0.0100</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.806724e-01</td>
+      <td>0.909570</td>
+      <td>1.821535e-02</td>
+      <td>3.238531e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>adamw</td>
+      <td>0.0300</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>6.234859e-01</td>
+      <td>0.905273</td>
+      <td>6.102880e-02</td>
+      <td>1.085039e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>adamw</td>
+      <td>0.1000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.334987e+00</td>
+      <td>0.833984</td>
+      <td>7.725303e-01</td>
+      <td>1.373492e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>adamw</td>
+      <td>0.3000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.575381e+01</td>
+      <td>0.150195</td>
+      <td>1.519135e+01</td>
+      <td>2.700890e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>adamw</td>
+      <td>1.0000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.756384e+03</td>
+      <td>0.102539</td>
+      <td>1.755821e+03</td>
+      <td>3.121698e+03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>m_lion</td>
+      <td>0.0001</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.559868e-01</td>
+      <td>0.935156</td>
+      <td>9.565204e-05</td>
+      <td>3.737998e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>m_lion</td>
+      <td>0.0003</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.561947e-01</td>
+      <td>0.934961</td>
+      <td>3.036134e-04</td>
+      <td>1.186494e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>m_lion</td>
+      <td>0.0010</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.569352e-01</td>
+      <td>0.934961</td>
+      <td>1.044063e-03</td>
+      <td>4.080105e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>m_lion</td>
+      <td>0.0030</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.593458e-01</td>
+      <td>0.932813</td>
+      <td>3.454696e-03</td>
+      <td>1.350065e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>m_lion</td>
+      <td>0.0100</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.719709e-01</td>
+      <td>0.929297</td>
+      <td>1.607983e-02</td>
+      <td>6.283855e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>m_lion</td>
+      <td>0.0300</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>3.620803e-01</td>
+      <td>0.905664</td>
+      <td>1.061892e-01</td>
+      <td>4.149781e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>m_lion</td>
+      <td>0.1000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.049370e+00</td>
+      <td>0.549219</td>
+      <td>1.793478e+00</td>
+      <td>7.008757e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>m_lion</td>
+      <td>0.3000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>9.963106e+00</td>
+      <td>0.098828</td>
+      <td>9.707215e+00</td>
+      <td>3.793494e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>m_lion</td>
+      <td>1.0000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>6.660468e+01</td>
+      <td>0.100195</td>
+      <td>6.634879e+01</td>
+      <td>2.592853e+02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>lion_ok</td>
+      <td>0.0001</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.010926e+00</td>
+      <td>0.888672</td>
+      <td>2.940625e-04</td>
+      <td>2.909688e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>lion_ok</td>
+      <td>0.0003</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.011535e+00</td>
+      <td>0.888672</td>
+      <td>9.026021e-04</td>
+      <td>8.931062e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>lion_ok</td>
+      <td>0.0010</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.013548e+00</td>
+      <td>0.889062</td>
+      <td>2.915198e-03</td>
+      <td>2.884528e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>lion_ok</td>
+      <td>0.0030</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.019347e+00</td>
+      <td>0.888867</td>
+      <td>8.714876e-03</td>
+      <td>8.623190e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>lion_ok</td>
+      <td>0.0100</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.040623e+00</td>
+      <td>0.887891</td>
+      <td>2.999057e-02</td>
+      <td>2.967506e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>lion_ok</td>
+      <td>0.0300</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.113654e+00</td>
+      <td>0.883008</td>
+      <td>1.030213e-01</td>
+      <td>1.019374e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>lion_ok</td>
+      <td>0.1000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.736156e+00</td>
+      <td>0.850000</td>
+      <td>7.255239e-01</td>
+      <td>7.178910e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>lion_ok</td>
+      <td>0.3000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>2.927460e+01</td>
+      <td>0.349219</td>
+      <td>2.826396e+01</td>
+      <td>2.796661e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>lion_ok</td>
+      <td>1.0000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.125345e+03</td>
+      <td>0.098437</td>
+      <td>1.124334e+03</td>
+      <td>1.112505e+03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>lion_bad</td>
+      <td>0.0001</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.008058e+00</td>
+      <td>0.901563</td>
+      <td>4.546112e-03</td>
+      <td>4.530203e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>lion_bad</td>
+      <td>0.0003</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.017505e+00</td>
+      <td>0.901367</td>
+      <td>1.399356e-02</td>
+      <td>1.394459e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>lion_bad</td>
+      <td>0.0010</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.055062e+00</td>
+      <td>0.900195</td>
+      <td>5.155075e-02</td>
+      <td>5.137036e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>lion_bad</td>
+      <td>0.0030</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.890590e+00</td>
+      <td>0.835742</td>
+      <td>8.870783e-01</td>
+      <td>8.839741e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>lion_bad</td>
+      <td>0.0100</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>9.233467e+00</td>
+      <td>0.470898</td>
+      <td>8.229956e+00</td>
+      <td>8.201156e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>lion_bad</td>
+      <td>0.0300</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>2.403107e+09</td>
+      <td>0.100781</td>
+      <td>2.403107e+09</td>
+      <td>2.394697e+09</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>lion_bad</td>
+      <td>0.1000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>8.027951e+10</td>
+      <td>0.100781</td>
+      <td>8.027951e+10</td>
+      <td>7.999858e+10</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>lion_bad</td>
+      <td>0.3000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>3.941699e+14</td>
+      <td>0.100781</td>
+      <td>3.941699e+14</td>
+      <td>3.927905e+14</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>lion_bad</td>
+      <td>1.0000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.544401e+17</td>
+      <td>0.100781</td>
+      <td>1.544401e+17</td>
+      <td>1.538997e+17</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>m_signum</td>
+      <td>0.0001</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.500203e-01</td>
+      <td>0.934961</td>
+      <td>9.393468e-05</td>
+      <td>3.758494e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>m_signum</td>
+      <td>0.0003</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.501978e-01</td>
+      <td>0.934766</td>
+      <td>2.713524e-04</td>
+      <td>1.085729e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>m_signum</td>
+      <td>0.0010</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.508694e-01</td>
+      <td>0.934766</td>
+      <td>9.430096e-04</td>
+      <td>3.773149e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>m_signum</td>
+      <td>0.0030</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.531782e-01</td>
+      <td>0.933398</td>
+      <td>3.251818e-03</td>
+      <td>1.301110e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>m_signum</td>
+      <td>0.0100</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.668603e-01</td>
+      <td>0.927344</td>
+      <td>1.693390e-02</td>
+      <td>6.775555e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>m_signum</td>
+      <td>0.0300</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>3.846616e-01</td>
+      <td>0.894336</td>
+      <td>1.347352e-01</td>
+      <td>5.390994e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>m_signum</td>
+      <td>0.1000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.656972e+00</td>
+      <td>0.434961</td>
+      <td>2.407045e+00</td>
+      <td>9.631017e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>m_signum</td>
+      <td>0.3000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>1.053576e+01</td>
+      <td>0.098437</td>
+      <td>1.028583e+01</td>
+      <td>4.115545e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>m_signum</td>
+      <td>1.0000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>5.907284e+01</td>
+      <td>0.098437</td>
+      <td>5.882291e+01</td>
+      <td>2.353609e+02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>perturb_scale</th>
+      <th>base_loss</th>
+      <th>base_acc</th>
+      <th>pert_loss</th>
+      <th>pert_acc</th>
+      <th>kl</th>
+      <th>ascent_steps</th>
+      <th>max_batches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>adamw</td>
+      <td>0.0001</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.624541e-01</td>
+      <td>0.910742</td>
+      <td>5.172320e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>adamw</td>
+      <td>0.0003</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.624528e-01</td>
+      <td>0.910937</td>
+      <td>6.614619e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>adamw</td>
+      <td>0.0010</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.624662e-01</td>
+      <td>0.910742</td>
+      <td>1.060503e-07</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>adamw</td>
+      <td>0.0030</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.624597e-01</td>
+      <td>0.910742</td>
+      <td>1.617462e-07</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>adamw</td>
+      <td>0.0100</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.624263e-01</td>
+      <td>0.910742</td>
+      <td>9.055109e-07</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>adamw</td>
+      <td>0.0300</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.621469e-01</td>
+      <td>0.910547</td>
+      <td>1.713797e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>adamw</td>
+      <td>0.1000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.161937e+00</td>
+      <td>0.852539</td>
+      <td>6.929758e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>adamw</td>
+      <td>0.3000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>4.613795e+01</td>
+      <td>0.157422</td>
+      <td>4.599975e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>adamw</td>
+      <td>1.0000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>4.096141e+01</td>
+      <td>0.504687</td>
+      <td>4.018710e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>m_lion</td>
+      <td>0.0001</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.558855e-01</td>
+      <td>0.934961</td>
+      <td>2.264386e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>m_lion</td>
+      <td>0.0003</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.558947e-01</td>
+      <td>0.934961</td>
+      <td>2.586776e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>m_lion</td>
+      <td>0.0010</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.558855e-01</td>
+      <td>0.934961</td>
+      <td>3.272992e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>m_lion</td>
+      <td>0.0030</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.558846e-01</td>
+      <td>0.934961</td>
+      <td>1.523644e-07</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>m_lion</td>
+      <td>0.0100</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.559719e-01</td>
+      <td>0.934961</td>
+      <td>2.075474e-06</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>m_lion</td>
+      <td>0.0300</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.873930e-01</td>
+      <td>0.923828</td>
+      <td>4.939638e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>m_lion</td>
+      <td>0.1000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.049217e+00</td>
+      <td>0.549805</td>
+      <td>1.812200e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>m_lion</td>
+      <td>0.3000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>8.437926e+00</td>
+      <td>0.098828</td>
+      <td>8.238544e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>m_lion</td>
+      <td>1.0000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>7.137244e+01</td>
+      <td>0.098828</td>
+      <td>7.107198e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>lion_ok</td>
+      <td>0.0001</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.010646e+00</td>
+      <td>0.888672</td>
+      <td>6.872920e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>lion_ok</td>
+      <td>0.0003</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.010655e+00</td>
+      <td>0.888672</td>
+      <td>8.481446e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>lion_ok</td>
+      <td>0.0010</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.010647e+00</td>
+      <td>0.888672</td>
+      <td>9.080281e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>lion_ok</td>
+      <td>0.0030</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.010641e+00</td>
+      <td>0.888672</td>
+      <td>1.516202e-07</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>lion_ok</td>
+      <td>0.0100</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.010617e+00</td>
+      <td>0.888672</td>
+      <td>9.291199e-07</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>lion_ok</td>
+      <td>0.0300</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.009466e+00</td>
+      <td>0.889062</td>
+      <td>7.484621e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>lion_ok</td>
+      <td>0.1000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.321502e+00</td>
+      <td>0.865234</td>
+      <td>4.262021e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>lion_ok</td>
+      <td>0.3000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.279565e+01</td>
+      <td>0.477148</td>
+      <td>1.225934e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>lion_ok</td>
+      <td>1.0000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>6.930806e+02</td>
+      <td>0.101758</td>
+      <td>6.968011e+02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>lion_bad</td>
+      <td>0.0001</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.002431e+00</td>
+      <td>0.901758</td>
+      <td>9.000959e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>lion_bad</td>
+      <td>0.0003</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.000509e+00</td>
+      <td>0.901172</td>
+      <td>6.907446e-03</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>lion_bad</td>
+      <td>0.0010</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.036099e+00</td>
+      <td>0.898633</td>
+      <td>9.380548e-02</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>lion_bad</td>
+      <td>0.0030</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.189839e+00</td>
+      <td>0.871875</td>
+      <td>5.068066e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>lion_bad</td>
+      <td>0.0100</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>5.879304e+00</td>
+      <td>0.571289</td>
+      <td>5.485270e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>lion_bad</td>
+      <td>0.0300</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>3.247988e+09</td>
+      <td>0.100781</td>
+      <td>3.216989e+09</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>lion_bad</td>
+      <td>0.1000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>2.478331e+11</td>
+      <td>0.100781</td>
+      <td>2.460751e+11</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>lion_bad</td>
+      <td>0.3000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>9.056130e+13</td>
+      <td>0.100781</td>
+      <td>9.008319e+13</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>lion_bad</td>
+      <td>1.0000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>3.132826e+16</td>
+      <td>0.100781</td>
+      <td>3.123029e+16</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>m_signum</td>
+      <td>0.0001</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.499259e-01</td>
+      <td>0.934961</td>
+      <td>2.692305e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>m_signum</td>
+      <td>0.0003</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.499340e-01</td>
+      <td>0.934961</td>
+      <td>2.994188e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>m_signum</td>
+      <td>0.0010</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.499301e-01</td>
+      <td>0.935156</td>
+      <td>4.148977e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>m_signum</td>
+      <td>0.0030</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.499261e-01</td>
+      <td>0.935156</td>
+      <td>8.431213e-08</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>m_signum</td>
+      <td>0.0100</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.499537e-01</td>
+      <td>0.934766</td>
+      <td>1.945804e-04</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>m_signum</td>
+      <td>0.0300</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>3.672952e-01</td>
+      <td>0.902539</td>
+      <td>1.333180e-01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>m_signum</td>
+      <td>0.1000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.651174e+00</td>
+      <td>0.407813</td>
+      <td>2.379761e+00</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>m_signum</td>
+      <td>0.3000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>1.402050e+01</td>
+      <td>0.100000</td>
+      <td>1.377581e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>m_signum</td>
+      <td>1.0000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>4.267734e+01</td>
+      <td>0.100195</td>
+      <td>4.234771e+01</td>
+      <td>10</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>perturb_scale</th>
+      <th>base_loss</th>
+      <th>base_acc</th>
+      <th>mean_kl</th>
+      <th>std_kl</th>
+      <th>p95_kl</th>
+      <th>mean_loss</th>
+      <th>mean_loss_increase</th>
+      <th>p95_loss_increase</th>
+      <th>mean_acc</th>
+      <th>worst_acc</th>
+      <th>samples</th>
+      <th>max_batches</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>adamw</td>
+      <td>0.0001</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>4.191967e-08</td>
+      <td>3.149092e-09</td>
+      <td>4.810115e-08</td>
+      <td>0.562459</td>
+      <td>1.966953e-06</td>
+      <td>0.000013</td>
+      <td>0.910892</td>
+      <td>0.910742</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>adamw</td>
+      <td>0.0003</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>5.312945e-08</td>
+      <td>5.981311e-09</td>
+      <td>6.279732e-08</td>
+      <td>0.562460</td>
+      <td>2.622604e-06</td>
+      <td>0.000012</td>
+      <td>0.910846</td>
+      <td>0.910547</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>adamw</td>
+      <td>0.0010</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>7.162583e-08</td>
+      <td>5.764310e-09</td>
+      <td>8.279633e-08</td>
+      <td>0.562459</td>
+      <td>1.668930e-06</td>
+      <td>0.000014</td>
+      <td>0.910853</td>
+      <td>0.910547</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>adamw</td>
+      <td>0.0030</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>9.418854e-08</td>
+      <td>6.656743e-09</td>
+      <td>1.039934e-07</td>
+      <td>0.562451</td>
+      <td>-6.020069e-06</td>
+      <td>0.000012</td>
+      <td>0.910853</td>
+      <td>0.910547</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>adamw</td>
+      <td>0.0100</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.562880e-07</td>
+      <td>1.798671e-08</td>
+      <td>1.830517e-07</td>
+      <td>0.562448</td>
+      <td>-8.702278e-06</td>
+      <td>0.000011</td>
+      <td>0.910788</td>
+      <td>0.910547</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>adamw</td>
+      <td>0.0300</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>3.484402e-07</td>
+      <td>3.157370e-08</td>
+      <td>3.938222e-07</td>
+      <td>0.562445</td>
+      <td>-1.251698e-05</td>
+      <td>0.000015</td>
+      <td>0.910768</td>
+      <td>0.910547</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>adamw</td>
+      <td>0.1000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.493251e-06</td>
+      <td>1.540097e-07</td>
+      <td>1.734300e-06</td>
+      <td>0.562437</td>
+      <td>-2.002716e-05</td>
+      <td>0.000048</td>
+      <td>0.910788</td>
+      <td>0.910547</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>adamw</td>
+      <td>0.3000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.048008e-05</td>
+      <td>1.337787e-06</td>
+      <td>1.288428e-05</td>
+      <td>0.562441</td>
+      <td>-1.627207e-05</td>
+      <td>0.000181</td>
+      <td>0.910820</td>
+      <td>0.910352</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>adamw</td>
+      <td>1.0000</td>
+      <td>0.562457</td>
+      <td>0.910937</td>
+      <td>1.119767e-04</td>
+      <td>1.219949e-05</td>
+      <td>1.296396e-04</td>
+      <td>0.562334</td>
+      <td>-1.233220e-04</td>
+      <td>0.000624</td>
+      <td>0.910977</td>
+      <td>0.909766</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>m_lion</td>
+      <td>0.0001</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.051926e-08</td>
+      <td>1.268888e-09</td>
+      <td>2.234319e-08</td>
+      <td>0.255892</td>
+      <td>4.217029e-07</td>
+      <td>0.000004</td>
+      <td>0.934961</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>m_lion</td>
+      <td>0.0003</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>2.341949e-08</td>
+      <td>1.326687e-09</td>
+      <td>2.547427e-08</td>
+      <td>0.255891</td>
+      <td>2.726912e-07</td>
+      <td>0.000005</td>
+      <td>0.934961</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>m_lion</td>
+      <td>0.0010</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>3.001163e-08</td>
+      <td>2.248963e-09</td>
+      <td>3.451776e-08</td>
+      <td>0.255890</td>
+      <td>-8.299947e-07</td>
+      <td>0.000005</td>
+      <td>0.934961</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>m_lion</td>
+      <td>0.0030</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>3.882890e-08</td>
+      <td>3.992813e-09</td>
+      <td>4.534375e-08</td>
+      <td>0.255889</td>
+      <td>-1.664460e-06</td>
+      <td>0.000006</td>
+      <td>0.934980</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>m_lion</td>
+      <td>0.0100</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>6.315071e-08</td>
+      <td>7.167946e-09</td>
+      <td>7.494475e-08</td>
+      <td>0.255897</td>
+      <td>6.322563e-06</td>
+      <td>0.000016</td>
+      <td>0.935013</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>m_lion</td>
+      <td>0.0300</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>1.490757e-07</td>
+      <td>2.574708e-08</td>
+      <td>1.844066e-07</td>
+      <td>0.255899</td>
+      <td>7.604063e-06</td>
+      <td>0.000023</td>
+      <td>0.935006</td>
+      <td>0.934766</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>m_lion</td>
+      <td>0.1000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>8.782868e-07</td>
+      <td>3.454448e-07</td>
+      <td>1.641946e-06</td>
+      <td>0.255900</td>
+      <td>9.183586e-06</td>
+      <td>0.000048</td>
+      <td>0.935046</td>
+      <td>0.934766</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>m_lion</td>
+      <td>0.3000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>7.386106e-06</td>
+      <td>2.169265e-06</td>
+      <td>1.133714e-05</td>
+      <td>0.255896</td>
+      <td>4.564226e-06</td>
+      <td>0.000123</td>
+      <td>0.935026</td>
+      <td>0.934766</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>m_lion</td>
+      <td>1.0000</td>
+      <td>0.255891</td>
+      <td>0.934961</td>
+      <td>8.807871e-05</td>
+      <td>3.244154e-05</td>
+      <td>1.551221e-04</td>
+      <td>0.255994</td>
+      <td>1.032695e-04</td>
+      <td>0.000586</td>
+      <td>0.934876</td>
+      <td>0.934375</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>lion_ok</td>
+      <td>0.0001</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>6.472214e-08</td>
+      <td>3.942906e-09</td>
+      <td>7.005541e-08</td>
+      <td>1.010645</td>
+      <td>1.285672e-05</td>
+      <td>0.000024</td>
+      <td>0.888672</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>lion_ok</td>
+      <td>0.0003</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>7.058505e-08</td>
+      <td>5.098864e-09</td>
+      <td>7.792780e-08</td>
+      <td>1.010643</td>
+      <td>1.047254e-05</td>
+      <td>0.000028</td>
+      <td>0.888672</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>lion_ok</td>
+      <td>0.0010</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>8.287261e-08</td>
+      <td>4.279835e-09</td>
+      <td>9.011265e-08</td>
+      <td>1.010642</td>
+      <td>9.399652e-06</td>
+      <td>0.000032</td>
+      <td>0.888672</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>lion_ok</td>
+      <td>0.0030</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.012928e-07</td>
+      <td>7.721855e-09</td>
+      <td>1.155218e-07</td>
+      <td>1.010642</td>
+      <td>9.876490e-06</td>
+      <td>0.000027</td>
+      <td>0.888672</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>lion_ok</td>
+      <td>0.0100</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.576943e-07</td>
+      <td>1.034304e-08</td>
+      <td>1.726869e-07</td>
+      <td>1.010644</td>
+      <td>1.166463e-05</td>
+      <td>0.000046</td>
+      <td>0.888672</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>lion_ok</td>
+      <td>0.0300</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>3.421170e-07</td>
+      <td>2.664718e-08</td>
+      <td>3.787646e-07</td>
+      <td>1.010659</td>
+      <td>2.632737e-05</td>
+      <td>0.000077</td>
+      <td>0.888672</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>lion_ok</td>
+      <td>0.1000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.911391e-06</td>
+      <td>1.830201e-07</td>
+      <td>2.183355e-06</td>
+      <td>1.010640</td>
+      <td>7.134676e-06</td>
+      <td>0.000168</td>
+      <td>0.888698</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>lion_ok</td>
+      <td>0.3000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.487179e-05</td>
+      <td>1.179713e-06</td>
+      <td>1.681251e-05</td>
+      <td>1.010637</td>
+      <td>4.631281e-06</td>
+      <td>0.000379</td>
+      <td>0.888763</td>
+      <td>0.888672</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>lion_ok</td>
+      <td>1.0000</td>
+      <td>1.010632</td>
+      <td>0.888672</td>
+      <td>1.613533e-04</td>
+      <td>1.418017e-05</td>
+      <td>1.877274e-04</td>
+      <td>1.010653</td>
+      <td>2.060533e-05</td>
+      <td>0.000968</td>
+      <td>0.888848</td>
+      <td>0.888086</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>lion_bad</td>
+      <td>0.0001</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>2.213287e-07</td>
+      <td>2.231899e-08</td>
+      <td>2.485528e-07</td>
+      <td>1.003504</td>
+      <td>-7.495284e-06</td>
+      <td>0.000032</td>
+      <td>0.901758</td>
+      <td>0.901758</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>lion_bad</td>
+      <td>0.0003</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>2.627388e-07</td>
+      <td>2.223868e-08</td>
+      <td>3.000017e-07</td>
+      <td>1.003499</td>
+      <td>-1.250207e-05</td>
+      <td>0.000022</td>
+      <td>0.901758</td>
+      <td>0.901758</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>lion_bad</td>
+      <td>0.0010</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>3.875603e-07</td>
+      <td>3.774211e-08</td>
+      <td>4.593543e-07</td>
+      <td>1.003493</td>
+      <td>-1.905859e-05</td>
+      <td>0.000011</td>
+      <td>0.901764</td>
+      <td>0.901758</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>lion_bad</td>
+      <td>0.0030</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>1.020898e-06</td>
+      <td>1.527255e-07</td>
+      <td>1.326133e-06</td>
+      <td>1.003478</td>
+      <td>-3.407896e-05</td>
+      <td>0.000026</td>
+      <td>0.901764</td>
+      <td>0.901758</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>lion_bad</td>
+      <td>0.0100</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>6.824071e-06</td>
+      <td>1.248329e-06</td>
+      <td>8.936543e-06</td>
+      <td>1.003487</td>
+      <td>-2.513826e-05</td>
+      <td>0.000157</td>
+      <td>0.901849</td>
+      <td>0.901563</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>lion_bad</td>
+      <td>0.0300</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>5.998309e-05</td>
+      <td>1.123309e-05</td>
+      <td>7.809867e-05</td>
+      <td>1.003455</td>
+      <td>-5.660951e-05</td>
+      <td>0.000528</td>
+      <td>0.901849</td>
+      <td>0.901367</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>lion_bad</td>
+      <td>0.1000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>6.181580e-04</td>
+      <td>1.253054e-04</td>
+      <td>8.826873e-04</td>
+      <td>1.003810</td>
+      <td>2.987534e-04</td>
+      <td>0.002325</td>
+      <td>0.902129</td>
+      <td>0.900977</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>lion_bad</td>
+      <td>0.3000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>5.599122e-03</td>
+      <td>1.513749e-03</td>
+      <td>8.030841e-03</td>
+      <td>1.006323</td>
+      <td>2.811089e-03</td>
+      <td>0.011562</td>
+      <td>0.901888</td>
+      <td>0.899609</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>lion_bad</td>
+      <td>1.0000</td>
+      <td>1.003512</td>
+      <td>0.901758</td>
+      <td>6.096368e-02</td>
+      <td>1.758487e-02</td>
+      <td>7.872897e-02</td>
+      <td>1.014106</td>
+      <td>1.059474e-02</td>
+      <td>0.039102</td>
+      <td>0.898652</td>
+      <td>0.895312</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>36</th>
+      <td>m_signum</td>
+      <td>0.0001</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>2.654162e-08</td>
+      <td>1.418290e-09</td>
+      <td>2.903720e-08</td>
+      <td>0.249929</td>
+      <td>3.025681e-06</td>
+      <td>0.000007</td>
+      <td>0.935059</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>37</th>
+      <td>m_signum</td>
+      <td>0.0003</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>3.005750e-08</td>
+      <td>2.078516e-09</td>
+      <td>3.387932e-08</td>
+      <td>0.249931</td>
+      <td>4.843622e-06</td>
+      <td>0.000010</td>
+      <td>0.935026</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>38</th>
+      <td>m_signum</td>
+      <td>0.0010</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>3.567225e-08</td>
+      <td>1.711391e-09</td>
+      <td>3.827052e-08</td>
+      <td>0.249930</td>
+      <td>4.024059e-06</td>
+      <td>0.000008</td>
+      <td>0.935104</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>m_signum</td>
+      <td>0.0030</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>4.775286e-08</td>
+      <td>3.878428e-09</td>
+      <td>5.430126e-08</td>
+      <td>0.249927</td>
+      <td>1.014024e-06</td>
+      <td>0.000009</td>
+      <td>0.935143</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>m_signum</td>
+      <td>0.0100</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>8.477863e-08</td>
+      <td>1.416273e-08</td>
+      <td>1.043973e-07</td>
+      <td>0.249926</td>
+      <td>-6.102026e-07</td>
+      <td>0.000008</td>
+      <td>0.935150</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>41</th>
+      <td>m_signum</td>
+      <td>0.0300</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>1.959457e-07</td>
+      <td>4.261386e-08</td>
+      <td>2.778265e-07</td>
+      <td>0.249930</td>
+      <td>4.053861e-06</td>
+      <td>0.000021</td>
+      <td>0.935091</td>
+      <td>0.934961</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>42</th>
+      <td>m_signum</td>
+      <td>0.1000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>1.101879e-06</td>
+      <td>2.768711e-07</td>
+      <td>1.585440e-06</td>
+      <td>0.249931</td>
+      <td>4.977733e-06</td>
+      <td>0.000061</td>
+      <td>0.935072</td>
+      <td>0.934570</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>43</th>
+      <td>m_signum</td>
+      <td>0.3000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>1.037903e-05</td>
+      <td>2.945272e-06</td>
+      <td>1.600229e-05</td>
+      <td>0.249929</td>
+      <td>2.221018e-06</td>
+      <td>0.000132</td>
+      <td>0.934902</td>
+      <td>0.934180</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>44</th>
+      <td>m_signum</td>
+      <td>1.0000</td>
+      <td>0.249926</td>
+      <td>0.934961</td>
+      <td>1.138325e-04</td>
+      <td>3.503343e-05</td>
+      <td>1.798829e-04</td>
+      <td>0.249982</td>
+      <td>5.586520e-05</td>
+      <td>0.000410</td>
+      <td>0.934655</td>
+      <td>0.933398</td>
+      <td>30</td>
+      <td>20</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>label</th>
+      <th>base_loss</th>
+      <th>base_acc</th>
+      <th>n_examples</th>
+      <th>n_params</th>
+      <th>lambda_max</th>
+      <th>top_eigs</th>
+      <th>random_rayleigh_mean</th>
+      <th>random_rayleigh_std</th>
+      <th>stiff_mode_ratio</th>
+      <th>...</th>
+      <th>random_probes</th>
+      <th>max_batches</th>
+      <th>top_eig_1</th>
+      <th>top_eig_2</th>
+      <th>top_eig_3</th>
+      <th>top_eig_4</th>
+      <th>top_eig_5</th>
+      <th>top_eig_6</th>
+      <th>top_eig_7</th>
+      <th>top_eig_8</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>adamw</td>
+      <td>0.571029</td>
+      <td>0.908984</td>
+      <td>2560</td>
+      <td>11173962</td>
+      <td>111.783386</td>
+      <td>[111.78338623046875, 88.60260772705078, 64.874...</td>
+      <td>0.000249</td>
+      <td>0.000031</td>
+      <td>4.487167e+05</td>
+      <td>...</td>
+      <td>8</td>
+      <td>10</td>
+      <td>111.783386</td>
+      <td>88.602608</td>
+      <td>64.874283</td>
+      <td>62.069328</td>
+      <td>47.742317</td>
+      <td>37.580036</td>
+      <td>30.045551</td>
+      <td>20.320469</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>m_lion</td>
+      <td>0.261457</td>
+      <td>0.934766</td>
+      <td>2560</td>
+      <td>11173962</td>
+      <td>168.320709</td>
+      <td>[168.32070922851562, 154.75257873535156, 130.9...</td>
+      <td>0.000164</td>
+      <td>0.000085</td>
+      <td>1.023256e+06</td>
+      <td>...</td>
+      <td>8</td>
+      <td>10</td>
+      <td>168.320709</td>
+      <td>154.752579</td>
+      <td>130.911652</td>
+      <td>121.417885</td>
+      <td>115.994110</td>
+      <td>86.493134</td>
+      <td>65.670998</td>
+      <td>52.495037</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>lion_ok</td>
+      <td>1.046381</td>
+      <td>0.884766</td>
+      <td>2560</td>
+      <td>11173962</td>
+      <td>121.756401</td>
+      <td>[121.75640106201172, 91.47315216064453, 87.225...</td>
+      <td>0.000334</td>
+      <td>0.000027</td>
+      <td>3.645390e+05</td>
+      <td>...</td>
+      <td>8</td>
+      <td>10</td>
+      <td>121.756401</td>
+      <td>91.473152</td>
+      <td>87.225815</td>
+      <td>70.466919</td>
+      <td>65.756241</td>
+      <td>49.866325</td>
+      <td>34.275177</td>
+      <td>23.924709</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>lion_bad</td>
+      <td>1.017075</td>
+      <td>0.901563</td>
+      <td>2560</td>
+      <td>11173962</td>
+      <td>225116.171875</td>
+      <td>[225116.171875, 89025.5703125, 68398.3671875, ...</td>
+      <td>0.149471</td>
+      <td>0.043746</td>
+      <td>1.506081e+06</td>
+      <td>...</td>
+      <td>8</td>
+      <td>10</td>
+      <td>225116.171875</td>
+      <td>89025.570312</td>
+      <td>68398.367188</td>
+      <td>65774.328125</td>
+      <td>46766.496094</td>
+      <td>35792.917969</td>
+      <td>24133.058594</td>
+      <td>18719.841797</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>m_signum</td>
+      <td>0.261405</td>
+      <td>0.933203</td>
+      <td>2560</td>
+      <td>11173962</td>
+      <td>262.407135</td>
+      <td>[262.4071350097656, 240.6781463623047, 197.965...</td>
+      <td>0.000217</td>
+      <td>0.000058</td>
+      <td>1.208809e+06</td>
+      <td>...</td>
+      <td>8</td>
+      <td>10</td>
+      <td>262.407135</td>
+      <td>240.678146</td>
+      <td>197.965652</td>
+      <td>167.516815</td>
+      <td>142.399658</td>
+      <td>111.129440</td>
+      <td>73.708839</td>
+      <td>67.036331</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div></div></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./nb/2026-05"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../md/2026-05_updates.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Updates</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="1_invariant-curvature-zeta.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(1) Invariant curvature analysis: MassiveLion vs. Lion</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-massivelion-vs-lion-bad-vs-lion-ok">Interpretation: MassiveLion vs <code class="docutils literal notranslate"><span class="pre">lion_bad</span></code> vs <code class="docutils literal notranslate"><span class="pre">lion_ok</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-mode-spectrum">Normal-Mode Spectrum</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#thermal-susceptibility">Thermal Susceptibility</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-kl">Adversarial KL</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adversarial-ce-sharpness">Adversarial CE Sharpness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-0-load-stuff">step 0 — load stuff</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-runs">load runs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-run-the-big-loop">step 1 — run the big loop</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-inspect-visualize">step 2 — inspect / visualize</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plots">plots</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#relative-to-m-lion">relative to m_lion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results-df">results df</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Vafaii
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

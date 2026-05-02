@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -57,9 +57,13 @@
     <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'md/2026-05_updates';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="(1) Invariant curvature analysis: MassiveLion vs. Lion" href="../nb/2026-05/1_invariant-curvature-analysis.html" />
+    <link rel="prev" title="Summary" href="2026-05.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +126,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -183,8 +185,54 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="2026-01.html">Summary</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="2026-01_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/gra-figs-vision-signum.html">GRA: signum figs (mnist, cifar, imgnet)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/tmp-jan26.html">tmp — dec25</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/14_gra-figs-vision.html">(14) GRA — figs vision (CIFAR10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/14_gra-tables-language.html">(14) GRA — tables (language)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/22_grad-bias-var.html">(22) Analysis: Grad Bias Var + Dist Consistency</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/23_grad-fixed-point.html">(23) Grad Fixed Point Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/24_gra-adam-vs-grlion.html">(24) GRA — AdamW vs. GR-Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/26_fig-eat-moments-theory.html">(26) EAT method – bias of moments plot (theory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/26_grad-bias-var%2Bscore.html">(26) Grad Bias Var Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/30_fig-gamma-vs-exp.html">(30) Gamma vs Exp: inter-event intervals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/31_grad-bias-var-quintic.html">(31) Grad Bias Var + Dist Consistency (+quintic added)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-01/tmp-jan26.html">tmp — jan26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">February 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2026-02.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2026-02_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-02/03_various-dists-pdf-plots.html">(03) various VAEs: dist PDF plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-02/09_ipvae-ood.html">(09) iP-VAE OOD tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-02/10_metabolic-cost-figs.html">(10) metabolic cost pvae (CCN 2026) figs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-02/24_nb-ig-pois.html">(24) neg. binomial / poisson / gamma / inv. gaussian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-02/tmp-feb26.html">tmp — feb26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">April 2026</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2026-04.html">Summary</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="2026-04_updates.html">Updates</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/01_cadena-play.html">(01) Cadena Data (Michael’s Demo)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/01_cadena-pvae-final.html">(01) Cadena: fit P-VAE (final)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/01_cadena-pvae-play.html">(01) Cadena: fit P-VAE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/01_imgnet40-process.html">(01) ImageNet40: crop, process, save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/01_nb-sweep-results.html">(01) Negative Binomial Sweep (ICML rebuttal)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/02_stroop_ccn2026.html">(02) Stroop PVAE task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/30_curvature-analysis-1.html">(30) Curvature analysis: MassiveLion vs. Lion (sharp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/30_curvature-analysis-2.html">(30) Curvature analysis: MassiveLion vs. Lion (regular)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-04/tmp-apr26.html">tmp — apr26</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">May 2026</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="2026-05.html">Summary</a></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Updates</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-05/1_invariant-curvature-analysis.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-05/1_invariant-curvature-zeta.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nb/2026-05/tmp-may26.html">tmp — may26</a></li>
 </ul>
 </details></li>
 </ul>
@@ -386,6 +434,13 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="updates">
 <h1>Updates<a class="headerlink" href="#updates" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../nb/2026-05/1_invariant-curvature-analysis.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nb/2026-05/1_invariant-curvature-zeta.html">(1) Invariant curvature analysis: MassiveLion vs. Lion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../nb/2026-05/tmp-may26.html">tmp — may26</a></li>
+</ul>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -418,6 +473,24 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="2026-05.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Summary</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../nb/2026-05/1_invariant-curvature-analysis.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">(1) Invariant curvature analysis: MassiveLion vs. Lion</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
